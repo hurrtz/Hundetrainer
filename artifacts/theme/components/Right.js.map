@@ -1,0 +1,1 @@
+{"version":3,"file":"Right.js","sourceRoot":"","sources":["../../../src/theme/components/Right.tsx"],"names":[],"mappings":"AAAA,eAAe,GAAG,EAAE;IAClB,MAAM,UAAU,GAAG;QACjB,mBAAmB,EAAE;YACnB,SAAS,EAAE,SAAS;SACrB;QACD,IAAI,EAAE,CAAC;QACP,SAAS,EAAE,QAAQ;QACnB,UAAU,EAAE,UAAU;KACvB,CAAC;IAEF,OAAO,UAAU,CAAC;AACpB,CAAC,CAAC"}
