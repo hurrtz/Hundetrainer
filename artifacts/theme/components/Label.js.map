@@ -1,1 +1,0 @@
-{"version":3,"file":"Label.js","sourceRoot":"","sources":["../../../src/theme/components/Label.tsx"],"names":[],"mappings":"AAAA,eAAe,GAAG,EAAE;IAClB,MAAM,UAAU,GAAG;QACjB,UAAU,EAAE;YACV,KAAK,EAAE,CAAC;SACT;QACD,QAAQ,EAAE,EAAE;KACb,CAAC;IAEF,OAAO,UAAU,CAAC;AACpB,CAAC,CAAC"}
