@@ -16,7 +16,16 @@
     "noImplicitReturns": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
-    "types": ["react", "react-native", "jest"]
+    "types": ["react", "react-native", "jest"],
+    "baseUrl": "src",
+    "paths": {
+      "assets/*": ["assets/*"],
+      "container/*": ["container/*"],
+      "@boot/*": ["boot/*"],
+      "@reducers/*": ["reducers/*"],
+      "@stories/*": ["stories/*"],
+      "@theme/*": ["theme/*"]
+    }
   },
   "types": ["react", "react-native", "jest"],
   "exclude": ["android", "App.js", "ios", "build", "node_modules", "__tests__"],

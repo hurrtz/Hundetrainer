@@ -10,7 +10,9 @@
     "android": "npx react-native run-android",
     "tsc": "npx tsc --skipLibCheck",
     "clean": "npx rimraf artifacts",
-    "build": "npm run clean && npm run tsc --",
+    "build": "npm run tsc --",
+    "prebuild": "npm run clean",
+    "postbuild": "npx ncp src/assets artifacts/assets --filter=^[A-Za-z\\-/]*\\(\\.png\\|\\.jpg\\|\\.svg\\|\\.bmp\\|$\\)",
     "lint": "npx tslint src/**/*.ts",
     "jest": "npx jest",
     "precommit": "npm test"
@@ -58,6 +60,7 @@
     "eslint-plugin-react-native": "^3.6.0",
     "jest": "^24.5.0",
     "metro-react-native-babel-preset": "^0.53.1",
+    "ncp": "^2.0.0",
     "react-test-renderer": "^16.8.4",
     "rimraf": "^2.6.3",
     "ts-jest": "^24.0.0",
