@@ -13,6 +13,9 @@ import {
   Footer,
 } from 'native-base';
 
+import GameImage from 'assets/images/bo/game.png';
+import PawImage from 'assets/images/paw.png';
+
 export interface Props {
   loginForm: any;
   onLogin: Function;
@@ -24,16 +27,21 @@ class Login extends React.Component<Props, State> {
   render() {
     return (
       <Container>
-        <Header style={{ height: 200 }}>
-          <Body style={{ alignItems: 'center' }}>
-            <Icon name="flash" style={{ fontSize: 104 }} />
-            <Title>ReactNativeSeed.com</Title>
-            <View padder>
-              <Text
-                style={{ color: Platform.OS === 'ios' ? '#000' : '#FFF' }}
-              />
-            </View>
-          </Body>
+        <Header
+          transparent
+          noLeft
+          noShadow
+          style={{
+            height: 200,
+            padding: 10,
+            paddingBottom: 0,
+            backgroundColor: '#FFF',
+            marginLeft: -10,
+            marginTop: -15,
+            marginRight: -10,
+          }}
+        >
+          <Image source={GameImage} style={{ width: '100%', height: '100%' }} />
         </Header>
         <Content>
           {this.props.loginForm}
@@ -50,10 +58,7 @@ class Login extends React.Component<Props, State> {
             <View padder>
               <Text style={{ color: '#000' }}>May the dog be wuff you. </Text>
             </View>
-            <Image
-              source={require('../../../assets/images/paw.png')}
-              style={{ width: 25, height: 25 }}
-            />
+            <Image source={PawImage} style={{ width: 25, height: 25 }} />
           </View>
         </Footer>
       </Container>
