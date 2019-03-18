@@ -18,8 +18,8 @@ class Login extends React.Component {
             React.createElement(Footer, { style: { backgroundColor: '#F8F8F8' } },
                 React.createElement(View, { style: { alignItems: 'center', opacity: 0.5, flexDirection: 'row' } },
                     React.createElement(View, { padder: true },
-                        React.createElement(Text, { style: { color: '#000' } }, "Made with love at ")),
-                    React.createElement(Image, { source: { uri: 'https://geekyants.com/images/logo-dark.png' }, style: { width: 422 / 4, height: 86 / 4 } })))));
+                        React.createElement(Text, { style: { color: '#000' } }, "May the dog be wuff you. ")),
+                    React.createElement(Image, { source: require('../../../assets/images/paw.png'), style: { width: 25, height: 25 } })))));
     }
 }
 export default Login;
