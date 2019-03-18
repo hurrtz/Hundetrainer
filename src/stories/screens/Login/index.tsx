@@ -48,11 +48,11 @@ class Login extends React.Component<Props, State> {
             style={{ alignItems: 'center', opacity: 0.5, flexDirection: 'row' }}
           >
             <View padder>
-              <Text style={{ color: '#000' }}>Made with love at </Text>
+              <Text style={{ color: '#000' }}>May the dog be wuff you. </Text>
             </View>
             <Image
-              source={{ uri: 'https://geekyants.com/images/logo-dark.png' }}
-              style={{ width: 422 / 4, height: 86 / 4 }}
+              source={require('../../../assets/images/paw.png')}
+              style={{ width: 25, height: 25 }}
             />
           </View>
         </Footer>
