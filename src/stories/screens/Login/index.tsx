@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Component, ReactElement } from 'react';
 import { Image } from 'react-native';
 import {
   Container,
@@ -14,14 +14,16 @@ import GameImage from 'assets/images/bo/game.png';
 import PawImage from 'assets/images/paw.png';
 
 export interface Props {
-  loginForm: any;
+  loginForm: ReactElement;
   onLogin: Function;
 }
 
 export interface State {}
 
-class Login extends React.Component<Props, State> {
+class Login extends Component<Props, State> {
   render() {
+    const { loginForm, onLogin } = this.props;
+
     return (
       <Container>
         <Header
@@ -40,14 +42,17 @@ class Login extends React.Component<Props, State> {
         >
           <Image source={GameImage} style={{ width: '100%', height: '100%' }} />
         </Header>
+
         <Content>
-          {this.props.loginForm}
+          {loginForm}
+
           <View padder>
-            <Button block onPress={() => this.props.onLogin()}>
+            <Button block onPress={() => onLogin()}>
               <Text>Login</Text>
             </Button>
           </View>
         </Content>
+
         <Footer style={{ backgroundColor: '#F8F8F8' }}>
           <View
             style={{ alignItems: 'center', opacity: 0.5, flexDirection: 'row' }}

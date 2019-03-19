@@ -7,12 +7,12 @@ import {
 import { Root } from 'native-base';
 import { Dimensions, StatusBar } from 'react-native';
 
-const deviceWidth = Dimensions.get('window').width;
+import Login from 'container/LoginContainer';
+import Home from 'container/HomeContainer';
+import BlankPage from 'container/BlankPageContainer';
+import Sidebar from 'container/SidebarContainer';
 
-import Login from './container/LoginContainer';
-import Home from './container/HomeContainer';
-import BlankPage from './container/BlankPageContainer';
-import Sidebar from './container/SidebarContainer';
+const deviceWidth = Dimensions.get('window').width;
 
 const Drawer = createDrawerNavigator(
   {

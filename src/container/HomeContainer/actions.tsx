@@ -1,20 +1,19 @@
-export function listIsLoading(bool: boolean) {
-  return {
-    type: 'LIST_IS_LOADING',
-    isLoading: bool,
-  };
-}
+export const TYPES = {
+  LIST_IS_LOADING: 'LIST_IS_LOADING',
+  FETCH_LIST_SUCCESS: 'FETCH_LIST_SUCCESS',
+};
 
-export function fetchListSuccess(list: Object) {
-  return {
-    type: 'FETCH_LIST_SUCCESS',
-    list,
-  };
-}
+export const listIsLoading = (bool: boolean) => ({
+  type: TYPES.LIST_IS_LOADING,
+  isLoading: bool,
+});
 
-export function fetchList(url) {
-  return dispatch => {
-    dispatch(fetchListSuccess(url));
-    dispatch(listIsLoading(false));
-  };
-}
+export const fetchListSuccess = (list: Object) => ({
+  type: TYPES.FETCH_LIST_SUCCESS,
+  list,
+});
+
+export const fetchList = (url: string) => (dispatch: Function) => {
+  dispatch(fetchListSuccess(url));
+  dispatch(listIsLoading(false));
+};

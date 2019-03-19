@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { Item, Input, Icon, Form, Toast } from 'native-base';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, InjectedFormProps } from 'redux-form';
+import { NavigationComponent } from 'react-navigation';
+
 import Login from 'stories/screens/Login';
+
 import { required, email } from 'validators';
 
-export interface Props {
-  navigation: any;
+export interface Props extends InjectedFormProps {
+  navigation: NavigationComponent;
   valid: boolean;
 }
 
 export interface State {}
 
 class LoginForm extends Component<Props, State> {
-  textInput: any;
+  textInput: Input;
 
   renderInput({ input, meta: { touched, error } }) {
     return (
@@ -29,8 +32,10 @@ class LoginForm extends Component<Props, State> {
   }
 
   login() {
-    if (this.props.valid) {
-      this.props.navigation.navigate('Drawer');
+    const { valid, navigation } = this.props;
+
+    if (valid) {
+      navigation.navigate('Drawer');
     } else {
       Toast.show({
         text: 'Enter Valid Username & password!',
@@ -63,7 +68,6 @@ class LoginForm extends Component<Props, State> {
 
 const LoginContainer = reduxForm({
   form: 'login',
-  // @ts-ignore
 })(LoginForm);
 
 export default LoginContainer;

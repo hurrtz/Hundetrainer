@@ -1,5 +1,5 @@
-import * as React from 'react';
-import BlankPage from '../../stories/screens/BlankPage';
+import React, { Component } from 'react';
+import BlankPage from 'stories/screens/BlankPage';
 
 export interface Props {
   navigation: any;
@@ -7,8 +7,10 @@ export interface Props {
 
 export interface State {}
 
-export default class BlankPageContainer extends React.Component<Props, State> {
+export default class BlankPageContainer extends Component<Props, State> {
   render() {
-    return <BlankPage navigation={this.props.navigation} />;
+    const { navigation } = this.props;
+
+    return <BlankPage navigation={navigation} />;
   }
 }

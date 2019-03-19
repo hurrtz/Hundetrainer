@@ -1,14 +1,18 @@
-import * as React from 'react';
-import Sidebar from '../../stories/screens/Sidebar';
+import React, { Component } from 'react';
+import { NavigationComponent } from 'react-navigation';
+
+import Sidebar from 'stories/screens/Sidebar';
 
 export interface Props {
-  navigation: any;
+  navigation: NavigationComponent;
 }
 
 export interface State {}
 
-export default class SidebarContainer extends React.Component<Props, State> {
+export default class SidebarContainer extends Component<Props, State> {
   render() {
-    return <Sidebar navigation={this.props.navigation} />;
+    const { navigation } = this.props;
+
+    return <Sidebar navigation={navigation} />;
   }
 }

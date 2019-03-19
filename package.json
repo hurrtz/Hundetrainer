@@ -61,6 +61,7 @@
     "jest": "^24.5.0",
     "metro-react-native-babel-preset": "^0.53.1",
     "ncp": "^2.0.0",
+    "react-devtools": "^3.6.1",
     "react-test-renderer": "^16.8.4",
     "rimraf": "^2.6.3",
     "ts-jest": "^24.0.0",

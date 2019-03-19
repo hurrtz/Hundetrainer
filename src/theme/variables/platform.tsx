@@ -55,42 +55,55 @@ export default {
   get btnPrimaryBg() {
     return this.brandPrimary;
   },
+
   get btnPrimaryColor() {
     return this.inverseTextColor;
   },
+
   get btnInfoBg() {
     return this.brandInfo;
   },
+
   get btnInfoColor() {
     return this.inverseTextColor;
   },
+
   get btnSuccessBg() {
     return this.brandSuccess;
   },
+
   get btnSuccessColor() {
     return this.inverseTextColor;
   },
+
   get btnDangerBg() {
     return this.brandDanger;
   },
+
   get btnDangerColor() {
     return this.inverseTextColor;
   },
+
   get btnWarningBg() {
     return this.brandWarning;
   },
+
   get btnWarningColor() {
     return this.inverseTextColor;
   },
+
   get btnTextSize() {
     return platform === 'ios' ? this.fontSizeBase * 1.1 : this.fontSizeBase - 1;
   },
+
   get btnTextSizeLarge() {
     return this.fontSizeBase * 1.5;
   },
+
   get btnTextSizeSmall() {
     return this.fontSizeBase * 0.8;
   },
+
   get borderRadiusLarge() {
     return this.fontSizeBase * 3.8;
   },
@@ -100,6 +113,7 @@ export default {
   get iconSizeLarge() {
     return this.iconFontSize * 1.5;
   },
+
   get iconSizeSmall() {
     return this.iconFontSize * 0.6;
   },
@@ -122,9 +136,11 @@ export default {
   get fontSizeH1() {
     return this.fontSizeBase * 1.8;
   },
+
   get fontSizeH2() {
     return this.fontSizeBase * 1.6;
   },
+
   get fontSizeH3() {
     return this.fontSizeBase * 1.4;
   },
@@ -161,6 +177,7 @@ export default {
   toolbarTextColor: platform === 'ios' ? '#000' : '#fff',
   toolbarDefaultBorder: platform === 'ios' ? '#a7a6ab' : '#3F51B5',
   iosStatusbar: platform === 'ios' ? 'dark-content' : 'light-content',
+
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
       .darken(0.2)
@@ -182,6 +199,7 @@ export default {
   get inputColor() {
     return this.textColor;
   },
+
   get inputColorPlaceholder() {
     return '#575757';
   },

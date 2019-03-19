@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import {
   Container,
   Header,
@@ -11,18 +11,23 @@ import {
   Right,
   Body,
 } from 'native-base';
+import { NavigationComponent } from 'react-navigation';
 
 import styles from './styles';
 
 export interface Props {
-  navigation: any;
+  navigation: NavigationComponent;
 }
 
 export interface State {}
 
-class BlankPage extends React.Component<Props, State> {
+class BlankPage extends Component<Props, State> {
   render() {
-    const param = this.props.navigation.state.params;
+    const {
+      navigation: {
+        state: { params: navigationParams },
+      },
+    } = this.props;
 
     return (
       <Container style={styles.container}>
@@ -34,7 +39,9 @@ class BlankPage extends React.Component<Props, State> {
           </Left>
 
           <Body style={{ flex: 3 }}>
-            <Title>{param ? param.name.item : 'Blank Page'}</Title>
+            <Title>
+              {navigationParams ? navigationParams.name.item : 'Blank Page'}
+            </Title>
           </Body>
 
           <Right />
@@ -42,8 +49,8 @@ class BlankPage extends React.Component<Props, State> {
 
         <Content padder>
           <Text>
-            {param !== undefined
-              ? param.name.item
+            {navigationParams !== undefined
+              ? navigationParams.name.item
               : 'Create Something Awesome . . .'}
           </Text>
         </Content>

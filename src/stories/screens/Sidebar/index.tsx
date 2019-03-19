@@ -1,6 +1,10 @@
-import * as React from 'react';
+import React, { Component } from 'react';
 import { Text, Container, List, ListItem, Content } from 'native-base';
-import { NavigationActions, StackActions } from 'react-navigation';
+import {
+  NavigationActions,
+  StackActions,
+  NavigationComponent,
+} from 'react-navigation';
 
 const routes = [
   {
@@ -18,7 +22,7 @@ const routes = [
 ];
 
 export interface Props {
-  navigation: any;
+  navigation: NavigationComponent;
 }
 
 export interface State {}
@@ -28,28 +32,28 @@ const resetAction = StackActions.reset({
   actions: [NavigationActions.navigate({ routeName: 'Login' })],
 });
 
-export default class Sidebar extends React.Component<Props, State> {
+export default class Sidebar extends Component<Props, State> {
   render() {
+    const { navigation } = this.props;
+
     return (
       <Container>
         <Content>
           <List
             style={{ marginTop: 40 }}
             dataArray={routes}
-            renderRow={data => {
-              return (
-                <ListItem
-                  button
-                  onPress={() => {
-                    data.route === 'Login'
-                      ? this.props.navigation.dispatch(resetAction)
-                      : this.props.navigation.navigate(data.route);
-                  }}
-                >
-                  <Text>{data.caption}</Text>
-                </ListItem>
-              );
-            }}
+            renderRow={data => (
+              <ListItem
+                button
+                onPress={() => {
+                  data.route === 'Login'
+                    ? navigation.dispatch(resetAction)
+                    : navigation.navigate(data.route);
+                }}
+              >
+                <Text>{data.caption}</Text>
+              </ListItem>
+            )}
           />
         </Content>
       </Container>
