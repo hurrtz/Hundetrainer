@@ -5,7 +5,7 @@ import {
   createAppContainer,
 } from 'react-navigation';
 import { Root } from 'native-base';
-import { Dimensions } from 'react-native';
+import { Dimensions, StatusBar } from 'react-native';
 
 const deviceWidth = Dimensions.get('window').width;
 
@@ -41,6 +41,7 @@ const App = createAppContainer(AppNavigator);
 
 export default () => (
   <Root>
+    <StatusBar hidden />
     <App />
   </Root>
 );
