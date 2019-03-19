@@ -21,10 +21,11 @@
     "paths": {
       "assets/*": ["assets/*"],
       "container/*": ["container/*"],
-      "@boot/*": ["boot/*"],
-      "@reducers/*": ["reducers/*"],
-      "@stories/*": ["stories/*"],
-      "@theme/*": ["theme/*"]
+      "boot/*": ["boot/*"],
+      "reducers/*": ["reducers/*"],
+      "stories/*": ["stories/*"],
+      "theme/*": ["theme/*"],
+      "validators/*": ["validators/*"]
     }
   },
   "types": ["react", "react-native", "jest"],
