@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Text, Container, List, ListItem, Content } from 'native-base';
+import { FlatList } from 'react-native';
+import { Text, Container, ListItem, Content } from 'native-base';
 import {
   NavigationActions,
   StackActions,
@@ -32,31 +33,33 @@ const resetAction = StackActions.reset({
   actions: [NavigationActions.navigate({ routeName: 'Login' })],
 });
 
-export default class Sidebar extends Component<Props, State> {
+class Sidebar extends Component<Props, State> {
   render() {
     const { navigation } = this.props;
 
     return (
       <Container>
         <Content>
-          <List
-            style={{ marginTop: 40 }}
-            dataArray={routes}
-            renderRow={data => (
+          <FlatList
+            data={routes}
+            renderItem={({ item }) => (
               <ListItem
                 button
                 onPress={() => {
-                  data.route === 'Login'
+                  item.route === 'Login'
                     ? navigation.dispatch(resetAction)
-                    : navigation.navigate(data.route);
+                    : navigation.navigate(item.route);
                 }}
               >
-                <Text>{data.caption}</Text>
+                <Text>{item.caption}</Text>
               </ListItem>
             )}
+            keyExtractor={({ route }) => route}
           />
         </Content>
       </Container>
     );
   }
 }
+
+export default Sidebar;
