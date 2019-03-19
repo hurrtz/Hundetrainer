@@ -1,25 +1,24 @@
 import React from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import { Root } from 'native-base';
 import { StatusBar } from 'react-native';
 
-import Login from 'container/LoginContainer';
-import Home from 'container/HomeContainer';
-import BlankPage from 'container/BlankPageContainer';
+import LoginContainer from 'container/LoginContainer';
+import HomeContainer from 'container/HomeContainer';
+import BlankPageContainer from 'container/BlankPageContainer';
 
-const AppNavigator = createStackNavigator(
+const TabNavigator = createBottomTabNavigator(
   {
-    Home: { screen: Home },
-    Login: { screen: Login },
-    BlankPage: { screen: BlankPage },
+    Home: { screen: HomeContainer },
+    Login: { screen: LoginContainer },
+    BlankPage: { screen: BlankPageContainer },
   },
   {
     initialRouteName: 'Home',
-    headerMode: 'none',
   },
 );
 
-const App = createAppContainer(AppNavigator);
+const App = createAppContainer(TabNavigator);
 
 export default () => (
   <Root>
