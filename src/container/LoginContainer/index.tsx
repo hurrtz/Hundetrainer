@@ -34,7 +34,7 @@ class LoginForm extends Component<Props, State> {
   login() {
     const { valid, navigation } = this.props;
 
-    if (valid || true) {
+    if (valid) {
       navigation.navigate('Drawer');
     } else {
       Toast.show({
