@@ -1,14 +1,6 @@
 import React, { Component, ReactElement } from 'react';
 import { Image } from 'react-native';
-import {
-  Container,
-  Content,
-  Header,
-  Button,
-  Text,
-  View,
-  Footer,
-} from 'native-base';
+import { Container, Content, Button, Text, View, Footer } from 'native-base';
 
 import GameImage from 'assets/images/bo/game.png';
 import PawImage from 'assets/images/paw.png';
@@ -26,24 +18,9 @@ class Login extends Component<Props, State> {
 
     return (
       <Container>
-        <Header
-          transparent
-          noLeft
-          noShadow
-          style={{
-            height: 200,
-            padding: 10,
-            paddingBottom: 0,
-            backgroundColor: '#FFF',
-            marginLeft: -10,
-            marginTop: -15,
-            marginRight: -10,
-          }}
-        >
-          <Image source={GameImage} style={{ width: '100%', height: '100%' }} />
-        </Header>
-
         <Content>
+          <Image source={GameImage} style={{ width: '100%', height: '200%' }} />
+
           {loginForm}
 
           <View padder>

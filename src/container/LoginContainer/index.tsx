@@ -23,7 +23,7 @@ class LoginForm extends Component<Props, State> {
         <Icon active name={input.name === 'email' ? 'person' : 'unlock'} />
         <Input
           ref={c => (this.textInput = c)}
-          placeholder={input.name === 'email' ? 'Email' : 'Password'}
+          placeholder={input.name === 'email' ? 'E-Mail' : 'Passwort'}
           secureTextEntry={input.name === 'password' ? true : false}
           {...input}
         />
