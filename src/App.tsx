@@ -1,5 +1,5 @@
 import React from 'react';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import { Root } from 'native-base';
 import { StatusBar } from 'react-native';
@@ -43,7 +43,6 @@ const TabNavigator = createBottomTabNavigator(
       })(),
       tabBarIcon: ({ tintColor }) => {
         const { routeName } = navigation.state;
-        const IconComponent = MaterialCommunityIcons;
 
         let iconName;
 

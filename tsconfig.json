@@ -23,6 +23,7 @@
       "container/*": ["container/*"],
       "boot/*": ["boot/*"],
       "reducers/*": ["reducers/*"],
+      "storage/*": ["storage/*"],
       "stories/*": ["stories/*"],
       "theme/*": ["theme/*"],
       "validators/*": ["validators/*"]
