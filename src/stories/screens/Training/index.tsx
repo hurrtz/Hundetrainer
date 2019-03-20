@@ -8,6 +8,7 @@ import {
   Left,
   Body,
   Right,
+  Toast,
 } from 'native-base';
 import { NavigationComponent } from 'react-navigation';
 
@@ -48,6 +49,12 @@ class Training extends Component<Props, State> {
       storeData({
         key: 'poops',
         value: [...poops, { ...dataFromModal }],
+        callback: () => {
+          Toast.show({
+            type: 'success',
+            text: 'Stuhlgang gespeichert!',
+          });
+        },
       });
     });
 

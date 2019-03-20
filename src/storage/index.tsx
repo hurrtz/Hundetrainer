@@ -5,14 +5,20 @@ const NS = 'Hundetrainer';
 export const storeData = async ({
   key,
   value,
+  callback,
 }: {
   key: string;
   value: any;
+  callback?: Function;
 }) => {
   try {
     const valueString = JSON.stringify(value);
 
-    await AsyncStorage.setItem(`@${NS}:${key}`, valueString);
+    await AsyncStorage.setItem(`@${NS}:${key}`, valueString).then(() => {
+      if (callback) {
+        callback();
+      }
+    });
 
     return valueString;
   } catch (error) {
