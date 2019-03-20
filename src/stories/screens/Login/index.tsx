@@ -1,4 +1,4 @@
-import React, { Component, ReactElement } from 'react';
+import React, { Component } from 'react';
 import { Image } from 'react-native';
 import { Container, Content, Button, Text, View, Footer } from 'native-base';
 
@@ -6,7 +6,7 @@ import GameImage from 'assets/images/bo/game.png';
 import PawImage from 'assets/images/paw.png';
 
 export interface Props {
-  loginForm: ReactElement;
+  loginForm: any;
   onLogin: Function;
 }
 

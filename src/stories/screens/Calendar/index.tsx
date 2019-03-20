@@ -16,14 +16,14 @@ export interface Props {
 
 export interface State {}
 
-class Home extends Component<Props, State> {
+class Calendar extends Component<Props, State> {
   render() {
     return (
       <Container>
         <Header>
           <Left />
           <Body>
-            <Title>Home</Title>
+            <Title>Kalender</Title>
           </Body>
           <Right />
         </Header>
@@ -33,4 +33,4 @@ class Home extends Component<Props, State> {
   }
 }
 
-export default Home;
+export default Calendar;
