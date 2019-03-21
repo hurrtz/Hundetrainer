@@ -23,11 +23,22 @@ class PoopEntry extends Component<Props, State> {
     return <IconComponent name="emoticon-sad-outline" size={25} />;
   }
 
+  getTwoDigitNumber(value: number): string {
+    if (String(value).length === 1) {
+      return `0${value}`;
+    }
+
+    return String(value);
+  }
+
   formatDate(_date: string) {
     const date = new Date(_date);
 
-    return `${date.getDate()}.${date.getMonth() +
-      1}.${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()}`;
+    return `${this.getTwoDigitNumber(date.getDate())}.${this.getTwoDigitNumber(
+      date.getMonth() + 1,
+    )}.${date.getFullYear()}, ${this.getTwoDigitNumber(
+      date.getHours(),
+    )}:${this.getTwoDigitNumber(date.getMinutes())} Uhr`;
   }
 
   render() {
@@ -36,7 +47,7 @@ class PoopEntry extends Component<Props, State> {
     return (
       <Card>
         <CardItem>
-          <Body>
+          <Body style={{ minWidth: 200 }}>
             <Text>{this.formatDate(poop.date)}</Text>
           </Body>
 
