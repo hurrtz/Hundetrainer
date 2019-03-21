@@ -1,11 +1,21 @@
 import React from 'react';
-import Home from '../index';
+import Training from '../index';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
 const navigation = { navigate: jest.fn() };
 
 it('renders correctly', () => {
-  const tree = renderer.create(<Home navigation={navigation} />).toJSON();
+  const tree = renderer
+    .create(
+      <Training
+        navigation={navigation}
+        onAddPoop={() => {
+          console.log();
+        }}
+        poops={[]}
+      />,
+    )
+    .toJSON();
   expect(tree).toMatchSnapshot();
 });

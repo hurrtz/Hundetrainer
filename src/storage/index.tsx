@@ -32,6 +32,8 @@ export const retrieveData = async (key: string, callback: Function) => {
     await AsyncStorage.getItem(`@${NS}:${key}`).then(value => {
       if (value !== null) {
         callback(JSON.parse(value));
+      } else {
+        callback();
       }
     });
   } catch (error) {

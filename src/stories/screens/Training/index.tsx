@@ -9,14 +9,20 @@ import {
   Body,
   Right,
   Toast,
+  Card,
+  CardItem,
+  Text,
 } from 'native-base';
 import { NavigationComponent } from 'react-navigation';
 
 import { storeData, retrieveData } from 'storage';
+import { IPoop, SMELL, QUALITY } from 'apptypes/poop';
 import PoopAddModal from 'stories/modals/Poop/add';
 
 export interface Props {
   navigation: NavigationComponent;
+  onAddPoop: Function;
+  poops: IPoop[];
 }
 
 export interface State {
@@ -24,7 +30,7 @@ export interface State {
 }
 
 class Training extends Component<Props, State> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -43,13 +49,17 @@ class Training extends Component<Props, State> {
   }
 
   onSaveAddPoop(dataFromModal: { [prop: string]: any }) {
-    retrieveData('poops', currentPoops => {
+    retrieveData('poops', (currentPoops: IPoop[]) => {
+      const { onAddPoop } = this.props;
+      const newPoop = { ...dataFromModal };
       const poops = [...(currentPoops || [])];
 
       storeData({
         key: 'poops',
-        value: [...poops, { ...dataFromModal }],
+        value: [...poops, newPoop],
         callback: () => {
+          onAddPoop(newPoop);
+
           Toast.show({
             type: 'success',
             text: 'Stuhlgang gespeichert!',
@@ -59,6 +69,20 @@ class Training extends Component<Props, State> {
     });
 
     this.showModalAddPoop(false);
+  }
+
+  createPoops() {
+    const { poops } = this.props;
+
+    return poops.map((poop: IPoop) => (
+      <Card key={poop.date}>
+        <CardItem>
+          <Body>
+            <Text>{poop.date}</Text>
+          </Body>
+        </CardItem>
+      </Card>
+    ));
   }
 
   render() {
@@ -79,7 +103,7 @@ class Training extends Component<Props, State> {
             />
           </Right>
         </Header>
-        <Content />
+        <Content>{this.createPoops()}</Content>
 
         <PoopAddModal
           isVisible={addPoopModalVisible}

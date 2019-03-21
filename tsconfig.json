@@ -26,6 +26,7 @@
       "storage/*": ["storage/*"],
       "stories/*": ["stories/*"],
       "theme/*": ["theme/*"],
+      "apptypes/*": ["apptypes/*"],
       "validators/*": ["validators/*"]
     }
   },

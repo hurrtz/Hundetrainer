@@ -20,36 +20,21 @@ import {
   Right,
 } from 'native-base';
 
-enum QUALITY {
-  SOLID,
-  SOFT,
-  LIQUID,
-}
-
-enum SMELL {
-  LITTLE,
-  NORMAL,
-  STRONG,
-}
+import { QUALITY, SMELL, IPoop } from 'apptypes/poop';
 
 export interface Props {
   isVisible: boolean;
   onClose: Function;
 }
 
-export interface State {
-  date: Date;
-  quality: QUALITY;
-  smell: SMELL;
-  additionalInformation: string;
-}
+export interface State extends IPoop {}
 
 class PoopAddModal extends Component<Props, State> {
   constructor(props) {
     super(props);
 
     this.state = {
-      date: new Date(),
+      date: new Date().toISOString(),
       quality: QUALITY.SOLID,
       smell: SMELL.NORMAL,
       additionalInformation: '',
@@ -58,11 +43,11 @@ class PoopAddModal extends Component<Props, State> {
 
   handleClose() {
     const { onClose } = this.props;
-    const { date, quality, smell, additionalInformation } = this.state;
+    const { quality, smell, additionalInformation } = this.state;
 
     if (onClose) {
       onClose({
-        date: date.toISOString(),
+        date: new Date().toISOString(),
         quality,
         smell,
         additionalInformation,
@@ -71,7 +56,7 @@ class PoopAddModal extends Component<Props, State> {
   }
 
   handleChangeDate(date: Date) {
-    this.setState(prevState => ({ ...prevState, date }));
+    this.setState(prevState => ({ ...prevState, date: date.toISOString() }));
   }
 
   handleChangeQuality(value: QUALITY) {
@@ -87,7 +72,8 @@ class PoopAddModal extends Component<Props, State> {
   }
 
   formatDate() {
-    const { date } = this.state;
+    const { date: _date } = this.state;
+    const date = new Date(_date);
 
     return `${date.getDate()}.${date.getMonth() +
       1}.${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()} Uhr`;
@@ -200,7 +186,7 @@ class PoopAddModal extends Component<Props, State> {
               <Item>
                 <Label>Zeitpunkt:</Label>
                 <DatePicker
-                  defaultDate={date}
+                  defaultDate={new Date(date)}
                   locale={'DE-de'}
                   timeZoneOffsetInMinutes={undefined}
                   modalTransparent={false}
