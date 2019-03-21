@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Modal } from 'react-native';
+import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   Container,
   Content,
@@ -20,11 +21,12 @@ import {
   Right,
 } from 'native-base';
 
-import { QUALITY, SMELL, IPoop } from 'apptypes/poop';
+import { QUALITY, IPoop } from 'apptypes/poop';
 
 export interface Props {
   isVisible: boolean;
   onClose: Function;
+  onClickCancel: Function;
 }
 
 export interface State extends IPoop {}
@@ -35,21 +37,19 @@ class PoopAddModal extends Component<Props, State> {
 
     this.state = {
       date: new Date().toISOString(),
-      quality: QUALITY.SOLID,
-      smell: SMELL.NORMAL,
+      quality: QUALITY.GOOD,
       additionalInformation: '',
     };
   }
 
   handleClose() {
     const { onClose } = this.props;
-    const { quality, smell, additionalInformation } = this.state;
+    const { quality, additionalInformation } = this.state;
 
     if (onClose) {
       onClose({
         date: new Date().toISOString(),
         quality,
-        smell,
         additionalInformation,
       });
     }
@@ -61,10 +61,6 @@ class PoopAddModal extends Component<Props, State> {
 
   handleChangeQuality(value: QUALITY) {
     this.setState(prevState => ({ ...prevState, quality: value }));
-  }
-
-  handleChangeSmell(value: SMELL) {
-    this.setState(prevState => ({ ...prevState, smell: value }));
   }
 
   handleAdditionalInformationChange(text: string) {
@@ -114,54 +110,14 @@ class PoopAddModal extends Component<Props, State> {
   createListQuality() {
     return (
       <Fragment>
-        {this.createListQualityItem({ quality: QUALITY.SOLID, label: 'fest' })}
-        {this.createListQualityItem({ quality: QUALITY.SOFT, label: 'weich' })}
+        {this.createListQualityItem({ quality: QUALITY.GOOD, label: 'gut' })}
         {this.createListQualityItem({
-          quality: QUALITY.LIQUID,
-          label: 'flüssig',
-          noBorder: true,
+          quality: QUALITY.MEDIUM,
+          label: 'mäßig',
         })}
-      </Fragment>
-    );
-  }
-
-  createListSmellItem({
-    smell,
-    label,
-    noBorder,
-  }: {
-    smell: SMELL;
-    label: string;
-    noBorder?: boolean;
-  }) {
-    const { smell: selectedSmell } = this.state;
-
-    return (
-      <ListItem
-        selected={selectedSmell === smell}
-        onPress={() => {
-          this.handleChangeSmell(smell);
-        }}
-        noBorder={noBorder}
-      >
-        <Left>
-          <Text>{label}</Text>
-        </Left>
-        <Right>
-          <Radio selectedColor={'#5cb85c'} selected={selectedSmell === smell} />
-        </Right>
-      </ListItem>
-    );
-  }
-
-  createListSmell() {
-    return (
-      <Fragment>
-        {this.createListSmellItem({ smell: SMELL.LITTLE, label: 'kaum' })}
-        {this.createListSmellItem({ smell: SMELL.NORMAL, label: 'normal' })}
-        {this.createListSmellItem({
-          smell: SMELL.STRONG,
-          label: 'streng',
+        {this.createListQualityItem({
+          quality: QUALITY.BAD,
+          label: 'schlecht',
           noBorder: true,
         })}
       </Fragment>
@@ -169,16 +125,24 @@ class PoopAddModal extends Component<Props, State> {
   }
 
   render() {
-    const { isVisible } = this.props;
+    const { isVisible, onClickCancel } = this.props;
     const { date, additionalInformation } = this.state;
 
     return (
       <Modal animationType="slide" transparent={false} visible={isVisible}>
         <Container>
           <Header>
+            <Left>
+              <IconComponent
+                name="cancel"
+                size={25}
+                onPress={() => onClickCancel()}
+              />
+            </Left>
             <Body>
               <Text>Neuer Stuhlgang</Text>
             </Body>
+            <Right />
           </Header>
 
           <Content>
@@ -207,11 +171,6 @@ class PoopAddModal extends Component<Props, State> {
                 <Content>{this.createListQuality()}</Content>
               </Item>
 
-              <Item>
-                <Label>Geruch:</Label>
-                <Content>{this.createListSmell()}</Content>
-              </Item>
-
               <Content padder>
                 <Textarea
                   rowSpan={5}
@@ -235,8 +194,8 @@ class PoopAddModal extends Component<Props, State> {
 
           <Footer>
             <FooterTab>
-              <Button full onPress={() => this.handleClose()}>
-                <Text>Speichern</Text>
+              <Button primary full onPress={() => this.handleClose()}>
+                <Text style={{ color: '#FFF' }}>Speichern</Text>
               </Button>
             </FooterTab>
           </Footer>

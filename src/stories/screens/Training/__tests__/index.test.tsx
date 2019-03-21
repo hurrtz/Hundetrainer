@@ -6,16 +6,6 @@ import renderer from 'react-test-renderer';
 const navigation = { navigate: jest.fn() };
 
 it('renders correctly', () => {
-  const tree = renderer
-    .create(
-      <Training
-        navigation={navigation}
-        onAddPoop={() => {
-          console.log();
-        }}
-        poops={[]}
-      />,
-    )
-    .toJSON();
+  const tree = renderer.create(<Training navigation={navigation} />).toJSON();
   expect(tree).toMatchSnapshot();
 });

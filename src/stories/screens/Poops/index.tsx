@@ -4,7 +4,6 @@ import {
   Container,
   Header,
   Title,
-  Subtitle,
   Content,
   Left,
   Body,
@@ -12,15 +11,19 @@ import {
 } from 'native-base';
 import { NavigationComponent } from 'react-navigation';
 
+import { IPoop } from 'apptypes/poop';
+import PoopList from './PoopsList';
+
 export interface Props {
   navigation: NavigationComponent;
+  poops: IPoop[];
 }
 
 export interface State {}
 
-class ActivitiesHome extends Component<Props, State> {
+class Poops extends Component<Props, State> {
   render() {
-    const { navigation } = this.props;
+    const { poops, navigation } = this.props;
 
     return (
       <Container>
@@ -34,16 +37,18 @@ class ActivitiesHome extends Component<Props, State> {
           </Left>
 
           <Body>
-            <Title>Daheim</Title>
-            <Subtitle>Übungen</Subtitle>
+            <Title>Häufchen</Title>
           </Body>
 
           <Right />
         </Header>
-        <Content />
+
+        <Content>
+          <PoopList poops={poops} />
+        </Content>
       </Container>
     );
   }
 }
 
-export default ActivitiesHome;
+export default Poops;

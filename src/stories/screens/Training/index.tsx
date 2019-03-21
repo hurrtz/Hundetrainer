@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   Container,
   Header,
@@ -18,10 +19,18 @@ export interface State {}
 
 class Training extends Component<Props, State> {
   render() {
+    const { navigation } = this.props;
+
     return (
       <Container>
         <Header>
-          <Left />
+          <Left>
+            <IconComponent
+              onPress={() => navigation.toggleDrawer()}
+              name="menu"
+              size={25}
+            />
+          </Left>
           <Body>
             <Title>Training</Title>
           </Body>
