@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Content } from 'native-base';
+import { Content } from 'native-base';
 
 import { IPoop } from 'apptypes/poop';
 import { TNavigation } from 'apptypes/base';
@@ -17,11 +17,9 @@ class PoopOverview extends Component<Props, State> {
     const { poops, navigation } = this.props;
 
     return (
-      <Container>
-        <Content>
-          <PoopList poops={poops} navigation={navigation} />
-        </Content>
-      </Container>
+      <Content padder>
+        <PoopList poops={poops} navigation={navigation} />
+      </Content>
     );
   }
 }

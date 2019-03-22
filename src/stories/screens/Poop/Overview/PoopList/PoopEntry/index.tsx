@@ -47,15 +47,13 @@ class PoopEntry extends Component<Props, State> {
     const { poop, navigation } = this.props;
 
     return (
-      <Card>
-        <CardItem button onPress={() => navigation.push('PoopEdit', { poop })}>
-          <Body style={{ minWidth: 200 }}>
-            <Text>{this.formatDate(poop.date)}</Text>
-          </Body>
+      <CardItem button onPress={() => navigation.push('PoopEdit', { poop })}>
+        <Body style={{ minWidth: 150 }}>
+          <Text>{this.formatDate(poop.date)}</Text>
+        </Body>
 
-          <Right>{this.createEmoticon(poop.quality)}</Right>
-        </CardItem>
-      </Card>
+        <Right>{this.createEmoticon(poop.quality)}</Right>
+      </CardItem>
     );
   }
 }

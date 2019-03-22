@@ -1,4 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
+import { Container } from 'native-base';
 
 import { retrieveData } from 'storage';
 import PoopOverview from 'stories/screens/Poop/Overview';
@@ -62,9 +63,9 @@ class PoopOverviewContainer extends Component<Props, State> {
     const { poops } = this.state;
 
     return (
-      <Fragment>
+      <Container>
         <PoopOverview navigation={navigation} poops={poops} />
-      </Fragment>
+      </Container>
     );
   }
 }
