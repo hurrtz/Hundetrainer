@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { Modal } from 'react-native';
-import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import {
   Container,
   Content,
@@ -9,8 +8,6 @@ import {
   DatePicker,
   Header,
   Body,
-  Footer,
-  FooterTab,
   Form,
   Item,
   Label,
@@ -133,16 +130,16 @@ class PoopAddModal extends Component<Props, State> {
         <Container>
           <Header>
             <Left>
-              <IconComponent
-                name="cancel"
-                size={25}
-                onPress={() => onClickCancel()}
-              />
+              <Text onPress={() => onClickCancel()}>Abbrechen</Text>
             </Left>
             <Body>
-              <Text>Neuer Stuhlgang</Text>
+              <Text style={{ width: 200, textAlign: 'center' }}>
+                Neuer Stuhlgang
+              </Text>
             </Body>
-            <Right />
+            <Right>
+              <Text>Speichern</Text>
+            </Right>
           </Header>
 
           <Content>
@@ -190,15 +187,16 @@ class PoopAddModal extends Component<Props, State> {
                 />
               </Content>
             </Form>
-          </Content>
 
-          <Footer>
-            <FooterTab>
-              <Button primary full onPress={() => this.handleClose()}>
-                <Text style={{ color: '#FFF' }}>Speichern</Text>
-              </Button>
-            </FooterTab>
-          </Footer>
+            <Button
+              primary
+              block
+              style={{ marginLeft: 15, marginRight: 15 }}
+              onPress={() => this.handleClose()}
+            >
+              <Text style={{ color: '#FFF' }}>Speichern</Text>
+            </Button>
+          </Content>
         </Container>
       </Modal>
     );

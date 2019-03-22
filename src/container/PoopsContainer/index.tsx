@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Toast } from 'native-base';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
-
 import { retrieveData, storeData } from 'storage';
 import Poops from 'stories/screens/Poops';
 import ModalPoopAdd from 'stories/modals/Poop/add';

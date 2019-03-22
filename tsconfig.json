@@ -19,14 +19,15 @@
     "types": ["react", "react-native", "jest"],
     "baseUrl": "src",
     "paths": {
+      "apptypes/*": ["apptypes/*"],
       "assets/*": ["assets/*"],
-      "container/*": ["container/*"],
       "boot/*": ["boot/*"],
+      "container/*": ["container/*"],
+      "navigation/*": ["navigation/*"],
       "reducers/*": ["reducers/*"],
       "storage/*": ["storage/*"],
       "stories/*": ["stories/*"],
       "theme/*": ["theme/*"],
-      "apptypes/*": ["apptypes/*"],
       "validators/*": ["validators/*"]
     }
   },

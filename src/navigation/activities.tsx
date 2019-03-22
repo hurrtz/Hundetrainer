@@ -1,13 +1,13 @@
 import React from 'react';
-import { createAppContainer, createBottomTabNavigator } from 'react-navigation';
+import { createBottomTabNavigator } from 'react-navigation';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import TrainingContainer from 'stories/screens/Activities/Training';
-import PlacesContainer from 'stories/screens/Activities/Places';
-import ToysContainer from 'stories/screens/Activities/Toys';
-import NotesContainer from 'stories/screens/Activities/Notes';
+import TrainingContainer from 'container/Activities/TrainingContainer';
+import PlacesContainer from 'container/Activities/PlacesContainer';
+import ToysContainer from 'container/Activities/ToysContainer';
+import NotesContainer from 'container/Activities/NotesContainer';
 
-const TabNavigator = createBottomTabNavigator(
+const ActivitiesNavigator = createBottomTabNavigator(
   {
     Training: { screen: TrainingContainer },
     Places: { screen: PlacesContainer },
@@ -72,10 +72,8 @@ const TabNavigator = createBottomTabNavigator(
   },
 );
 
-const ActivitiesScreen = createAppContainer(TabNavigator);
-
-ActivitiesScreen.navigationOptions = {
+ActivitiesNavigator.navigationOptions = {
   drawerIcon: () => <IconComponent name="trophy" size={25} />,
 };
 
-export default ActivitiesScreen;
+export default ActivitiesNavigator;
