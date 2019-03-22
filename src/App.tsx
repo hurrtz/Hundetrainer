@@ -3,6 +3,7 @@ import { createAppContainer, createDrawerNavigator } from 'react-navigation';
 import { Root } from 'native-base';
 import { StatusBar } from 'react-native';
 
+import DashboardContainer from 'container/DashboardContainer';
 import TrainingContainer from 'container/TrainingContainer';
 import ActivitiesHomeContainer from 'container/ActivitiesHomeContainer';
 import ActivitiesOutsideContainer from 'container/ActivitiesOutsideContainer';
@@ -80,26 +81,34 @@ import PoopsContainer from 'container/PoopsContainer';
 //   },
 // );
 
-const DrawerNavigator = createDrawerNavigator({
-  Trainings: {
-    screen: TrainingContainer,
+const DrawerNavigator = createDrawerNavigator(
+  {
+    Dashboard: {
+      screen: DashboardContainer,
+    },
+    Trainings: {
+      screen: TrainingContainer,
+    },
+    ActivitiesHome: {
+      screen: ActivitiesHomeContainer,
+    },
+    ActivitiesOutside: {
+      screen: ActivitiesOutsideContainer,
+    },
+    Calendar: {
+      screen: CalendarContainer,
+    },
+    Places: {
+      screen: PlacesContainer,
+    },
+    Poops: {
+      screen: PoopsContainer,
+    },
   },
-  ActivitiesHome: {
-    screen: ActivitiesHomeContainer,
+  {
+    initialRouteName: 'Dashboard',
   },
-  ActivitiesOutside: {
-    screen: ActivitiesOutsideContainer,
-  },
-  Calendar: {
-    screen: CalendarContainer,
-  },
-  Places: {
-    screen: PlacesContainer,
-  },
-  Poops: {
-    screen: PoopsContainer,
-  },
-});
+);
 
 const App = createAppContainer(DrawerNavigator);
 
