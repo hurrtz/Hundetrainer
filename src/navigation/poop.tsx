@@ -1,18 +1,24 @@
+import React from 'react';
 import { createStackNavigator } from 'react-navigation';
+import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import Training from 'container/Activities/Training';
-import Places from 'container/Activities/Places';
-import Toys from 'container/Activities/Toys';
+import PoopOverview from 'container/Poop/Overview';
+import PoopAdd from 'container/Poop/Add';
+import PoopEdit from 'container/Poop/Edit';
 
 const PoopNavigator = createStackNavigator(
   {
-    PoopOverview: { screen: Training },
-    PoopAdd: { screen: Places },
-    PoopEdit: { screen: Toys },
+    PoopOverview: { screen: PoopOverview },
+    PoopAdd: { screen: PoopAdd },
+    PoopEdit: { screen: PoopEdit },
   },
   {
     initialRouteName: 'PoopOverview',
   },
 );
+
+PoopNavigator.navigationOptions = {
+  drawerIcon: () => <IconComponent name="emoticon-poop" size={25} />,
+};
 
 export default PoopNavigator;

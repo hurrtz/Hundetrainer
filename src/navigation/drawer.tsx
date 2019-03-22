@@ -1,12 +1,12 @@
 import { createDrawerNavigator } from 'react-navigation';
 
 import ActivitiesNavigator from 'navigation/activities';
+import PoopNavigator from 'navigation/poop';
 
 import Dashboard from 'container/Dashboard';
 import AddressBook from 'container/AddressBook';
 import Health from 'container/Health';
 import Calendar from 'container/Calendar';
-import Poop from 'container/Poop';
 import MyDog from 'container/MyDog';
 import Settings from 'container/Settings';
 
@@ -25,7 +25,7 @@ const DrawerNavigator = createDrawerNavigator(
       screen: Calendar,
     },
     Poop: {
-      screen: Poop,
+      screen: PoopNavigator,
     },
     AddressBook: {
       screen: AddressBook,

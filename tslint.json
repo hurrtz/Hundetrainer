@@ -86,7 +86,7 @@
       "check-whitespace"
     ],
     "quotemark": [true, "single", "avoid-escape", "jsx-double"],
-    "semicolon": [true, "always"],
+    "semicolon": [true, "always", "ignore-bound-class-methods"],
     "variable-name": [
       true,
       "check-format",

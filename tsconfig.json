@@ -28,6 +28,7 @@
       "storage/*": ["storage/*"],
       "stories/*": ["stories/*"],
       "theme/*": ["theme/*"],
+      "ui/*": ["ui/*"],
       "validators/*": ["validators/*"]
     }
   },

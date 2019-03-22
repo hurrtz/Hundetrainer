@@ -3,9 +3,10 @@ import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Dashboard from 'stories/screens/Dashboard';
 import QuickAdd from 'stories/fabs/QuickAdd';
+import { TNavigation } from 'apptypes/base';
 
 interface Props {
-  navigation: any;
+  navigation: TNavigation;
 }
 
 interface State {}
@@ -21,7 +22,7 @@ class DashboardContainer extends Component<Props, State> {
     return (
       <Fragment>
         <Dashboard navigation={navigation} />
-        <QuickAdd />
+        <QuickAdd navigation={navigation} />
       </Fragment>
     );
   }

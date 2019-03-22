@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Body, Card, CardItem, Text, Right } from 'native-base';
 
+import { TNavigation } from 'apptypes/base';
 import { IPoop, QUALITY } from 'apptypes/poop';
 
 interface Props {
+  navigation: TNavigation;
   poop: IPoop;
 }
 
@@ -42,11 +44,11 @@ class PoopEntry extends Component<Props, State> {
   }
 
   render() {
-    const { poop } = this.props;
+    const { poop, navigation } = this.props;
 
     return (
       <Card>
-        <CardItem>
+        <CardItem button onPress={() => navigation.push('PoopEdit', { poop })}>
           <Body style={{ minWidth: 200 }}>
             <Text>{this.formatDate(poop.date)}</Text>
           </Body>
