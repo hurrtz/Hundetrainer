@@ -26,3 +26,7 @@ export const Drawer = (props: any) => (
 export const Add = (props: any) => (
   <MaterialCommunityIcons name="plus" size={25} {...props} />
 );
+
+export const Delete = (props: any) => (
+  <MaterialCommunityIcons name="delete" size={25} {...props} />
+);

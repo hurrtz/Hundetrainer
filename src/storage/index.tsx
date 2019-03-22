@@ -2,15 +2,18 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const NS = 'Hundetrainer';
 
-export const storeData = async ({
-  key,
-  value,
-  callback,
-}: {
+interface IStoreData {
   key: string;
   value: any;
   callback?: Function;
-}) => {
+}
+
+interface IRemoveData {
+  key: string;
+  callback?: Function;
+}
+
+export const storeData = async ({ key, value, callback }: IStoreData) => {
   try {
     const valueString = JSON.stringify(value);
 
@@ -27,7 +30,7 @@ export const storeData = async ({
   }
 };
 
-export const retrieveData = async (key: string, callback: Function) => {
+export const retrieveData = async ({ key, callback }: IRemoveData) => {
   try {
     await AsyncStorage.getItem(`@${NS}:${key}`).then(value => {
       if (value !== null) {

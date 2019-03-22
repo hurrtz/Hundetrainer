@@ -44,13 +44,16 @@ class PoopOverviewContainer extends Component<Props, State> {
   }
 
   fetchPoops() {
-    retrieveData('poops', (poops: IPoop[]) => {
-      if (poops && poops.length) {
-        this.setState(prevState => ({
-          ...prevState,
-          poops,
-        }));
-      }
+    retrieveData({
+      key: 'poops',
+      callback: (poops: IPoop[]) => {
+        if (poops && poops.length) {
+          this.setState(prevState => ({
+            ...prevState,
+            poops,
+          }));
+        }
+      },
     });
   }
 

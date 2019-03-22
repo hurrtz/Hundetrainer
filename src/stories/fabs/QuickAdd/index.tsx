@@ -44,9 +44,7 @@ class QuickAdd extends Component<Props, State> {
           <IconComponent name="plus" />
 
           <Button
-            onPress={() =>
-              navigation.navigate('PoopAdd', { backLocation: 'Dashboard' })
-            }
+            onPress={() => navigation.navigate('PoopAdd')}
             style={{ backgroundColor: '#34A34F' }}
           >
             <IconComponent name="emoticon-poop" size={25} />

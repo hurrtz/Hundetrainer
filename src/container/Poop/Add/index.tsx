@@ -20,27 +20,27 @@ class PoopAddContainer extends Component<Props, State> {
   }
 
   onSaveAddPoop(poop: IPoop) {
-    retrieveData('poops', (currentPoops: IPoop[]) => {
-      const newPoop = { ...poop };
-      const poops = [...(currentPoops || [])];
+    retrieveData({
+      key: 'poops',
+      callback: (currentPoops: IPoop[]) => {
+        const newPoop = { ...poop };
+        const poops = [...(currentPoops || [])];
 
-      storeData({
-        key: 'poops',
-        value: [...poops, newPoop],
-        callback: () => {
-          const { navigation } = this.props;
-          const backLocation = navigation.getParam('backLocation', undefined);
+        storeData({
+          key: 'poops',
+          value: [...poops, newPoop],
+          callback: () => {
+            const { navigation } = this.props;
 
-          Toast.show({
-            type: 'success',
-            text: 'Stuhlgang gespeichert!',
-          });
+            Toast.show({
+              type: 'success',
+              text: 'Stuhlgang gespeichert!',
+            });
 
-          if (backLocation) {
-            navigation.goBack(backLocation);
-          }
-        },
-      });
+            navigation.goBack();
+          },
+        });
+      },
     });
   }
 
