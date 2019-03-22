@@ -4,7 +4,6 @@ import {
   Container,
   Header,
   Title,
-  Subtitle,
   Content,
   Left,
   Body,
@@ -18,7 +17,7 @@ export interface Props {
 
 export interface State {}
 
-class ActivitiesHome extends Component<Props, State> {
+class Toys extends Component<Props, State> {
   render() {
     const { navigation } = this.props;
 
@@ -32,12 +31,9 @@ class ActivitiesHome extends Component<Props, State> {
               size={25}
             />
           </Left>
-
           <Body>
-            <Title>Daheim</Title>
-            <Subtitle>Übungen</Subtitle>
+            <Title>Spielzeug</Title>
           </Body>
-
           <Right />
         </Header>
         <Content />
@@ -46,4 +42,4 @@ class ActivitiesHome extends Component<Props, State> {
   }
 }
 
-export default ActivitiesHome;
+export default Toys;

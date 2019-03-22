@@ -17,7 +17,7 @@ export interface Props {
 
 export interface State {}
 
-class Training extends Component<Props, State> {
+class Health extends Component<Props, State> {
   render() {
     const { navigation } = this.props;
 
@@ -31,9 +31,11 @@ class Training extends Component<Props, State> {
               size={25}
             />
           </Left>
+
           <Body>
-            <Title>Training</Title>
+            <Title>Gesundheit</Title>
           </Body>
+
           <Right />
         </Header>
         <Content />
@@ -42,4 +44,4 @@ class Training extends Component<Props, State> {
   }
 }
 
-export default Training;
+export default Health;

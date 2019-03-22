@@ -4,7 +4,6 @@ import {
   Container,
   Header,
   Title,
-  Subtitle,
   Content,
   Left,
   Body,
@@ -18,7 +17,7 @@ export interface Props {
 
 export interface State {}
 
-class ActivitiesOutside extends Component<Props, State> {
+class AddressBook extends Component<Props, State> {
   render() {
     const { navigation } = this.props;
 
@@ -34,8 +33,7 @@ class ActivitiesOutside extends Component<Props, State> {
           </Left>
 
           <Body>
-            <Title>Im Freien</Title>
-            <Subtitle>Übungen</Subtitle>
+            <Title>Adressen</Title>
           </Body>
 
           <Right />
@@ -46,4 +44,4 @@ class ActivitiesOutside extends Component<Props, State> {
   }
 }
 
-export default ActivitiesOutside;
+export default AddressBook;

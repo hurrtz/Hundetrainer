@@ -11,26 +11,15 @@ import {
 } from 'native-base';
 import { NavigationComponent } from 'react-navigation';
 
-import { IPoop } from 'apptypes/poop';
-import PoopList from './PoopsList';
-
 export interface Props {
   navigation: NavigationComponent;
-  poops: IPoop[];
-  toggleAddPoop: Function;
 }
 
 export interface State {}
 
-class Poops extends Component<Props, State> {
-  showPoopModal() {
-    const { toggleAddPoop } = this.props;
-
-    toggleAddPoop();
-  }
-
+class Training extends Component<Props, State> {
   render() {
-    const { poops, navigation } = this.props;
+    const { navigation } = this.props;
 
     return (
       <Container>
@@ -42,26 +31,15 @@ class Poops extends Component<Props, State> {
               size={25}
             />
           </Left>
-
           <Body>
-            <Title>Stuhlgang</Title>
+            <Title>Übungen</Title>
           </Body>
-
-          <Right>
-            <IconComponent
-              onPress={() => this.showPoopModal()}
-              name="plus"
-              size={25}
-            />
-          </Right>
+          <Right />
         </Header>
-
-        <Content>
-          <PoopList poops={poops} />
-        </Content>
+        <Content />
       </Container>
     );
   }
 }
 
-export default Poops;
+export default Training;

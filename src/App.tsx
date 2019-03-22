@@ -4,109 +4,74 @@ import { Root } from 'native-base';
 import { StatusBar } from 'react-native';
 
 import DashboardContainer from 'container/DashboardContainer';
-import TrainingContainer from 'container/TrainingContainer';
-import ActivitiesHomeContainer from 'container/ActivitiesHomeContainer';
-import ActivitiesOutsideContainer from 'container/ActivitiesOutsideContainer';
+import ActivitiesContainer from 'container/ActivitiesContainer';
+import AddressBookContainer from 'container/AddressBookContainer';
+import HealthContainer from 'container/HealthContainer';
 import CalendarContainer from 'container/CalendarContainer';
-import PlacesContainer from 'container/PlacesContainer';
 import PoopsContainer from 'container/PoopsContainer';
-
-// const TabNavigator = createBottomTabNavigator(
-//   {
-//     Training: { screen: TrainingContainer },
-//     ActivitiesHome: { screen: ActivitiesHomeContainer },
-//     ActivitiesOutside: { screen: ActivitiesOutsideContainer },
-//     Calendar: { screen: CalendarContainer },
-//     Places: { screen: PlacesContainer },
-//   },
-//   {
-//     initialRouteName: 'Training',
-//     defaultNavigationOptions: ({ navigation }) => ({
-//       title: (() => {
-//         const { routeName } = navigation.state;
-
-//         switch (routeName) {
-//           case 'ActivitiesHome':
-//             return 'daheim';
-
-//           case 'ActivitiesOutside':
-//             return 'im Freien';
-
-//           case 'Calendar':
-//             return 'Kalender';
-
-//           case 'Places':
-//             return 'Orte';
-
-//           default:
-//             return routeName;
-//         }
-//       })(),
-//       tabBarIcon: ({ tintColor }) => {
-//         const { routeName } = navigation.state;
-
-//         let iconName: string;
-
-//         switch (routeName) {
-//           case 'Training':
-//             iconName = 'trophy';
-//             break;
-
-//           case 'ActivitiesHome':
-//             iconName = 'home';
-//             break;
-
-//           case 'ActivitiesOutside':
-//             iconName = 'tree';
-//             break;
-
-//           case 'Calendar':
-//             iconName = 'calendar';
-//             break;
-
-//           case 'Places':
-//             iconName = 'map';
-//             break;
-
-//           default:
-//         }
-
-//         return <IconComponent name={iconName} size={25} color={tintColor} />;
-//       },
-//     }),
-//     tabBarOptions: {
-//       activeTintColor: 'tomato',
-//       inactiveTintColor: 'gray',
-//     },
-//   },
-// );
+import MyDogContainer from 'container/MyDogContainer';
+import SettingsContainer from 'container/SettingsContainer';
 
 const DrawerNavigator = createDrawerNavigator(
   {
     Dashboard: {
       screen: DashboardContainer,
     },
-    Trainings: {
-      screen: TrainingContainer,
+    Activities: {
+      screen: ActivitiesContainer,
     },
-    ActivitiesHome: {
-      screen: ActivitiesHomeContainer,
-    },
-    ActivitiesOutside: {
-      screen: ActivitiesOutsideContainer,
+    Health: {
+      screen: HealthContainer,
     },
     Calendar: {
       screen: CalendarContainer,
     },
-    Places: {
-      screen: PlacesContainer,
-    },
     Poops: {
       screen: PoopsContainer,
+    },
+    AddressBook: {
+      screen: AddressBookContainer,
+    },
+    MyDog: {
+      screen: MyDogContainer,
+    },
+    Settings: {
+      screen: SettingsContainer,
     },
   },
   {
     initialRouteName: 'Dashboard',
+    defaultNavigationOptions: ({ navigation }) => ({
+      title: (() => {
+        const { routeName } = navigation.state;
+
+        switch (routeName) {
+          case 'Activities':
+            return 'Beschäftigung';
+
+          case 'Poops':
+            return 'Stuhlgang';
+
+          case 'MyDog':
+            return 'Mein Hund';
+
+          case 'Calendar':
+            return 'Kalender';
+
+          case 'Health':
+            return 'Gesundheit';
+
+          case 'AddressBook':
+            return 'Adressen';
+
+          case 'Settings':
+            return 'Einstellungen';
+
+          default:
+            return routeName;
+        }
+      })(),
+    }),
   },
 );
 
