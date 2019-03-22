@@ -1,9 +1,10 @@
 import React, { Component, Fragment } from 'react';
+import { Toast } from 'native-base';
 
-import { retrieveData } from 'storage';
+import { retrieveData, storeData } from 'storage';
 import Poops from 'stories/screens/Poops';
+import ModalPoopAdd from 'stories/modals/Poop/add';
 import { IPoop } from 'apptypes/poop';
-import QuickAdd from 'stories/fabs/QuickAdd';
 
 export interface Props {
   navigation: any;
@@ -11,6 +12,7 @@ export interface Props {
 
 export interface State {
   poops: IPoop[];
+  modalPoopAddVisible: boolean;
 }
 
 class PoopsContainer extends Component<Props, State> {
@@ -19,9 +21,20 @@ class PoopsContainer extends Component<Props, State> {
 
     this.state = {
       poops: [],
+      modalPoopAddVisible: false,
     };
 
     this.fetchPoops();
+
+    this.toggleModalPoopAddShow = this.toggleModalPoopAddShow.bind(this);
+    this.onSaveAddPoop = this.onSaveAddPoop.bind(this);
+  }
+
+  toggleModalPoopAddShow() {
+    this.setState(prevState => ({
+      ...prevState,
+      modalPoopAddVisible: !prevState.modalPoopAddVisible,
+    }));
   }
 
   fetchPoops() {
@@ -35,14 +48,42 @@ class PoopsContainer extends Component<Props, State> {
     });
   }
 
+  onSaveAddPoop(poop: IPoop) {
+    retrieveData('poops', (currentPoops: IPoop[]) => {
+      const newPoop = { ...poop };
+      const poops = [...(currentPoops || [])];
+
+      storeData({
+        key: 'poops',
+        value: [...poops, newPoop],
+        callback: () => {
+          Toast.show({
+            type: 'success',
+            text: 'Stuhlgang gespeichert!',
+          });
+        },
+      });
+    });
+
+    this.toggleModalPoopAddShow();
+  }
+
   render() {
     const { navigation } = this.props;
-    const { poops } = this.state;
+    const { poops, modalPoopAddVisible } = this.state;
 
     return (
       <Fragment>
-        <Poops navigation={navigation} poops={poops} />
-        <QuickAdd />
+        <Poops
+          navigation={navigation}
+          poops={poops}
+          toggleAddPoop={this.toggleModalPoopAddShow}
+        />
+        <ModalPoopAdd
+          isVisible={modalPoopAddVisible}
+          onClickCancel={this.toggleModalPoopAddShow}
+          onClose={this.onSaveAddPoop}
+        />
       </Fragment>
     );
   }

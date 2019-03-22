@@ -17,11 +17,18 @@ import PoopList from './PoopsList';
 export interface Props {
   navigation: NavigationComponent;
   poops: IPoop[];
+  toggleAddPoop: Function;
 }
 
 export interface State {}
 
 class Poops extends Component<Props, State> {
+  showPoopModal() {
+    const { toggleAddPoop } = this.props;
+
+    toggleAddPoop();
+  }
+
   render() {
     const { poops, navigation } = this.props;
 
@@ -40,7 +47,13 @@ class Poops extends Component<Props, State> {
             <Title>Häufchen</Title>
           </Body>
 
-          <Right />
+          <Right>
+            <IconComponent
+              onPress={() => this.showPoopModal()}
+              name="plus"
+              size={25}
+            />
+          </Right>
         </Header>
 
         <Content>
