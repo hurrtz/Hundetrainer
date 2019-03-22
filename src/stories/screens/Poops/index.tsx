@@ -14,13 +14,13 @@ import { NavigationComponent } from 'react-navigation';
 import { IPoop } from 'apptypes/poop';
 import PoopList from './PoopsList';
 
-export interface Props {
+interface Props {
   navigation: NavigationComponent;
   poops: IPoop[];
   toggleAddPoop: Function;
 }
 
-export interface State {}
+interface State {}
 
 class Poops extends Component<Props, State> {
   showPoopModal() {

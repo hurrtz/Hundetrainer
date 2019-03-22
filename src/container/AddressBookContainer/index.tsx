@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
+import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import AddressBook from 'stories/screens/AddressBook';
 
-export interface Props {
+interface Props {
   navigation: any;
 }
 
-export interface State {}
+interface State {}
 
 class AddressBookContainer extends Component<Props, State> {
+  static navigationOptions = {
+    drawerIcon: () => <IconComponent name="notebook" size={25} />,
+  };
+
   render() {
     const { navigation } = this.props;
 

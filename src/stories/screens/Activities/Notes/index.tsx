@@ -11,11 +11,11 @@ import {
 } from 'native-base';
 import { NavigationComponent } from 'react-navigation';
 
-export interface Props {
+interface Props {
   navigation: NavigationComponent;
 }
 
-export interface State {}
+interface State {}
 
 class Notes extends Component<Props, State> {
   render() {

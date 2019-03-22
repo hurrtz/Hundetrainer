@@ -72,4 +72,10 @@ const TabNavigator = createBottomTabNavigator(
   },
 );
 
-export default createAppContainer(TabNavigator);
+const ActivitiesScreen = createAppContainer(TabNavigator);
+
+ActivitiesScreen.navigationOptions = {
+  drawerIcon: () => <IconComponent name="trophy" size={25} />,
+};
+
+export default ActivitiesScreen;

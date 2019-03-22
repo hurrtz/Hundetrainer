@@ -5,12 +5,12 @@ import { Container, Content, Button, Text, View, Footer } from 'native-base';
 import GameImage from 'assets/images/bo/game.png';
 import PawImage from 'assets/images/paw.png';
 
-export interface Props {
+interface Props {
   loginForm: any;
   onLogin: Function;
 }
 
-export interface State {}
+interface State {}
 
 class Login extends Component<Props, State> {
   render() {

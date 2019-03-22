@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
+import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Health from 'stories/screens/Health';
 
-export interface Props {
+interface Props {
   navigation: any;
 }
 
-export interface State {}
+interface State {}
 
 class HealthContainer extends Component<Props, State> {
+  static navigationOptions = {
+    drawerIcon: () => <IconComponent name="medical-bag" size={25} />,
+  };
+
   render() {
     const { navigation } = this.props;
 

@@ -11,13 +11,18 @@ import {
 } from 'native-base';
 import { NavigationComponent } from 'react-navigation';
 
-export interface Props {
+interface Props {
   navigation: NavigationComponent;
 }
 
-export interface State {}
+interface State {}
 
 class Training extends Component<Props, State> {
+  static navigationOptions = {
+    drawerLabel: 'trophy',
+    drawerIcon: () => <IconComponent name="view-dashboard" size={25} />,
+  };
+
   render() {
     const { navigation } = this.props;
 

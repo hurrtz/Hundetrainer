@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
+import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Settings from 'stories/screens/Settings';
 
-export interface Props {
+interface Props {
   navigation: any;
 }
 
-export interface State {}
+interface State {}
 
 class SettingsContainer extends Component<Props, State> {
+  static navigationOptions = {
+    drawerIcon: () => <IconComponent name="settings" size={25} />,
+  };
+
   render() {
     const { navigation } = this.props;
 

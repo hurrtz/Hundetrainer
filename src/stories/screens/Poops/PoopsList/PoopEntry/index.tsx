@@ -4,11 +4,11 @@ import { Body, Card, CardItem, Text, Right } from 'native-base';
 
 import { IPoop, QUALITY } from 'apptypes/poop';
 
-export interface Props {
+interface Props {
   poop: IPoop;
 }
 
-export interface State {}
+interface State {}
 
 class PoopEntry extends Component<Props, State> {
   createEmoticon(type: QUALITY) {

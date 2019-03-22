@@ -7,12 +7,12 @@ import Login from 'stories/screens/Login';
 
 import { required, email } from 'validators';
 
-export interface Props extends InjectedFormProps {
+interface Props extends InjectedFormProps {
   navigation: NavigationComponent;
   valid: boolean;
 }
 
-export interface State {}
+interface State {}
 
 class LoginForm extends Component<Props, State> {
   textInput: Input;

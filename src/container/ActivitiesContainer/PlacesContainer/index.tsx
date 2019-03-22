@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-import Places from 'stories/screens/Places';
+import Places from 'stories/screens/Activities/Places';
 
-export interface Props {
+interface Props {
   navigation: any;
 }
 
-export interface State {}
+interface State {}
 
 class PlacesContainer extends Component<Props, State> {
   render() {

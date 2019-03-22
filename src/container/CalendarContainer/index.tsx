@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
+import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Calendar from 'stories/screens/Calendar';
 
-export interface Props {
+interface Props {
   navigation: any;
 }
 
-export interface State {}
+interface State {}
 
 class CalendarContainer extends Component<Props, State> {
+  static navigationOptions = {
+    drawerIcon: () => <IconComponent name="calendar" size={25} />,
+  };
+
   render() {
     const { navigation } = this.props;
 

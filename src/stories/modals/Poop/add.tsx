@@ -23,13 +23,13 @@ import {
 
 import { QUALITY, IPoop } from 'apptypes/poop';
 
-export interface Props {
+interface Props {
   isVisible: boolean;
   onClose: Function;
   onClickCancel: Function;
 }
 
-export interface State extends IPoop {}
+interface State extends IPoop {}
 
 class PoopAddModal extends Component<Props, State> {
   constructor(props) {

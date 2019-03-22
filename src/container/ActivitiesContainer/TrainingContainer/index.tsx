@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-import Training from 'stories/screens/Training';
+import Training from 'stories/screens/Activities/Training';
 
-export interface Props {
+interface Props {
   navigation: any;
 }
 
-export interface State {}
+interface State {}
 
 class TrainingContainer extends Component<Props, State> {
   render() {

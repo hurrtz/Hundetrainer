@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 import Notes from 'stories/screens/Activities/Notes';
 
-export interface Props {
+interface Props {
   navigation: any;
 }
 
-export interface State {}
+interface State {}
 
 class NotesContainer extends Component<Props, State> {
   render() {

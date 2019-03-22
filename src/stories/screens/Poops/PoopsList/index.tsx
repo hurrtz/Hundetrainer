@@ -3,11 +3,11 @@ import React, { Component } from 'react';
 import { IPoop } from 'apptypes/poop';
 import PoopEntry from './PoopEntry';
 
-export interface Props {
+interface Props {
   poops: IPoop[];
 }
 
-export interface State {}
+interface State {}
 
 class PoopList extends Component<Props, State> {
   render() {
