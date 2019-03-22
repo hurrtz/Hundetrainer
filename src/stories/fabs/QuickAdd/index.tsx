@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import { Fab, Button, Toast } from 'native-base';
+import { Fab, Button } from 'native-base';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { TNavigation } from 'apptypes/base';

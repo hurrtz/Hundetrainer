@@ -45,7 +45,9 @@ class PoopAddContainer extends Component<Props, State> {
   }
 
   render() {
-    return <PoopAdd onSave={this.onSaveAddPoop} />;
+    const { navigation } = this.props;
+
+    return <PoopAdd navigation={navigation} onSave={this.onSaveAddPoop} />;
   }
 }
 

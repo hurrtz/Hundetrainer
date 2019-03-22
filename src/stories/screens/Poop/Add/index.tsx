@@ -15,9 +15,11 @@ import {
   Right,
 } from 'native-base';
 
+import { TNavigation } from 'apptypes/base';
 import { QUALITY, IPoop } from 'apptypes/poop';
 
 interface Props {
+  navigation: TNavigation;
   onSave: Function;
 }
 

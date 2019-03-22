@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import { TNavigation } from 'apptypes/base';
 import MyDog from 'stories/screens/MyDog';
 
 interface Props {
-  navigation: any;
+  navigation: TNavigation;
 }
 
 interface State {}

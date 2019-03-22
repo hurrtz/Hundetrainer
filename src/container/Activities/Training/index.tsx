@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
+import { TNavigation } from 'apptypes/base';
 import Training from 'stories/screens/Activities/Training';
 
 interface Props {
-  navigation: any;
+  navigation: TNavigation;
 }
 
 interface State {}

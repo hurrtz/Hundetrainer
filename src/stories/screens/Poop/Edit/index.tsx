@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { H1, Text } from 'native-base';
-import { NavigationComponent } from 'react-navigation';
 
+import { TNavigation } from 'apptypes/base';
 import { IPoop } from 'apptypes/poop';
 
 interface Props {
-  navigation: NavigationComponent;
+  navigation: TNavigation;
 }
 
 interface State {}

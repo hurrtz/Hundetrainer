@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 
+import { TNavigation } from 'apptypes/base';
 import Toys from 'stories/screens/Activities/Toys';
 
 interface Props {
-  navigation: any;
+  navigation: TNavigation;
 }
 
 interface State {}

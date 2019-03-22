@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { NavigationComponent } from 'react-navigation';
 
+import { TNavigation } from 'apptypes/base';
 import { HeaderButtons, Item } from 'ui/HeaderButtons';
 import PoopEdit from 'stories/screens/Poop/Edit';
 
 interface Props {
-  navigation: NavigationComponent;
+  navigation: TNavigation;
 }
 
 interface State {}

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Item, Input, Icon, Form, Toast } from 'native-base';
 import { Field, reduxForm, InjectedFormProps } from 'redux-form';
-import { NavigationComponent } from 'react-navigation';
 
+import { TNavigation } from 'apptypes/base';
 import Login from 'stories/screens/Login';
 
 import { required, email } from 'validators';
 
 interface Props extends InjectedFormProps {
-  navigation: NavigationComponent;
+  navigation: TNavigation;
   valid: boolean;
 }
 

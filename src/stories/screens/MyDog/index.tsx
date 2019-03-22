@@ -9,10 +9,11 @@ import {
   Body,
   Right,
 } from 'native-base';
-import { NavigationComponent } from 'react-navigation';
+
+import { TNavigation } from 'apptypes/base';
 
 interface Props {
-  navigation: NavigationComponent;
+  navigation: TNavigation;
 }
 
 interface State {}
