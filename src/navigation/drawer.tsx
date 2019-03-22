@@ -2,39 +2,39 @@ import { createDrawerNavigator } from 'react-navigation';
 
 import ActivitiesNavigator from 'navigation/activities';
 
-import DashboardContainer from 'container/DashboardContainer';
-import AddressBookContainer from 'container/AddressBookContainer';
-import HealthContainer from 'container/HealthContainer';
-import CalendarContainer from 'container/CalendarContainer';
-import PoopsContainer from 'container/PoopsContainer';
-import MyDogContainer from 'container/MyDogContainer';
-import SettingsContainer from 'container/SettingsContainer';
+import Dashboard from 'container/Dashboard';
+import AddressBook from 'container/AddressBook';
+import Health from 'container/Health';
+import Calendar from 'container/Calendar';
+import Poop from 'container/Poop';
+import MyDog from 'container/MyDog';
+import Settings from 'container/Settings';
 
 const DrawerNavigator = createDrawerNavigator(
   {
     Dashboard: {
-      screen: DashboardContainer,
+      screen: Dashboard,
     },
     Activities: {
       screen: ActivitiesNavigator,
     },
     Health: {
-      screen: HealthContainer,
+      screen: Health,
     },
     Calendar: {
-      screen: CalendarContainer,
+      screen: Calendar,
     },
-    Poops: {
-      screen: PoopsContainer,
+    Poop: {
+      screen: Poop,
     },
     AddressBook: {
-      screen: AddressBookContainer,
+      screen: AddressBook,
     },
     MyDog: {
-      screen: MyDogContainer,
+      screen: MyDog,
     },
     Settings: {
-      screen: SettingsContainer,
+      screen: Settings,
     },
   },
   {
@@ -47,7 +47,7 @@ const DrawerNavigator = createDrawerNavigator(
           case 'Activities':
             return 'Beschäftigung';
 
-          case 'Poops':
+          case 'Poop':
             return 'Stuhlgang';
 
           case 'MyDog':

@@ -12,7 +12,7 @@ import {
 import { NavigationComponent } from 'react-navigation';
 
 import { IPoop } from 'apptypes/poop';
-import PoopList from './PoopsList';
+import PoopList from './PoopList';
 
 interface Props {
   navigation: NavigationComponent;
@@ -22,7 +22,7 @@ interface Props {
 
 interface State {}
 
-class Poops extends Component<Props, State> {
+class Poop extends Component<Props, State> {
   showPoopModal() {
     const { toggleAddPoop } = this.props;
 
@@ -64,4 +64,4 @@ class Poops extends Component<Props, State> {
   }
 }
 
-export default Poops;
+export default Poop;

@@ -2,17 +2,17 @@ import React from 'react';
 import { createBottomTabNavigator } from 'react-navigation';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import TrainingContainer from 'container/Activities/TrainingContainer';
-import PlacesContainer from 'container/Activities/PlacesContainer';
-import ToysContainer from 'container/Activities/ToysContainer';
-import NotesContainer from 'container/Activities/NotesContainer';
+import Training from 'container/Activities/Training';
+import Places from 'container/Activities/Places';
+import Toys from 'container/Activities/Toys';
+import Notes from 'container/Activities/Notes';
 
 const ActivitiesNavigator = createBottomTabNavigator(
   {
-    Training: { screen: TrainingContainer },
-    Places: { screen: PlacesContainer },
-    Toys: { screen: ToysContainer },
-    Notes: { screen: NotesContainer },
+    Training: { screen: Training },
+    Places: { screen: Places },
+    Toys: { screen: Toys },
+    Notes: { screen: Notes },
   },
   {
     initialRouteName: 'Training',

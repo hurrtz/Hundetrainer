@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Toast } from 'native-base';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import { retrieveData, storeData } from 'storage';
-import Poops from 'stories/screens/Poops';
+import Poop from 'stories/screens/Poop';
 import ModalPoopAdd from 'stories/modals/Poop/add';
 import { IPoop } from 'apptypes/poop';
 
@@ -15,7 +15,7 @@ interface State {
   modalPoopAddVisible: boolean;
 }
 
-class PoopsContainer extends Component<Props, State> {
+class PoopContainer extends Component<Props, State> {
   static navigationOptions = {
     drawerIcon: () => <IconComponent name="emoticon-poop" size={25} />,
   };
@@ -78,7 +78,7 @@ class PoopsContainer extends Component<Props, State> {
 
     return (
       <Fragment>
-        <Poops
+        <Poop
           navigation={navigation}
           poops={poops}
           toggleAddPoop={this.toggleModalPoopAddShow}
@@ -93,4 +93,4 @@ class PoopsContainer extends Component<Props, State> {
   }
 }
 
-export default PoopsContainer;
+export default PoopContainer;
