@@ -23,6 +23,8 @@
       "assets/*": ["assets/*"],
       "boot/*": ["boot/*"],
       "container/*": ["container/*"],
+      "enhancers/*": ["enhancers/*"],
+      "middleware/*": ["middleware/*"],
       "navigation/*": ["navigation/*"],
       "reducers/*": ["reducers/*"],
       "storage/*": ["storage/*"],

@@ -3,8 +3,7 @@ import { createAppContainer } from 'react-navigation';
 import { Root } from 'native-base';
 import { StatusBar } from 'react-native';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import rootReducer from './reducers';
+import configureStore from './configureStore';
 
 import DrawerNavigator from 'navigation/drawer';
 
@@ -14,7 +13,7 @@ interface Props {}
 
 interface State {}
 
-const store = createStore(rootReducer);
+const store = configureStore();
 
 class AppRoot extends Component<Props, State> {
   render() {
