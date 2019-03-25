@@ -1,4 +1,4 @@
-import boot from './artifacts/boot/index';
+import boot from './artifacts/boot';
 
 const app = boot();
 
