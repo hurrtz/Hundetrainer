@@ -13,6 +13,9 @@ import {
   Subtitle,
 } from 'native-base';
 
+// @ts-ignore
+import { version } from '../../../../package.json';
+
 import { TNavigation } from 'apptypes/base';
 import BoGamePicture from 'assets/images/bo/game.png';
 
@@ -75,7 +78,7 @@ class Dashboard extends Component<Props, State> {
               color: '#000',
             }}
           >
-            v.1.1.0
+            {version}
           </Subtitle>
         </Content>
       </Container>
