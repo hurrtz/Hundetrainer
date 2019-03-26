@@ -25,12 +25,18 @@ class PoopEntry extends Component<Props, State> {
     return <IconComponent name="emoticon-sad-outline" size={25} />;
   }
 
-  getTwoDigitNumber(value: number): string {
-    if (String(value).length === 1) {
-      return `0${value}`;
+  createIconAdditionalInformations() {
+    const { poop } = this.props;
+
+    if (poop.additionalInformation) {
+      return <IconComponent name="note" size={25} />;
     }
 
-    return String(value);
+    return undefined;
+  }
+
+  getTwoDigitNumber(value: number): string {
+    return value < 10 ? `0${value}` : String(value);
   }
 
   formatDate(_date: string) {
@@ -47,11 +53,12 @@ class PoopEntry extends Component<Props, State> {
     const { poop, navigation } = this.props;
 
     return (
-      <CardItem button onPress={() => navigation.push('PoopEdit', { poop })}>
+      <CardItem button onPress={() => navigation.push('PoopDetails', { poop })}>
         <Body style={{ minWidth: 150 }}>
           <Text>{this.formatDate(poop.date)}</Text>
         </Body>
 
+        <Right>{this.createIconAdditionalInformations()}</Right>
         <Right>{this.createEmoticon(poop.quality)}</Right>
       </CardItem>
     );

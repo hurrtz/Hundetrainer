@@ -21,7 +21,10 @@ function* fetchPoops() {
     },
   });
 
-  yield put(setPoops(poops));
+  if (poops && poops.length > 0) {
+    yield put(setPoops(poops));
+  }
+
   yield put(isLoading(false));
 }
 

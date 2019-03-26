@@ -4,7 +4,6 @@ import {
   Content,
   Button,
   Text,
-  DatePicker,
   Form,
   Item,
   Label,
@@ -14,23 +13,32 @@ import {
   Left,
   Right,
 } from 'native-base';
+import DatePicker from 'react-native-datepicker';
 
 import { TNavigation } from 'apptypes/base';
-import { QUALITY, IPoop } from 'apptypes/poop';
+import { QUALITY } from 'apptypes/poop';
 
 interface Props {
   navigation: TNavigation;
   onSave: Function;
 }
 
-interface State extends IPoop {}
+interface State {
+  date: Date;
+  time: Date;
+  quality: QUALITY;
+  additionalInformation: string;
+}
 
 class PoopAdd extends Component<Props, State> {
   constructor(props) {
     super(props);
 
+    const now = new Date();
+
     this.state = {
-      date: new Date().toISOString(),
+      date: now,
+      time: now,
       quality: QUALITY.GOOD,
       additionalInformation: '',
     };
@@ -38,11 +46,19 @@ class PoopAdd extends Component<Props, State> {
 
   handleClose() {
     const { onSave } = this.props;
-    const { quality, additionalInformation } = this.state;
+    const { date, time, quality, additionalInformation } = this.state;
 
     if (onSave) {
       onSave({
-        date: new Date().toISOString(),
+        date: new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          date.getDate(),
+          time.getHours(),
+          time.getMinutes(),
+          time.getSeconds(),
+          0,
+        ).toISOString(),
         quality,
         additionalInformation,
       });
@@ -50,7 +66,11 @@ class PoopAdd extends Component<Props, State> {
   }
 
   handleChangeDate(date: Date) {
-    this.setState(prevState => ({ ...prevState, date: date.toISOString() }));
+    this.setState(prevState => ({ ...prevState, date }));
+  }
+
+  handleChangeTime(time: Date) {
+    this.setState(prevState => ({ ...prevState, time }));
   }
 
   handleChangeQuality(value: QUALITY) {
@@ -59,14 +79,6 @@ class PoopAdd extends Component<Props, State> {
 
   handleAdditionalInformationChange(text: string) {
     this.setState(prevState => ({ ...prevState, additionalInformation: text }));
-  }
-
-  formatDate() {
-    const { date: _date } = this.state;
-    const date = new Date(_date);
-
-    return `${date.getDate()}.${date.getMonth() +
-      1}.${date.getFullYear()}, ${date.getHours()}:${date.getMinutes()} Uhr`;
   }
 
   createListQualityItem({
@@ -119,28 +131,54 @@ class PoopAdd extends Component<Props, State> {
   }
 
   render() {
-    const { date, additionalInformation } = this.state;
+    const { date, time, additionalInformation } = this.state;
 
     return (
       <Container>
         <Content>
           <Form>
             <Item>
-              <Label>Zeitpunkt:</Label>
+              <Label>Tag:</Label>
               <DatePicker
-                defaultDate={new Date(date)}
-                locale={'DE-de'}
-                timeZoneOffsetInMinutes={undefined}
-                modalTransparent={false}
-                animationType="fade"
-                androidMode="default"
-                placeHolderText={this.formatDate()}
-                textStyle={{ color: 'green' }}
-                placeHolderTextStyle={{ color: '#d3d3d3' }}
-                onDateChange={(changedDate: Date) =>
+                mode="date"
+                format="DD.MM.YYYY"
+                confirmBtnText="OK"
+                cancelBtnText="Abbrechen"
+                date={date}
+                onDateChange={(_dateString, changedDate: Date) =>
                   this.handleChangeDate(changedDate)
                 }
-                disabled={false}
+                showIcon={false}
+                customStyles={{
+                  dateInput: {
+                    borderWidth: 0,
+                    padding: 5,
+                    alignItems: 'flex-start',
+                  },
+                }}
+              />
+            </Item>
+
+            <Item>
+              <Label>Uhrzeit:</Label>
+              <DatePicker
+                mode="time"
+                format="HH:mm \U\h\r"
+                confirmBtnText="OK"
+                cancelBtnText="Abbrechen"
+                date={time}
+                onDateChange={(_dateString, changedDate: Date) =>
+                  this.handleChangeTime(changedDate)
+                }
+                showIcon={false}
+                customStyles={{
+                  dateInput: {
+                    borderWidth: 0,
+                    padding: 5,
+                    alignItems: 'flex-start',
+                  },
+                }}
+                is24Hour
               />
             </Item>
 

@@ -6,7 +6,7 @@ const selectPoopState = (state: RootState) => state.Poop;
 
 const itemsSelector = createSelector(
   selectPoopState,
-  state => state.items,
+  state => state.items || [],
 );
 
 const itemsSortedByDateSelector = createSelector(

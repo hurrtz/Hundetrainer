@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Toast } from 'native-base';
+import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 
 import { TNavigation } from 'apptypes/base';
@@ -29,15 +30,30 @@ class PoopEditContainer extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    this.onDelete = this.onDelete.bind(this);
+    this.onDeleteConfirmation = this.onDeleteConfirmation.bind(this);
   }
 
   componentDidMount() {
     const { navigation } = this.props;
 
     navigation.setParams({
-      onDelete: this.onDelete,
+      onDelete: this.onDeleteConfirmation,
     });
+  }
+
+  onDeleteConfirmation() {
+    Alert.alert(
+      'Löschen',
+      'Soll dieser Stuhlgang wirklich gelöscht werden?',
+      [
+        { text: 'Ja', onPress: () => this.onDelete() },
+        {
+          text: 'Abbrechen',
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false },
+    );
   }
 
   onDelete() {
@@ -51,7 +67,7 @@ class PoopEditContainer extends Component<Props, State> {
       text: 'Stuhlgang gelöscht!',
     });
 
-    navigation.goBack();
+    navigation.pop(2);
   }
 
   render() {
