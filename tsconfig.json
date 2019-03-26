@@ -24,7 +24,6 @@
       "boot/*": ["boot/*"],
       "container/*": ["container/*"],
       "navigation/*": ["navigation/*"],
-      "reducers/*": ["reducers/*"],
       "storage/*": ["storage/*"],
       "stories/*": ["stories/*"],
       "theme/*": ["theme/*"],

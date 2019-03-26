@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import { Toast } from 'native-base';
+import { connect } from 'react-redux';
 
 import { TNavigation } from 'apptypes/base';
 import { IPoop } from 'apptypes/poop';
-import { retrieveData, storeData } from 'storage';
 import { Delete } from 'ui/HeaderButtons';
 import PoopEdit from 'stories/screens/Poop/Edit';
+import { removePoop } from '../actions';
 
 interface Props {
   navigation: TNavigation;
+  removePoop: Function;
 }
 
 interface State {}
@@ -39,25 +41,17 @@ class PoopEditContainer extends Component<Props, State> {
   }
 
   onDelete() {
-    const { navigation } = this.props;
+    const { navigation, removePoop: remove } = this.props;
     const poopToDelete = navigation.getParam('poop') as IPoop;
 
-    retrieveData({
-      key: 'poops',
-      callback: (poops: IPoop[]) =>
-        storeData({
-          key: 'poops',
-          value: poops.filter(poop => poop.date !== poopToDelete.date),
-          callback: () => {
-            Toast.show({
-              type: 'success',
-              text: 'Stuhlgang gelöscht!',
-            });
+    remove(poopToDelete);
 
-            navigation.goBack();
-          },
-        }),
+    Toast.show({
+      type: 'success',
+      text: 'Stuhlgang gelöscht!',
     });
+
+    navigation.goBack();
   }
 
   render() {
@@ -67,4 +61,9 @@ class PoopEditContainer extends Component<Props, State> {
   }
 }
 
-export default PoopEditContainer;
+const mapDispatchToProps = { removePoop };
+
+export default connect(
+  undefined,
+  mapDispatchToProps,
+)(PoopEditContainer);

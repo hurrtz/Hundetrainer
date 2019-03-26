@@ -1,54 +1,49 @@
 import React, { Component } from 'react';
 import { Toast } from 'native-base';
+import { connect } from 'react-redux';
 
-import { retrieveData, storeData } from 'storage';
 import PoopAdd from 'stories/screens/Poop/Add';
 import { IPoop } from 'apptypes/poop';
 import { TNavigation } from 'apptypes/base';
+import { addPoop } from '../actions';
 
 interface Props {
   navigation: TNavigation;
+  addPoop: Function;
 }
 
 interface State {}
 
 class PoopAddContainer extends Component<Props, State> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
-    this.onSaveAddPoop = this.onSaveAddPoop.bind(this);
+    this.onHandleSave = this.onHandleSave.bind(this);
   }
 
-  onSaveAddPoop(poop: IPoop) {
-    retrieveData({
-      key: 'poops',
-      callback: (currentPoops: IPoop[]) => {
-        const newPoop = { ...poop };
-        const poops = [...(currentPoops || [])];
+  onHandleSave(poop: IPoop) {
+    const { addPoop: save, navigation } = this.props;
 
-        storeData({
-          key: 'poops',
-          value: [...poops, newPoop],
-          callback: () => {
-            const { navigation } = this.props;
+    save(poop);
 
-            Toast.show({
-              type: 'success',
-              text: 'Stuhlgang gespeichert!',
-            });
-
-            navigation.goBack();
-          },
-        });
-      },
+    Toast.show({
+      type: 'success',
+      text: 'Stuhlgang gespeichert!',
     });
+
+    navigation.goBack();
   }
 
   render() {
     const { navigation } = this.props;
 
-    return <PoopAdd navigation={navigation} onSave={this.onSaveAddPoop} />;
+    return <PoopAdd navigation={navigation} onSave={this.onHandleSave} />;
   }
 }
 
-export default PoopAddContainer;
+const mapDispatchToProps = { addPoop };
+
+export default connect(
+  undefined,
+  mapDispatchToProps,
+)(PoopAddContainer);

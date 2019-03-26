@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
 import { Container } from 'native-base';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-import { retrieveData } from 'storage';
 import PoopOverview from 'stories/screens/Poop/Overview';
 import { IPoop } from 'apptypes/poop';
 import { Drawer, Add } from 'ui/HeaderButtons';
 import { TNavigation, INavigation } from 'apptypes/base';
+import { load } from '../actions';
+import { itemsSelector } from '../selectors';
 
 interface Props {
   navigation: TNavigation;
+  loadPoops: Function;
+  poops: IPoop[];
 }
 
 interface State {
-  poops: IPoop[];
   modalPoopAddVisible: boolean;
 }
 
@@ -36,31 +40,17 @@ class PoopOverviewContainer extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
+    const { loadPoops } = props;
+
     this.state = {
-      poops: [],
       modalPoopAddVisible: false,
     };
 
-    this.fetchPoops();
-  }
-
-  fetchPoops() {
-    retrieveData({
-      key: 'poops',
-      callback: (poops: IPoop[]) => {
-        if (poops && poops.length) {
-          this.setState(prevState => ({
-            ...prevState,
-            poops,
-          }));
-        }
-      },
-    });
+    loadPoops();
   }
 
   render() {
-    const { navigation } = this.props;
-    const { poops } = this.state;
+    const { navigation, poops } = this.props;
 
     return (
       <Container>
@@ -70,4 +60,13 @@ class PoopOverviewContainer extends Component<Props, State> {
   }
 }
 
-export default PoopOverviewContainer;
+const mapStateToProps = createStructuredSelector({
+  poops: itemsSelector,
+});
+
+const mapDispatchToProps = { loadPoops: load };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(PoopOverviewContainer);
