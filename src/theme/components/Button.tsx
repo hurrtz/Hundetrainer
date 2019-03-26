@@ -1,4 +1,4 @@
-import variable from './../variables/platform';
+import variable from 'theme/variables/platform';
 
 export default (variables = variable) => {
   const platformStyle = variables.platformStyle;
@@ -460,7 +460,6 @@ export default (variables = variable) => {
     },
 
     paddingVertical: variables.buttonPadding,
-    // paddingHorizontal: variables.buttonPadding + 10,
     backgroundColor: variables.btnPrimaryBg,
     borderRadius: variables.borderRadiusBase,
     borderColor: variables.btnPrimaryBg,
@@ -477,5 +476,6 @@ export default (variables = variable) => {
     alignItems: 'center',
     justifyContent: 'space-between',
   };
+
   return buttonTheme;
 };

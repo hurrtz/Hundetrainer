@@ -16,7 +16,20 @@
     "noImplicitReturns": true,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
-    "types": ["react", "react-native", "jest"]
+    "types": ["react", "react-native", "jest"],
+    "baseUrl": "src",
+    "paths": {
+      "apptypes/*": ["apptypes/*"],
+      "assets/*": ["assets/*"],
+      "boot/*": ["boot/*"],
+      "container/*": ["container/*"],
+      "navigation/*": ["navigation/*"],
+      "storage/*": ["storage/*"],
+      "stories/*": ["stories/*"],
+      "theme/*": ["theme/*"],
+      "ui/*": ["ui/*"],
+      "validators/*": ["validators/*"]
+    }
   },
   "types": ["react", "react-native", "jest"],
   "exclude": ["android", "App.js", "ios", "build", "node_modules", "__tests__"],

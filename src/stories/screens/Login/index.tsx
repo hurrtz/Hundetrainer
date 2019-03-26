@@ -1,59 +1,43 @@
-import * as React from 'react';
-import { Image, Platform } from 'react-native';
-import {
-  Container,
-  Content,
-  Header,
-  Body,
-  Title,
-  Button,
-  Text,
-  View,
-  Icon,
-  Footer,
-} from 'native-base';
+import React, { Component } from 'react';
+import { Image } from 'react-native';
+import { Container, Content, Button, Text, View, Footer } from 'native-base';
 
-export interface Props {
+import GameImage from 'assets/images/bo/game.png';
+import PawImage from 'assets/images/paw.png';
+
+interface Props {
   loginForm: any;
   onLogin: Function;
 }
 
-export interface State {}
+interface State {}
 
-class Login extends React.Component<Props, State> {
+class Login extends Component<Props, State> {
   render() {
+    const { loginForm, onLogin } = this.props;
+
     return (
       <Container>
-        <Header style={{ height: 200 }}>
-          <Body style={{ alignItems: 'center' }}>
-            <Icon name="flash" style={{ fontSize: 104 }} />
-            <Title>ReactNativeSeed.com</Title>
-            <View padder>
-              <Text
-                style={{ color: Platform.OS === 'ios' ? '#000' : '#FFF' }}
-              />
-            </View>
-          </Body>
-        </Header>
         <Content>
-          {this.props.loginForm}
+          <Image source={GameImage} style={{ width: '100%', height: '200%' }} />
+
+          {loginForm}
+
           <View padder>
-            <Button block onPress={() => this.props.onLogin()}>
+            <Button block onPress={() => onLogin()}>
               <Text>Login</Text>
             </Button>
           </View>
         </Content>
+
         <Footer style={{ backgroundColor: '#F8F8F8' }}>
           <View
             style={{ alignItems: 'center', opacity: 0.5, flexDirection: 'row' }}
           >
             <View padder>
-              <Text style={{ color: '#000' }}>Made with love at </Text>
+              <Text style={{ color: '#000' }}>May the dog be wuff you. </Text>
             </View>
-            <Image
-              source={{ uri: 'https://geekyants.com/images/logo-dark.png' }}
-              style={{ width: 422 / 4, height: 86 / 4 }}
-            />
+            <Image source={PawImage} style={{ width: 25, height: 25 }} />
           </View>
         </Footer>
       </Container>

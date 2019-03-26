@@ -1,46 +1,25 @@
-import React from 'react';
-import {
-  createStackNavigator,
-  createDrawerNavigator,
-  createAppContainer,
-} from 'react-navigation';
+import React, { Component } from 'react';
 import { Root } from 'native-base';
-import { Dimensions } from 'react-native';
+import { StatusBar } from 'react-native';
+import { createAppContainer } from 'react-navigation';
 
-const deviceWidth = Dimensions.get('window').width;
+import DrawerNavigator from 'navigation/drawer';
 
-import Login from './container/LoginContainer';
-import Home from './container/HomeContainer';
-import BlankPage from './container/BlankPageContainer';
-import Sidebar from './container/SidebarContainer';
+interface Props {}
 
-const Drawer = createDrawerNavigator(
-  {
-    Home: { screen: Home },
-  },
-  {
-    drawerWidth: deviceWidth - 50,
-    drawerPosition: 'left',
-    contentComponent: (props: any) => <Sidebar {...props} />,
-  },
-);
+interface State {}
 
-const AppNavigator = createStackNavigator(
-  {
-    Login: { screen: Login },
-    BlankPage: { screen: BlankPage },
-    Drawer: { screen: Drawer },
-  },
-  {
-    initialRouteName: 'Login',
-    headerMode: 'none',
-  },
-);
+const Navigation = createAppContainer(DrawerNavigator);
 
-const App = createAppContainer(AppNavigator);
+class AppRoot extends Component<Props, State> {
+  render() {
+    return (
+      <Root>
+        <StatusBar hidden />
+        <Navigation />
+      </Root>
+    );
+  }
+}
 
-export default () => (
-  <Root>
-    <App />
-  </Root>
-);
+export default AppRoot;
