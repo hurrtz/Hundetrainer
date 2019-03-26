@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Body, Card, CardItem, Text, Right } from 'native-base';
+import { Body, CardItem, Text, Right } from 'native-base';
 
 import { TNavigation } from 'apptypes/base';
 import { IPoop, QUALITY } from 'apptypes/poop';

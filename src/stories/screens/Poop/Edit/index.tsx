@@ -32,6 +32,7 @@ class PoopEdit extends Component<Props, State> {
       <Fragment>
         <H1>Edit le poop</H1>
         <Text>{poop.date}</Text>
+        <Text>{poop.additionalInformation}</Text>
       </Fragment>
     );
   }
