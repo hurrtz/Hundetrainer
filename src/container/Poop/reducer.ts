@@ -5,6 +5,7 @@ import {
   IS_LOADING,
   SET_POOPS,
   SET_POOP_IN_STATE,
+  UPDATE_POOP_IN_STATE,
   REMOVE_POOP_FROM_STATE,
 } from './actions';
 
@@ -20,6 +21,17 @@ const initialState: State = {
 
 function setPoop(state: State, poop: IPoop) {
   return { ...state, items: [...state.items, poop] };
+}
+
+function updatePoop(state: State, currentPoop: IPoop, newPoop: IPoop) {
+  return {
+    ...state,
+    items: [
+      ...state.items.map((poop: IPoop) =>
+        poop.date === currentPoop.date ? newPoop : poop,
+      ),
+    ],
+  };
 }
 
 function removePoop(state: State, poopToDelete: IPoop) {
@@ -39,6 +51,9 @@ export default function(state: State = initialState, action: AnyAction): State {
 
     case SET_POOP_IN_STATE:
       return setPoop(state, action.poop);
+
+    case UPDATE_POOP_IN_STATE:
+      return updatePoop(state, action.currentPoop, action.newPoop);
 
     case REMOVE_POOP_FROM_STATE:
       return removePoop(state, action.poop);

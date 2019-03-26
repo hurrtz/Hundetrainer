@@ -31,7 +31,7 @@ interface State {
 }
 
 class PoopAdd extends Component<Props, State> {
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     const now = new Date();

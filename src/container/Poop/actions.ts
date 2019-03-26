@@ -9,8 +9,15 @@ export const SET_POOPS = `${NS}: Storing poops in state`;
 export const ADD_POOP = `${NS}: Adding a new poop`;
 export const SET_POOP_IN_STATE = `${NS}: Storing poop in state`;
 export const SET_POOP_IN_DB = `${NS}: Storing poop in DB`;
+export const UPDATE_POOP_IN_STATE = `${NS}: Updating poop in state`;
+export const UPDATE_POOP_IN_DB = `${NS}: Updating poop in DB`;
 export const REMOVE_POOP_FROM_STATE = `${NS}: Removing poop from state`;
 export const REMOVE_POOP_FROM_DB = `${NS}: Removing poop from DB`;
+
+interface IUpdatePoops {
+  currentPoop: IPoop;
+  newPoop: IPoop;
+}
 
 export function isLoading(bool: boolean) {
   return {
@@ -50,6 +57,29 @@ export function setPoopInDB(poop: IPoop) {
   return {
     type: SET_POOP_IN_DB,
     poop,
+  };
+}
+
+export function updatePoop({ currentPoop, newPoop }: IUpdatePoops) {
+  return (dispatch: Dispatch) => {
+    dispatch(updatePoopInState({ currentPoop, newPoop }));
+    dispatch(updatePoopInDB({ currentPoop, newPoop }));
+  };
+}
+
+export function updatePoopInState({ currentPoop, newPoop }: IUpdatePoops) {
+  return {
+    type: UPDATE_POOP_IN_STATE,
+    currentPoop,
+    newPoop,
+  };
+}
+
+export function updatePoopInDB({ currentPoop, newPoop }: IUpdatePoops) {
+  return {
+    type: UPDATE_POOP_IN_DB,
+    currentPoop,
+    newPoop,
   };
 }
 

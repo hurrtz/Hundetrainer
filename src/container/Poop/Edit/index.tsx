@@ -7,11 +7,12 @@ import { TNavigation } from 'apptypes/base';
 import { IPoop } from 'apptypes/poop';
 import { Delete } from 'ui/HeaderButtons';
 import PoopEdit from 'stories/screens/Poop/Edit';
-import { removePoop } from '../actions';
+import { removePoop, updatePoop } from '../actions';
 
 interface Props {
   navigation: TNavigation;
   removePoop: Function;
+  updatePoop: Function;
 }
 
 interface State {}
@@ -31,6 +32,7 @@ class PoopEditContainer extends Component<Props, State> {
     super(props);
 
     this.onDeleteConfirmation = this.onDeleteConfirmation.bind(this);
+    this.onHandleSave = this.onHandleSave.bind(this);
   }
 
   componentDidMount() {
@@ -56,6 +58,19 @@ class PoopEditContainer extends Component<Props, State> {
     );
   }
 
+  onHandleSave(poop: IPoop) {
+    const { updatePoop: update, navigation } = this.props;
+
+    update({ currentPoop: navigation.getParam('poop'), newPoop: poop });
+
+    Toast.show({
+      type: 'success',
+      text: 'Stuhlgang gespeichert!',
+    });
+
+    navigation.pop(2);
+  }
+
   onDelete() {
     const { navigation, removePoop: remove } = this.props;
     const poopToDelete = navigation.getParam('poop') as IPoop;
@@ -73,11 +88,11 @@ class PoopEditContainer extends Component<Props, State> {
   render() {
     const { navigation } = this.props;
 
-    return <PoopEdit navigation={navigation} />;
+    return <PoopEdit navigation={navigation} onSave={this.onHandleSave} />;
   }
 }
 
-const mapDispatchToProps = { removePoop };
+const mapDispatchToProps = { removePoop, updatePoop };
 
 export default connect(
   undefined,
