@@ -8,7 +8,7 @@ import { IPoop } from 'apptypes/poop';
 import { Drawer, Add } from 'ui/HeaderButtons';
 import { TNavigation, INavigation } from 'apptypes/base';
 import { load } from '../actions';
-import { itemsSelector } from '../selectors';
+import { itemsSortedByDateSelector } from '../selectors';
 
 interface Props {
   navigation: TNavigation;
@@ -61,7 +61,7 @@ class PoopOverviewContainer extends Component<Props, State> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  poops: itemsSelector,
+  poops: itemsSortedByDateSelector,
 });
 
 const mapDispatchToProps = { loadPoops: load };
