@@ -1,22 +1,14 @@
-import React, { Component, Fragment } from 'react';
-import {
-  Container,
-  Content,
-  Button,
-  Text,
-  Form,
-  Item,
-  Label,
-  Textarea,
-  ListItem,
-  Radio,
-  Left,
-  Right,
-} from 'native-base';
-import DatePicker from 'react-native-datepicker';
+import React, { Component } from 'react';
+import { Container, Content, Button, Text, Form } from 'native-base';
 
 import { TNavigation } from 'apptypes/base';
 import { QUALITY } from 'apptypes/poop';
+import {
+  createSelectDate,
+  createSelectTime,
+  createSelectQuality,
+  createSelectAdditionalInformation,
+} from '../shared';
 
 interface Props {
   navigation: TNavigation;
@@ -42,6 +34,13 @@ class PoopAdd extends Component<Props, State> {
       quality: QUALITY.GOOD,
       additionalInformation: '',
     };
+
+    this.handleChangeDate = this.handleChangeDate.bind(this);
+    this.handleChangeTime = this.handleChangeTime.bind(this);
+    this.handleChangeQuality = this.handleChangeQuality.bind(this);
+    this.handleAdditionalInformationChange = this.handleAdditionalInformationChange.bind(
+      this,
+    );
   }
 
   handleClose() {
@@ -81,130 +80,33 @@ class PoopAdd extends Component<Props, State> {
     this.setState(prevState => ({ ...prevState, additionalInformation: text }));
   }
 
-  createListQualityItem({
-    quality,
-    label,
-    noBorder,
-  }: {
-    quality: QUALITY;
-    label: string;
-    noBorder?: boolean;
-  }) {
-    const { quality: selectedQuality } = this.state;
-
-    return (
-      <ListItem
-        selected={selectedQuality === quality}
-        onPress={() => {
-          this.handleChangeQuality(quality);
-        }}
-        noBorder={noBorder}
-      >
-        <Left>
-          <Text>{label}</Text>
-        </Left>
-        <Right>
-          <Radio
-            selectedColor={'#5cb85c'}
-            selected={selectedQuality === quality}
-          />
-        </Right>
-      </ListItem>
-    );
-  }
-
-  createListQuality() {
-    return (
-      <Fragment>
-        {this.createListQualityItem({ quality: QUALITY.GOOD, label: 'gut' })}
-        {this.createListQualityItem({
-          quality: QUALITY.MEDIUM,
-          label: 'mäßig',
-        })}
-        {this.createListQualityItem({
-          quality: QUALITY.BAD,
-          label: 'schlecht',
-          noBorder: true,
-        })}
-      </Fragment>
-    );
-  }
-
   render() {
-    const { date, time, additionalInformation } = this.state;
+    const { date, time, additionalInformation, quality } = this.state;
 
     return (
       <Container>
         <Content>
           <Form>
-            <Item>
-              <Label>Tag:</Label>
-              <DatePicker
-                mode="date"
-                format="DD.MM.YYYY"
-                confirmBtnText="OK"
-                cancelBtnText="Abbrechen"
-                date={date}
-                onDateChange={(_dateString, changedDate: Date) =>
-                  this.handleChangeDate(changedDate)
-                }
-                showIcon={false}
-                customStyles={{
-                  dateInput: {
-                    borderWidth: 0,
-                    padding: 5,
-                    alignItems: 'flex-start',
-                  },
-                }}
-              />
-            </Item>
+            {createSelectDate({
+              date,
+              handleChangeDate: this.handleChangeDate,
+            })}
 
-            <Item>
-              <Label>Uhrzeit:</Label>
-              <DatePicker
-                mode="time"
-                format="HH:mm \U\h\r"
-                confirmBtnText="OK"
-                cancelBtnText="Abbrechen"
-                date={time}
-                onDateChange={(_dateString, changedDate: Date) =>
-                  this.handleChangeTime(changedDate)
-                }
-                showIcon={false}
-                customStyles={{
-                  dateInput: {
-                    borderWidth: 0,
-                    padding: 5,
-                    alignItems: 'flex-start',
-                  },
-                }}
-                is24Hour
-              />
-            </Item>
+            {createSelectTime({
+              time,
+              handleChangeTime: this.handleChangeTime,
+            })}
 
-            <Item>
-              <Label>Qualität:</Label>
-              <Content>{this.createListQuality()}</Content>
-            </Item>
+            {createSelectQuality({
+              qualitySelected: quality,
+              handleChangeQuality: this.handleChangeQuality,
+            })}
 
-            <Content padder>
-              <Textarea
-                rowSpan={5}
-                placeholder="Sonstige Informationen"
-                style={{
-                  borderStyle: 'solid',
-                  borderWidth: 1,
-                  borderColor: '#CCC',
-                  marginLeft: -5,
-                  marginRight: -5,
-                  marginTop: -5,
-                }}
-                defaultValue={additionalInformation}
-                onChangeText={(text: string) =>
-                  this.handleAdditionalInformationChange(text)
-                }
-              />
-            </Content>
+            {createSelectAdditionalInformation({
+              additionalInformation,
+              handleAdditionalInformationChange: this
+                .handleAdditionalInformationChange,
+            })}
           </Form>
 
           <Button
