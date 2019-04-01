@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Body, CardItem, Text, Right } from 'native-base';
+import EntypoIconComponent from 'react-native-vector-icons/Entypo';
+import MaterialIconComponent from 'react-native-vector-icons/MaterialIcons';
+import { Body, CardItem, Text, Right, Left } from 'native-base';
 
 import { TNavigation } from 'apptypes/base';
 import { IPoop, QUALITY } from 'apptypes/poop';
@@ -13,23 +15,39 @@ interface Props {
 interface State {}
 
 class PoopEntry extends Component<Props, State> {
-  createEmoticon(type: QUALITY) {
-    if (type === QUALITY.GOOD) {
-      return <IconComponent name="emoticon-outline" size={25} />;
+  createEmoticon(poop: IPoop) {
+    const { quality, isConspicuous } = poop;
+
+    if (isConspicuous) {
+      return (
+        <MaterialIconComponent name="error-outline" size={25} color="red" />
+      );
     }
 
-    if (type === QUALITY.MEDIUM) {
-      return <IconComponent name="emoticon-neutral-outline" size={25} />;
+    if (quality === QUALITY.GOOD) {
+      return <IconComponent name="thumb-up" size={25} color="green" />;
     }
 
-    return <IconComponent name="emoticon-sad-outline" size={25} />;
+    if (quality === QUALITY.MEDIUM) {
+      return <IconComponent name="thumbs-up-down" size={25} color="orange" />;
+    }
+
+    return <IconComponent name="thumb-down" size={25} color="red" />;
+  }
+
+  createHasBloodIcon(hasBlood: boolean) {
+    if (hasBlood) {
+      return <EntypoIconComponent name="drop" size={20} color="red" />;
+    }
+
+    return false;
   }
 
   createIconAdditionalInformations() {
     const { poop } = this.props;
 
     if (poop.additionalInformation) {
-      return <IconComponent name="note" size={25} />;
+      return <IconComponent name="note" size={20} />;
     }
 
     return undefined;
@@ -53,14 +71,34 @@ class PoopEntry extends Component<Props, State> {
     const { poop, navigation } = this.props;
 
     return (
-      <CardItem button onPress={() => navigation.push('PoopDetails', { poop })}>
-        <Body style={{ minWidth: 150 }}>
-          <Text>{this.formatDate(poop.date)}</Text>
-        </Body>
+      <Fragment>
+        <CardItem
+          button
+          onPress={() => navigation.push('PoopDetails', { poop })}
+          style={{
+            position: 'relative',
+            zIndex: 2,
+            backgroundColor: 'transparent',
+          }}
+        >
+          <Body style={{ minWidth: 150 }}>
+            <Text>{this.formatDate(poop.date)}</Text>
+          </Body>
 
-        <Right>{this.createIconAdditionalInformations()}</Right>
-        <Right>{this.createEmoticon(poop.quality)}</Right>
-      </CardItem>
+          <Right>{this.createEmoticon(poop)}</Right>
+        </CardItem>
+
+        <CardItem
+          button
+          onPress={() => navigation.push('PoopDetails', { poop })}
+          style={{ position: 'relative', zIndex: 1, marginTop: -25 }}
+        >
+          <Left>
+            {this.createIconAdditionalInformations()}
+            {this.createHasBloodIcon(poop.hasBlood)}
+          </Left>
+        </CardItem>
+      </Fragment>
     );
   }
 }
