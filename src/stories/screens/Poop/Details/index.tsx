@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Content, H1, H2, H3, Text } from 'native-base';
 
 import { TNavigation } from 'apptypes/base';
-import { IPoop, QUALITY } from 'apptypes/poop';
+import { IPoop, QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
 
 interface Props {
   navigation: TNavigation;
@@ -45,29 +45,92 @@ class PoopDetails extends Component<Props, State> {
 
   createQuality() {
     const { poop } = this.navigationProps;
-    let textOut = '';
 
     switch (poop.quality) {
-      case QUALITY.GOOD:
-        textOut += 'gut';
-        break;
+      case QUALITY.BAD:
+        return <Text>schlecht</Text>;
 
       case QUALITY.MEDIUM:
-        textOut += 'mäßig';
-        break;
+        return <Text>mäßig</Text>;
 
       default:
-        textOut += 'schlecht';
+        return <Text>normal</Text>;
     }
-
-    return <Text>{textOut}</Text>;
   }
 
-  createAdditionalInformations() {
+  createConsistency() {
     const { poop } = this.navigationProps;
-    const defaultOut = '- nicht angegeben -';
 
-    return <Text>{poop.additionalInformation || defaultOut}</Text>;
+    switch (poop.consistency) {
+      case CONSISTENCY.LIQUID:
+        return <Text>flüssig</Text>;
+
+      case CONSISTENCY.SOFT:
+        return <Text>weich</Text>;
+
+      case CONSISTENCY.HARD:
+        return <Text>hart</Text>;
+
+      default:
+        return <Text>normal</Text>;
+    }
+  }
+
+  createColor() {
+    const { poop } = this.navigationProps;
+
+    switch (poop.color) {
+      case COLOR.LIGHT:
+        return <Text>hell</Text>;
+
+      case COLOR.OTHER:
+        return <Text>sonstige Farbe</Text>;
+
+      case COLOR.DARK:
+        return <Text>dunkel</Text>;
+
+      case COLOR.BLACK:
+        return <Text>schwarz</Text>;
+
+      default:
+        return <Text>normal</Text>;
+    }
+  }
+
+  createSecondaryInformations() {
+    const { poop } = this.navigationProps;
+    const out = [];
+
+    if (poop.isConspicuous) {
+      out.push(
+        <H3 key="isConspicuous" style={{ marginTop: 25 }}>
+          Auffälliger Stuhl!
+        </H3>,
+      );
+    }
+
+    if (poop.hasBlood) {
+      out.push(
+        <H3 key="hasBlood" style={{ marginTop: 25 }}>
+          Blut im Stuhl!
+        </H3>,
+      );
+    }
+
+    if (poop.additionalInformation) {
+      out.push(
+        <H3 key="additionalInformation-headline" style={{ marginTop: 25 }}>
+          zusätzliche Informationen
+        </H3>,
+      );
+      out.push(
+        <Text key="additionalInformation-value">
+          {poop.additionalInformation}
+        </Text>,
+      );
+    }
+
+    return out;
   }
 
   render() {
@@ -80,8 +143,12 @@ class PoopDetails extends Component<Props, State> {
         <H2>{this.formatTime(date)}</H2>
         <H3 style={{ marginTop: 25 }}>Qualität</H3>
         <Text>{this.createQuality()}</Text>
-        <H3 style={{ marginTop: 25 }}>zusätzliche Informationen</H3>
-        <Text>{this.createAdditionalInformations()}</Text>
+        <H3 style={{ marginTop: 25 }}>Konsistenz</H3>
+        <Text>{this.createConsistency()}</Text>
+        <H3 style={{ marginTop: 25 }}>Farbe</H3>
+        <Text>{this.createColor()}</Text>
+
+        {this.createSecondaryInformations()}
       </Content>
     );
   }
