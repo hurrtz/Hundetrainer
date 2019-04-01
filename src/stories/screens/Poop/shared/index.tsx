@@ -12,18 +12,13 @@ import {
 } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 
-import { QUALITY } from 'apptypes/poop';
+import { QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
 
-interface IListQualityItem {
-  quality: QUALITY;
-  qualitySelected: QUALITY;
+interface IListItem {
+  item: QUALITY | CONSISTENCY | COLOR;
+  itemSelected: QUALITY | CONSISTENCY | COLOR;
   label: string;
   noBorder?: boolean;
-  handleChangeQuality: Function;
-}
-
-interface IListQuality {
-  qualitySelected: QUALITY;
   handleChangeQuality: Function;
 }
 
@@ -47,150 +42,126 @@ interface ISelectAdditionalInformation {
   handleAdditionalInformationChange: Function;
 }
 
-function _createListQualityItem({
-  quality,
-  qualitySelected,
+const _createListItem = ({
+  item,
+  itemSelected,
   label,
   noBorder,
   handleChangeQuality,
-}: IListQualityItem) {
-  return (
-    <ListItem
-      selected={qualitySelected === quality}
-      onPress={() => {
-        handleChangeQuality(quality);
-      }}
-      noBorder={noBorder}
-    >
-      <Left>
-        <Text>{label}</Text>
-      </Left>
-      <Right>
-        <Radio
-          selectedColor={'#5cb85c'}
-          selected={qualitySelected === quality}
-        />
-      </Right>
-    </ListItem>
-  );
-}
+}: IListItem) => (
+  <ListItem
+    selected={itemSelected === item}
+    onPress={() => {
+      handleChangeQuality(item);
+    }}
+    noBorder={noBorder}
+  >
+    <Left>
+      <Text>{label}</Text>
+    </Left>
+    <Right>
+      <Radio selectedColor={'#5cb85c'} selected={itemSelected === item} />
+    </Right>
+  </ListItem>
+);
 
-function _createListQuality({
+export const createSelectQuality = ({
   qualitySelected,
   handleChangeQuality,
-}: IListQuality) {
-  return (
-    <Fragment>
-      {_createListQualityItem({
-        quality: QUALITY.GOOD,
-        qualitySelected,
+}: ISelectQuality) => (
+  <Item>
+    <Label>Qualität:</Label>
+    <Content>
+      {_createListItem({
+        item: QUALITY.GOOD,
+        itemSelected: qualitySelected,
         label: 'gut',
         handleChangeQuality,
       })}
-      {_createListQualityItem({
-        quality: QUALITY.MEDIUM,
-        qualitySelected,
+      {_createListItem({
+        item: QUALITY.MEDIUM,
+        itemSelected: qualitySelected,
         label: 'mäßig',
         handleChangeQuality,
       })}
-      {_createListQualityItem({
-        quality: QUALITY.BAD,
-        qualitySelected,
+      {_createListItem({
+        item: QUALITY.BAD,
+        itemSelected: qualitySelected,
         label: 'schlecht',
         noBorder: true,
         handleChangeQuality,
       })}
-    </Fragment>
-  );
-}
+    </Content>
+  </Item>
+);
 
-export function createSelectQuality({
-  qualitySelected,
-  handleChangeQuality,
-}: ISelectQuality) {
-  return (
-    <Item>
-      <Label>Qualität:</Label>
-      <Content>
-        {_createListQuality({ qualitySelected, handleChangeQuality })}
-      </Content>
-    </Item>
-  );
-}
+export const createSelectDate = ({ date, handleChangeDate }: ISelectDate) => (
+  <Item>
+    <Label>Tag:</Label>
+    <DatePicker
+      mode="date"
+      format="DD.MM.YYYY"
+      confirmBtnText="OK"
+      cancelBtnText="Abbrechen"
+      date={date}
+      onDateChange={(_dateString, changedDate: Date) =>
+        handleChangeDate(changedDate)
+      }
+      showIcon={false}
+      customStyles={{
+        dateInput: {
+          borderWidth: 0,
+          padding: 5,
+          alignItems: 'flex-start',
+        },
+      }}
+    />
+  </Item>
+);
 
-export function createSelectDate({ date, handleChangeDate }: ISelectDate) {
-  return (
-    <Item>
-      <Label>Tag:</Label>
-      <DatePicker
-        mode="date"
-        format="DD.MM.YYYY"
-        confirmBtnText="OK"
-        cancelBtnText="Abbrechen"
-        date={date}
-        onDateChange={(_dateString, changedDate: Date) =>
-          handleChangeDate(changedDate)
-        }
-        showIcon={false}
-        customStyles={{
-          dateInput: {
-            borderWidth: 0,
-            padding: 5,
-            alignItems: 'flex-start',
-          },
-        }}
-      />
-    </Item>
-  );
-}
+export const createSelectTime = ({ time, handleChangeTime }: ISelectTime) => (
+  <Item>
+    <Label>Uhrzeit:</Label>
+    <DatePicker
+      mode="time"
+      format="HH:mm \U\h\r"
+      confirmBtnText="OK"
+      cancelBtnText="Abbrechen"
+      date={time}
+      onDateChange={(_dateString, changedDate: Date) =>
+        handleChangeTime(changedDate)
+      }
+      showIcon={false}
+      customStyles={{
+        dateInput: {
+          borderWidth: 0,
+          padding: 5,
+          alignItems: 'flex-start',
+        },
+      }}
+      is24Hour
+    />
+  </Item>
+);
 
-export function createSelectTime({ time, handleChangeTime }: ISelectTime) {
-  return (
-    <Item>
-      <Label>Uhrzeit:</Label>
-      <DatePicker
-        mode="time"
-        format="HH:mm \U\h\r"
-        confirmBtnText="OK"
-        cancelBtnText="Abbrechen"
-        date={time}
-        onDateChange={(_dateString, changedDate: Date) =>
-          handleChangeTime(changedDate)
-        }
-        showIcon={false}
-        customStyles={{
-          dateInput: {
-            borderWidth: 0,
-            padding: 5,
-            alignItems: 'flex-start',
-          },
-        }}
-        is24Hour
-      />
-    </Item>
-  );
-}
-
-export function createSelectAdditionalInformation({
+export const createSelectAdditionalInformation = ({
   additionalInformation,
   handleAdditionalInformationChange,
-}: ISelectAdditionalInformation) {
-  return (
-    <Content padder>
-      <Textarea
-        rowSpan={5}
-        placeholder="Sonstige Informationen"
-        style={{
-          borderStyle: 'solid',
-          borderWidth: 1,
-          borderColor: '#CCC',
-          marginLeft: -5,
-          marginRight: -5,
-          marginTop: -5,
-        }}
-        defaultValue={additionalInformation}
-        onChangeText={(text: string) => handleAdditionalInformationChange(text)}
-      />
-    </Content>
-  );
-}
+}: ISelectAdditionalInformation) => (
+  <Content padder>
+    <Textarea
+      rowSpan={5}
+      placeholder="Sonstige Informationen"
+      style={{
+        borderStyle: 'solid',
+        borderWidth: 1,
+        borderColor: '#CCC',
+        marginLeft: -5,
+        marginRight: -5,
+        marginTop: -5,
+      }}
+      defaultValue={additionalInformation}
+      onChangeText={(text: string) => handleAdditionalInformationChange(text)}
+    />
+  </Content>
+);
