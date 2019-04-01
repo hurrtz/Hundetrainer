@@ -61,7 +61,16 @@ class PoopAdd extends Component<Props, State> {
 
   handleClose() {
     const { onSave } = this.props;
-    const { date, time, quality, additionalInformation } = this.state;
+    const {
+      date,
+      time,
+      quality,
+      consistency,
+      color,
+      hasBlood,
+      isConspicuous,
+      additionalInformation,
+    } = this.state;
 
     if (onSave) {
       onSave({
@@ -75,6 +84,10 @@ class PoopAdd extends Component<Props, State> {
           0,
         ).toISOString(),
         quality,
+        consistency,
+        color,
+        hasBlood,
+        isConspicuous,
         additionalInformation,
       });
     }
@@ -123,12 +136,12 @@ class PoopAdd extends Component<Props, State> {
     const {
       date,
       time,
-      additionalInformation,
       quality,
       consistency,
       color,
       hasBlood,
       isConspicuous,
+      additionalInformation,
     } = this.state;
 
     return (
