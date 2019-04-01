@@ -9,6 +9,7 @@ import Health from 'container/Health';
 import Calendar from 'container/Calendar';
 import MyDog from 'container/MyDog';
 import Settings from 'container/Settings';
+import Food from 'container/Food';
 
 const DrawerNavigator = createDrawerNavigator(
   {
@@ -17,6 +18,9 @@ const DrawerNavigator = createDrawerNavigator(
     },
     Activities: {
       screen: ActivitiesNavigator,
+    },
+    Food: {
+      screen: Food,
     },
     Health: {
       screen: Health,
@@ -49,6 +53,9 @@ const DrawerNavigator = createDrawerNavigator(
 
           case 'Poop':
             return 'Stuhlgang';
+
+          case 'Food':
+            return 'Ernährung';
 
           case 'MyDog':
             return 'Mein Hund';
