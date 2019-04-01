@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {
   Content,
   Text,
@@ -9,6 +9,8 @@ import {
   Radio,
   Left,
   Right,
+  CheckBox,
+  Body,
 } from 'native-base';
 import DatePicker from 'react-native-datepicker';
 
@@ -19,12 +21,32 @@ interface IListItem {
   itemSelected: QUALITY | CONSISTENCY | COLOR;
   label: string;
   noBorder?: boolean;
-  handleChangeQuality: Function;
+  handleChange: Function;
 }
 
 interface ISelectQuality {
   qualitySelected: QUALITY;
   handleChangeQuality: Function;
+}
+
+interface ISelectConsistency {
+  consistencySelected: CONSISTENCY;
+  handleChangeConsistency: Function;
+}
+
+interface ISelectColor {
+  colorSelected: COLOR;
+  handleChangeColor: Function;
+}
+
+interface ISelectHasBlood {
+  hasBlood: boolean;
+  handleChangeHasBlood: Function;
+}
+
+interface ISelectIsConspicuous {
+  isConspicuous: boolean;
+  handleChangeIsConspicuous: Function;
 }
 
 interface ISelectDate {
@@ -47,12 +69,12 @@ const _createListItem = ({
   itemSelected,
   label,
   noBorder,
-  handleChangeQuality,
+  handleChange,
 }: IListItem) => (
   <ListItem
     selected={itemSelected === item}
     onPress={() => {
-      handleChangeQuality(item);
+      handleChange(item);
     }}
     noBorder={noBorder}
   >
@@ -70,29 +92,139 @@ export const createSelectQuality = ({
   handleChangeQuality,
 }: ISelectQuality) => (
   <Item>
-    <Label>Qualität:</Label>
+    <Label style={{ minWidth: 100 }}>Qualität:</Label>
     <Content>
       {_createListItem({
         item: QUALITY.GOOD,
         itemSelected: qualitySelected,
         label: 'gut',
-        handleChangeQuality,
+        handleChange: handleChangeQuality,
       })}
       {_createListItem({
         item: QUALITY.MEDIUM,
         itemSelected: qualitySelected,
         label: 'mäßig',
-        handleChangeQuality,
+        handleChange: handleChangeQuality,
       })}
       {_createListItem({
         item: QUALITY.BAD,
         itemSelected: qualitySelected,
         label: 'schlecht',
         noBorder: true,
-        handleChangeQuality,
+        handleChange: handleChangeQuality,
       })}
     </Content>
   </Item>
+);
+
+export const createSelectConsistency = ({
+  consistencySelected,
+  handleChangeConsistency,
+}: ISelectConsistency) => (
+  <Item>
+    <Label style={{ minWidth: 100 }}>Konsistenz:</Label>
+    <Content>
+      {_createListItem({
+        item: CONSISTENCY.LIQUID,
+        itemSelected: consistencySelected,
+        label: 'flüssig',
+        handleChange: handleChangeConsistency,
+      })}
+      {_createListItem({
+        item: CONSISTENCY.SOFT,
+        itemSelected: consistencySelected,
+        label: 'weich',
+        handleChange: handleChangeConsistency,
+      })}
+      {_createListItem({
+        item: CONSISTENCY.NORMAL,
+        itemSelected: consistencySelected,
+        label: 'normal',
+        handleChange: handleChangeConsistency,
+      })}
+      {_createListItem({
+        item: CONSISTENCY.HARD,
+        itemSelected: consistencySelected,
+        label: 'hart',
+        handleChange: handleChangeConsistency,
+      })}
+    </Content>
+  </Item>
+);
+
+export const createSelectColor = ({
+  colorSelected,
+  handleChangeColor,
+}: ISelectColor) => (
+  <Item>
+    <Label style={{ minWidth: 100 }}>Farbe:</Label>
+    <Content>
+      {_createListItem({
+        item: COLOR.LIGHT,
+        itemSelected: colorSelected,
+        label: 'hell',
+        handleChange: handleChangeColor,
+      })}
+      {_createListItem({
+        item: COLOR.MEDIUM,
+        itemSelected: colorSelected,
+        label: 'normal',
+        handleChange: handleChangeColor,
+      })}
+      {_createListItem({
+        item: COLOR.DARK,
+        itemSelected: colorSelected,
+        label: 'dunkel',
+        handleChange: handleChangeColor,
+      })}
+      {_createListItem({
+        item: COLOR.BLACK,
+        itemSelected: colorSelected,
+        label: 'schwarz',
+        handleChange: handleChangeColor,
+      })}
+      {_createListItem({
+        item: COLOR.OTHER,
+        itemSelected: colorSelected,
+        label: 'andere Farbe',
+        handleChange: handleChangeColor,
+      })}
+    </Content>
+  </Item>
+);
+
+export const createSelectHasBlood = ({
+  hasBlood,
+  handleChangeHasBlood,
+}: ISelectHasBlood) => (
+  <Content>
+    <ListItem>
+      <CheckBox
+        checked={hasBlood}
+        onPress={() => handleChangeHasBlood(!hasBlood)}
+      />
+      <Body style={{ alignItems: 'flex-start' }}>
+        <Text>Blut im Stuhl</Text>
+      </Body>
+    </ListItem>
+  </Content>
+);
+
+export const createSelectIsConspicuous = ({
+  isConspicuous,
+  handleChangeIsConspicuous,
+}: ISelectIsConspicuous) => (
+  <Content>
+    <ListItem>
+      <CheckBox
+        checked={isConspicuous}
+        onPress={() => handleChangeIsConspicuous(!isConspicuous)}
+      />
+      <Body style={{ alignItems: 'flex-start' }}>
+        <Text>Stuhl ist auffällig</Text>
+      </Body>
+    </ListItem>
+  </Content>
 );
 
 export const createSelectDate = ({ date, handleChangeDate }: ISelectDate) => (
