@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Container } from 'native-base';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -7,11 +6,11 @@ import PoopOverview from 'stories/screens/Poop/Overview';
 import { IPoop } from 'apptypes/poop';
 import { Drawer, Add } from 'ui/HeaderButtons';
 import { TNavigation, INavigation } from 'apptypes/base';
-import { itemsSortedByDateSelector } from '../selectors';
+import { itemsGroupedAndSortedByDateSelector } from '../selectors';
 
 interface Props {
   navigation: TNavigation;
-  poops: IPoop[];
+  poops: { [date: string]: IPoop[] };
 }
 
 interface State {
@@ -46,16 +45,12 @@ class PoopOverviewContainer extends Component<Props, State> {
   render() {
     const { navigation, poops } = this.props;
 
-    return (
-      <Container>
-        <PoopOverview navigation={navigation} poops={poops} />
-      </Container>
-    );
+    return <PoopOverview navigation={navigation} poops={poops} />;
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  poops: itemsSortedByDateSelector,
+  poops: itemsGroupedAndSortedByDateSelector,
 });
 
 export default connect(mapStateToProps)(PoopOverviewContainer);

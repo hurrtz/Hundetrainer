@@ -25,4 +25,37 @@ const itemsSortedByDateSelector = createSelector(
     }),
 );
 
-export { selectPoopState, itemsSelector, itemsSortedByDateSelector };
+const itemsGroupedAndSortedByDateSelector = createSelector(
+  itemsSortedByDateSelector,
+  itemsSortedByDate => {
+    const poopsByDateMap = {};
+
+    itemsSortedByDate.forEach(poop => {
+      const poopDate = new Date(poop.date);
+      const dateKey = new Date(
+        poopDate.getFullYear(),
+        poopDate.getMonth(),
+        poopDate.getDate(),
+        0,
+        0,
+        0,
+        0,
+      ).toISOString();
+
+      if (!poopsByDateMap[dateKey]) {
+        poopsByDateMap[dateKey] = [];
+      }
+
+      poopsByDateMap[dateKey].push(poop);
+    });
+
+    return poopsByDateMap;
+  },
+);
+
+export {
+  selectPoopState,
+  itemsSelector,
+  itemsSortedByDateSelector,
+  itemsGroupedAndSortedByDateSelector,
+};
