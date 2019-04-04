@@ -1,6 +1,5 @@
-import { spawn, all } from 'redux-saga/effects';
-import poopSagas from 'container/Poop/sagas';
+import { all } from 'redux-saga/effects';
 
 export default function* rootSaga() {
-  yield all([spawn(poopSagas)]);
+  yield all([]);
 }

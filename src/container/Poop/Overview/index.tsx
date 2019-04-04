@@ -7,12 +7,10 @@ import PoopOverview from 'stories/screens/Poop/Overview';
 import { IPoop } from 'apptypes/poop';
 import { Drawer, Add } from 'ui/HeaderButtons';
 import { TNavigation, INavigation } from 'apptypes/base';
-import { load } from '../actions';
 import { itemsSortedByDateSelector } from '../selectors';
 
 interface Props {
   navigation: TNavigation;
-  loadPoops: Function;
   poops: IPoop[];
 }
 
@@ -40,13 +38,9 @@ class PoopOverviewContainer extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const { loadPoops } = props;
-
     this.state = {
       modalPoopAddVisible: false,
     };
-
-    loadPoops();
   }
 
   render() {
@@ -64,9 +58,4 @@ const mapStateToProps = createStructuredSelector({
   poops: itemsSortedByDateSelector,
 });
 
-const mapDispatchToProps = { loadPoops: load };
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(PoopOverviewContainer);
+export default connect(mapStateToProps)(PoopOverviewContainer);

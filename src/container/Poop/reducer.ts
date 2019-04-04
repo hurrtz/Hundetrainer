@@ -1,13 +1,7 @@
 import { AnyAction } from 'redux';
 
 import { IPoop } from 'apptypes/poop';
-import {
-  IS_LOADING,
-  SET_POOPS,
-  SET_POOP_IN_STATE,
-  UPDATE_POOP_IN_STATE,
-  REMOVE_POOP_FROM_STATE,
-} from './actions';
+import { ADD_POOP, UPDATE_POOP, REMOVE_POOP } from './actions';
 
 export interface State {
   items: IPoop[];
@@ -43,26 +37,14 @@ function removePoop(state: State, poopToDelete: IPoop) {
 
 export default function(state: State = initialState, action: AnyAction): State {
   switch (action.type) {
-    case SET_POOPS:
-      return {
-        ...state,
-        items: action.poops as IPoop[],
-      };
-
-    case SET_POOP_IN_STATE:
+    case ADD_POOP:
       return setPoop(state, action.poop);
 
-    case UPDATE_POOP_IN_STATE:
+    case UPDATE_POOP:
       return updatePoop(state, action.currentPoop, action.newPoop);
 
-    case REMOVE_POOP_FROM_STATE:
+    case REMOVE_POOP:
       return removePoop(state, action.poop);
-
-    case IS_LOADING:
-      return {
-        ...state,
-        isLoading: action.isLoading as boolean,
-      };
 
     default:
       return state;
