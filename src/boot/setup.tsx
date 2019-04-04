@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleProvider } from 'native-base';
 import { Provider as StoreProvider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import getTheme from 'theme/components';
 import variables from 'theme/variables/platform';
@@ -11,7 +12,10 @@ import App from '../App';
 export interface Props {}
 
 export interface State {
-  store: any;
+  storeConfiguration: {
+    store: any;
+    persistor: any;
+  };
   isLoading: boolean;
 }
 
@@ -21,19 +25,24 @@ export default class Setup extends Component<Props, State> {
 
     this.state = {
       isLoading: true,
-      store: configureStore(() =>
+      storeConfiguration: configureStore(() =>
         this.setState(prevState => ({ ...prevState, isLoading: false })),
       ),
     };
   }
 
   render() {
-    const { store } = this.state;
+    const {
+      isLoading,
+      storeConfiguration: { store, persistor },
+    } = this.state;
 
     return (
       <StyleProvider style={getTheme(variables)}>
         <StoreProvider store={store}>
-          <App />
+          <PersistGate loading={isLoading} persistor={persistor}>
+            <App />
+          </PersistGate>
         </StoreProvider>
       </StyleProvider>
     );
