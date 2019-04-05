@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import { TNavigation } from 'apptypes/base';
-import AddressBook from 'stories/screens/AddressBook';
+import AddressBookEdit from 'stories/screens/AddressBook/Edit';
 
 interface Props {
   navigation: TNavigation;
@@ -10,7 +10,7 @@ interface Props {
 
 interface State {}
 
-class AddressBookContainer extends Component<Props, State> {
+class AddressBookEditContainer extends Component<Props, State> {
   static navigationOptions = {
     drawerIcon: () => <IconComponent name="notebook" size={25} />,
   };
@@ -18,8 +18,8 @@ class AddressBookContainer extends Component<Props, State> {
   render() {
     const { navigation } = this.props;
 
-    return <AddressBook navigation={navigation} />;
+    return <AddressBookEdit navigation={navigation} />;
   }
 }
 
-export default AddressBookContainer;
+export default AddressBookEditContainer;
