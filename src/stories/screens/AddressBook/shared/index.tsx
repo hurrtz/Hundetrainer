@@ -1,19 +1,12 @@
 import React from 'react';
 import {
   Content,
-  Text,
   Item,
   Label,
   Textarea,
   Input,
   Picker,
   Icon,
-  ListItem,
-  Radio,
-  Left,
-  Right,
-  CheckBox,
-  Body,
 } from 'native-base';
 
 import { ADDRESS_TYPES } from 'apptypes/addressBook';
@@ -30,6 +23,8 @@ export const createSelectName = () => (
   </Item>
 );
 
+const test = a => a;
+
 export const createSelectType = () => (
   <Item picker>
     <Picker
@@ -37,7 +32,7 @@ export const createSelectType = () => (
       iosIcon={<Icon name="arrow-down" />}
       style={{ backgroundColor: 'transparent' }}
       placeholder="Addresstyp:"
-      onValueChange={() => {}}
+      onValueChange={test}
       placeholderStyle={{
         backgroundColor: 'transparent',
         marginLeft: -15,
