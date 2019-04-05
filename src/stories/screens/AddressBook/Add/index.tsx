@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { Container, Content, H1 } from 'native-base';
+import { Container, Content, Form } from 'native-base';
+
+import {
+  createSelectName,
+  createSelectType,
+  createSelectAddress,
+  createSelectAdditionalInformation,
+} from '../shared';
 
 import { TNavigation } from 'apptypes/base';
 
@@ -13,8 +20,16 @@ class AddressBookAdd extends Component<Props, State> {
   render() {
     return (
       <Container>
-        <Content padder>
-          <H1>Adresse hinzufügen</H1>
+        <Content>
+          <Form>
+            {createSelectName()}
+            {createSelectType()}
+            {createSelectAddress()}
+            {createSelectAdditionalInformation({
+              additionalInformation: '',
+              handleAdditionalInformationChange: () => {},
+            })}
+          </Form>
         </Content>
       </Container>
     );

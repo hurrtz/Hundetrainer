@@ -1,6 +1,6 @@
-export enum AddressTypes {
+export enum ADDRESS_TYPES {
   DIET,
-  MEDICINE,
+  HEALTH,
   DOG_PARK,
   TRAINING,
   EXCERCISE,
@@ -26,7 +26,7 @@ export interface IContact {
 
 export interface IAddressBookEntry {
   name: string;
-  type: AddressTypes;
+  type: ADDRESS_TYPES;
   picture: string;
   address: IAddress;
   contact: IContact;
