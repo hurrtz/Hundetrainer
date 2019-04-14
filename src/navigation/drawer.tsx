@@ -42,7 +42,7 @@ const DrawerNavigator = createDrawerNavigator(
     // },
   },
   {
-    initialRouteName: 'Poop',
+    initialRouteName: 'Dashboard',
     defaultNavigationOptions: ({ navigation }) => ({
       title: (() => {
         const { routeName } = navigation.state;

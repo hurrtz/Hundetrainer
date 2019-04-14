@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { ScrollView, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 import {
-  View,
   Title,
   NavigationBar,
   ImageBackground,
@@ -29,28 +28,23 @@ class Dashboard extends Component<Props, State> {
     const { height } = Dimensions.get('window');
 
     return (
-      <View>
+      <ImageBackground
+        style={{ width: undefined, height }}
+        source={BoGamePicture}
+      >
         <NavigationBar
           leftComponent={
             <Icon onPress={() => navigation.toggleDrawer()} name="sidebar" />
           }
-          title="Dashboard"
-          styleName="inline"
+          styleName="clear"
         />
-        <ScrollView>
-          <ImageBackground
-            style={{ width: undefined, height }}
-            source={BoGamePicture}
-          >
-            <Tile>
-              <Overlay styleName="image-overlay">
-                <Title styleName="sm-gutter-horizontal">Hundetrainer</Title>
-                <Subtitle styleName="sm-gutter-horizontal">{version}</Subtitle>
-              </Overlay>
-            </Tile>
-          </ImageBackground>
-        </ScrollView>
-      </View>
+        <Tile>
+          <Overlay styleName="image-overlay">
+            <Title styleName="sm-gutter-horizontal">Hundetrainer</Title>
+            <Subtitle styleName="sm-gutter-horizontal">{version}</Subtitle>
+          </Overlay>
+        </Tile>
+      </ImageBackground>
     );
   }
 }
