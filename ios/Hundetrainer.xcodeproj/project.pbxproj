@@ -51,7 +51,6 @@
 		440F3CBD3E9F4FB4B30DDB54 /* Rubik-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D2F3201E4E64E29A2066563 /* Rubik-Bold.ttf */; };
 		47F3DEA910E74BD8AAC9BA3D /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E9BDCB7A0A91448297223AD7 /* FontAwesome5_Solid.ttf */; };
 		4ADC029A8BBB4ACE80FD2EF1 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C26AD1D94E964D99A1EF3A2A /* Feather.ttf */; };
-		53BBCF9F93CF41FFBA50F305 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F4DD928EBF774E24A8571734 /* libRNCAsyncStorage.a */; };
 		62806B5E9D9C4519877DFD8B /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 954730ECBE6C4AD0BAFE2F15 /* FontAwesome.ttf */; };
 		63177728F5324D2BA4CD9E46 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3757D32C58E743238D3DB02F /* SimpleLineIcons.ttf */; };
 		80405172CB7C4204B1716474 /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CEACC6102FBB4D629FF5B1B2 /* Rubik-Regular.ttf */; };
@@ -536,7 +535,6 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				98127EE0B8A149DCAE38024D /* libRNGestureHandler.a in Frameworks */,
 				3AD96D0DC1634A40A0BE019B /* libRNVectorIcons.a in Frameworks */,
-				53BBCF9F93CF41FFBA50F305 /* libRNCAsyncStorage.a in Frameworks */,
 				EA12AE112ECD4FC4B4A5FAB8 /* libBVLinearGradient.a in Frameworks */,
 				1D0C1BE2531A4483A8740253 /* libRNShare.a in Frameworks */,
 				F3615841DE9D4DD2900EA24B /* libRNPhotoView.a in Frameworks */,
