@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
-import { Content, H1, H2, H3, Text } from 'native-base';
+import {
+  View,
+  Screen,
+  Heading,
+  Title,
+  Subtitle,
+  Text,
+  NavigationBar,
+  Icon,
+} from '@shoutem/ui';
 
 import { TNavigation } from 'apptypes/base';
 import { IPoop, QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
+import { StandardView } from 'ui/Layout';
 
 interface Props {
   navigation: TNavigation;
@@ -103,25 +113,28 @@ class PoopDetails extends Component<Props, State> {
 
     if (poop.isConspicuous) {
       out.push(
-        <H3 key="isConspicuous" style={{ marginTop: 25 }}>
+        <Subtitle key="isConspicuous" style={{ marginTop: 25 }}>
           Auffälliger Stuhl!
-        </H3>,
+        </Subtitle>,
       );
     }
 
     if (poop.hasBlood) {
       out.push(
-        <H3 key="hasBlood" style={{ marginTop: 25 }}>
+        <Subtitle key="hasBlood" style={{ marginTop: 25 }}>
           Blut im Stuhl!
-        </H3>,
+        </Subtitle>,
       );
     }
 
     if (poop.additionalInformation) {
       out.push(
-        <H3 key="additionalInformation-headline" style={{ marginTop: 25 }}>
+        <Subtitle
+          key="additionalInformation-headline"
+          style={{ marginTop: 25 }}
+        >
           zusätzliche Informationen
-        </H3>,
+        </Subtitle>,
       );
       out.push(
         <Text key="additionalInformation-value">
@@ -134,22 +147,42 @@ class PoopDetails extends Component<Props, State> {
   }
 
   render() {
+    const { navigation } = this.props;
+
     const { poop } = this.navigationProps;
     const date = new Date(poop.date);
 
     return (
-      <Content padder>
-        <H1>{this.formatDate(date)}</H1>
-        <H2>{this.formatTime(date)}</H2>
-        <H3 style={{ marginTop: 25 }}>Qualität</H3>
-        <Text>{this.createQuality()}</Text>
-        <H3 style={{ marginTop: 25 }}>Konsistenz</H3>
-        <Text>{this.createConsistency()}</Text>
-        <H3 style={{ marginTop: 25 }}>Farbe</H3>
-        <Text>{this.createColor()}</Text>
-
-        {this.createSecondaryInformations()}
-      </Content>
+      <Screen>
+        <NavigationBar
+          leftComponent={
+            <Icon name="back" onPress={() => navigation.goBack()} />
+          }
+          rightComponent={
+            <Icon
+              name="edit"
+              onPress={() =>
+                navigation.navigate('PoopEdit', {
+                  poop: navigation.getParam('poop'),
+                })
+              }
+            />
+          }
+          title="Stuhlgang"
+          styleName="inline"
+        />
+        <StandardView>
+          <Heading>{this.formatDate(date)}</Heading>
+          <Title>{this.formatTime(date)}</Title>
+          <Subtitle style={{ marginTop: 25 }}>Qualität</Subtitle>
+          <Text>{this.createQuality()}</Text>
+          <Subtitle style={{ marginTop: 25 }}>Konsistenz</Subtitle>
+          <Text>{this.createConsistency()}</Text>
+          <Subtitle style={{ marginTop: 25 }}>Farbe</Subtitle>
+          <Text>{this.createColor()}</Text>
+          {this.createSecondaryInformations()}
+        </StandardView>
+      </Screen>
     );
   }
 }

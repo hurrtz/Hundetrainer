@@ -138,6 +138,8 @@ android {
 }
 
 dependencies {
+    implementation project(':@react-native-community_viewpager')
+    implementation project(':@react-native-community_slider')
     implementation project(':react-native-photo-view')
     implementation project(':react-native-share')
     implementation project(':react-native-linear-gradient')

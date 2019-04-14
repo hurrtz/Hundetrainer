@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import { Toast } from 'native-base';
 import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 
 import { TNavigation } from 'apptypes/base';
 import { IPoop } from 'apptypes/poop';
-import { Delete } from 'ui/HeaderButtons';
 import PoopEdit from 'stories/screens/Poop/Edit';
 import { removePoop, updatePoop } from '../actions';
 
@@ -18,16 +16,6 @@ interface Props {
 interface State {}
 
 class PoopEditContainer extends Component<Props, State> {
-  static navigationOptions = ({ navigation }) => ({
-    title: 'Bearbeiten',
-    headerRight: (
-      <Delete
-        style={{ marginRight: 10 }}
-        onPress={navigation.getParam('onDelete')}
-      />
-    ),
-  });
-
   constructor(props: Props) {
     super(props);
 
@@ -63,11 +51,6 @@ class PoopEditContainer extends Component<Props, State> {
 
     update({ currentPoop: navigation.getParam('poop'), newPoop: poop });
 
-    Toast.show({
-      type: 'success',
-      text: 'Stuhlgang gespeichert!',
-    });
-
     navigation.pop(2);
   }
 
@@ -76,11 +59,6 @@ class PoopEditContainer extends Component<Props, State> {
     const poopToDelete = navigation.getParam('poop') as IPoop;
 
     remove(poopToDelete);
-
-    Toast.show({
-      type: 'success',
-      text: 'Stuhlgang gelöscht!',
-    });
 
     navigation.pop(2);
   }

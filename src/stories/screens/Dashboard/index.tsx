@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
-import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
+import { ScrollView, Dimensions } from 'react-native';
 import {
-  Container,
-  Header,
+  View,
   Title,
-  Content,
-  Left,
-  Body,
-  Right,
-  H1,
+  NavigationBar,
+  ImageBackground,
+  Tile,
   Subtitle,
-} from 'native-base';
+  Overlay,
+  Icon,
+} from '@shoutem/ui';
 
 // @ts-ignore
 import { version } from '../../../../package.json';
@@ -28,60 +26,31 @@ interface State {}
 class Dashboard extends Component<Props, State> {
   render() {
     const { navigation } = this.props;
+    const { height } = Dimensions.get('window');
 
     return (
-      <Container>
-        <Header>
-          <Left>
-            <IconComponent
-              onPress={() => navigation.toggleDrawer()}
-              name="menu"
-              size={25}
-            />
-          </Left>
-
-          <Body>
-            <Title>Dashboard</Title>
-          </Body>
-
-          <Right />
-        </Header>
-        <Content>
-          <Image
+      <View>
+        <NavigationBar
+          leftComponent={
+            <Icon onPress={() => navigation.toggleDrawer()} name="sidebar" />
+          }
+          title="Dashboard"
+          styleName="inline"
+        />
+        <ScrollView>
+          <ImageBackground
+            style={{ width: undefined, height }}
             source={BoGamePicture}
-            style={{
-              width: 2000,
-              maxWidth: '100%',
-              maxHeight: '100%',
-              resizeMode: 'cover',
-            }}
-          />
-
-          <H1
-            style={{
-              position: 'absolute',
-              top: 0,
-              width: '100%',
-              textAlign: 'center',
-              marginTop: 25,
-            }}
           >
-            Hundetrainer
-          </H1>
-          <Subtitle
-            style={{
-              position: 'absolute',
-              top: 50,
-              width: '100%',
-              textAlign: 'center',
-              marginTop: 25,
-              color: '#000',
-            }}
-          >
-            {version}
-          </Subtitle>
-        </Content>
-      </Container>
+            <Tile>
+              <Overlay styleName="image-overlay">
+                <Title styleName="sm-gutter-horizontal">Hundetrainer</Title>
+                <Subtitle styleName="sm-gutter-horizontal">{version}</Subtitle>
+              </Overlay>
+            </Tile>
+          </ImageBackground>
+        </ScrollView>
+      </View>
     );
   }
 }

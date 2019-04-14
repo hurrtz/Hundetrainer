@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Toast } from 'native-base';
 import { connect } from 'react-redux';
 
 import PoopAdd from 'stories/screens/Poop/Add';
@@ -25,11 +24,6 @@ class PoopAddContainer extends Component<Props, State> {
     const { addPoop: save, navigation } = this.props;
 
     save(poop);
-
-    Toast.show({
-      type: 'success',
-      text: 'Stuhlgang gespeichert!',
-    });
 
     navigation.goBack();
   }

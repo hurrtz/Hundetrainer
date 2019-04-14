@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import EntypoIconComponent from 'react-native-vector-icons/Entypo';
 import MaterialIconComponent from 'react-native-vector-icons/MaterialIcons';
-import { Text } from 'native-base';
+import { View, Subtitle } from '@shoutem/ui';
 
 import { IPoop, QUALITY } from 'apptypes/poop';
-
-import { StyledBody, StyledLeft, StyledRight } from './styles';
 
 interface Props {
   poop: IPoop;
@@ -37,11 +35,7 @@ class PoopDetails extends Component<Props, State> {
 
   createHasBloodIcon(hasBlood: boolean) {
     if (hasBlood) {
-      return (
-        <StyledRight key="blood">
-          <EntypoIconComponent name="drop" size={20} color="red" />
-        </StyledRight>
-      );
+      return <EntypoIconComponent name="drop" size={20} color="red" />;
     }
 
     return undefined;
@@ -51,11 +45,7 @@ class PoopDetails extends Component<Props, State> {
     const { poop } = this.props;
 
     if (poop.additionalInformation) {
-      return (
-        <StyledRight key="additional-information">
-          <IconComponent name="note" size={20} />
-        </StyledRight>
-      );
+      return <IconComponent name="note" size={20} />;
     }
 
     return undefined;
@@ -76,17 +66,20 @@ class PoopDetails extends Component<Props, State> {
   render() {
     const { poop } = this.props;
 
-    return [
-      <StyledLeft key="emoticon">{this.createEmoticon(poop)}</StyledLeft>,
-
-      <StyledBody key="date">
-        <Text>{this.formatTime(poop.date)}</Text>
-      </StyledBody>,
-
-      this.createIconAdditionalInformations(),
-
-      this.createHasBloodIcon(poop.hasBlood),
-    ];
+    return (
+      <View styleName="space-between horizontal" style={{ width: '100%' }}>
+        <View styleName="horizontal">
+          {this.createEmoticon(poop)}
+          <Subtitle style={{ marginLeft: 10 }}>
+            {this.formatTime(poop.date)}
+          </Subtitle>
+        </View>
+        <View styleName="horizontal">
+          {this.createIconAdditionalInformations()}
+          {this.createHasBloodIcon(poop.hasBlood)}
+        </View>
+      </View>
+    );
   }
 }
 

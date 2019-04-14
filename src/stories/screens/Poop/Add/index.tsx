@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
-import { Container, Content, Button, Text, Form } from 'native-base';
+import { COLORS } from 'container/Poop/reducers';
+import {
+  View,
+  Screen,
+  Text,
+  Button,
+  NavigationBar,
+  Icon,
+  Divider,
+} from '@shoutem/ui';
 
 import { TNavigation } from 'apptypes/base';
 import { QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
+import { StandardView } from 'ui/Layout';
+
 import {
   createSelectDate,
   createSelectTime,
@@ -133,6 +144,8 @@ class PoopAdd extends Component<Props, State> {
   }
 
   render() {
+    const { navigation } = this.props;
+
     const {
       date,
       time,
@@ -145,61 +158,67 @@ class PoopAdd extends Component<Props, State> {
     } = this.state;
 
     return (
-      <Container>
-        <Content>
-          <Form>
-            {createSelectDate({
-              date,
-              handleChangeDate: this.handleChangeDate,
-            })}
+      <Screen>
+        <NavigationBar
+          leftComponent={
+            <Icon name="back" onPress={() => navigation.goBack()} />
+          }
+          title="Stuhlgang hinzufügen"
+          styleName="inline"
+        />
 
-            {createSelectTime({
-              time,
-              handleChangeTime: this.handleChangeTime,
-            })}
+        <StandardView>
+          {createSelectDate({
+            date,
+            handleChangeDate: this.handleChangeDate,
+          })}
 
-            {createSelectQuality({
-              qualitySelected: quality,
-              handleChangeQuality: this.handleChangeQuality,
-            })}
+          {createSelectTime({
+            time,
+            handleChangeTime: this.handleChangeTime,
+          })}
 
-            {createSelectConsistency({
-              consistencySelected: consistency,
-              handleChangeConsistency: this.handleChangeConsistency,
-            })}
+          {/* {createSelectQuality({
+            qualitySelected: quality,
+            handleChangeQuality: this.handleChangeQuality,
+          })} */}
 
-            {createSelectColor({
-              colorSelected: color,
-              handleChangeColor: this.handleChangeColor,
-            })}
+          {/* {createSelectConsistency({
+            consistencySelected: consistency,
+            handleChangeConsistency: this.handleChangeConsistency,
+          })} */}
 
-            {createSelectHasBlood({
-              hasBlood,
-              handleChangeHasBlood: this.handleChangeHasBlood,
-            })}
+          {createSelectColor({
+            colors: COLORS,
+            colorSelected: COLORS.find(({ value }) => value === color),
+            handleChangeColor: this.handleChangeColor,
+          })}
 
-            {createSelectIsConspicuous({
-              isConspicuous,
-              handleChangeIsConspicuous: this.handleChangeIsConspicuous,
-            })}
+          {createSelectHasBlood({
+            hasBlood,
+            handleChangeHasBlood: this.handleChangeHasBlood,
+          })}
 
-            {createSelectAdditionalInformation({
-              additionalInformation,
-              handleAdditionalInformationChange: this
-                .handleAdditionalInformationChange,
-            })}
-          </Form>
+          {createSelectIsConspicuous({
+            isConspicuous,
+            handleChangeIsConspicuous: this.handleChangeIsConspicuous,
+          })}
 
-          <Button
-            primary
-            block
-            style={{ marginLeft: 15, marginRight: 15 }}
-            onPress={() => this.handleClose()}
-          >
-            <Text style={{ color: '#FFF' }}>Speichern</Text>
+          <Divider />
+
+          {createSelectAdditionalInformation({
+            additionalInformation,
+            handleAdditionalInformationChange: this
+              .handleAdditionalInformationChange,
+          })}
+
+          <Divider />
+
+          <Button styleName="full-width" onPress={() => this.handleClose()}>
+            <Text>Speichern</Text>
           </Button>
-        </Content>
-      </Container>
+        </StandardView>
+      </Screen>
     );
   }
 }

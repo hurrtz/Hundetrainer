@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Content, Button, Text, Form } from 'native-base';
+import { View, Screen, Button, Text, NavigationBar, Icon } from '@shoutem/ui';
 
 import {
   createSelectDate,
@@ -128,6 +128,8 @@ class PoopEdit extends Component<Props, State> {
   }
 
   render() {
+    const { navigation } = this.props;
+
     const {
       date,
       time,
@@ -140,61 +142,54 @@ class PoopEdit extends Component<Props, State> {
     } = this.state;
 
     return (
-      <Container>
-        <Content>
-          <Form>
-            {createSelectDate({
-              date,
-              handleChangeDate: this.handleChangeDate,
-            })}
-
-            {createSelectTime({
-              time,
-              handleChangeTime: this.handleChangeTime,
-            })}
-
-            {createSelectQuality({
-              qualitySelected: quality,
-              handleChangeQuality: this.handleChangeQuality,
-            })}
-
-            {createSelectConsistency({
-              consistencySelected: consistency,
-              handleChangeConsistency: this.handleChangeConsistency,
-            })}
-
-            {createSelectColor({
-              colorSelected: color,
-              handleChangeColor: this.handleChangeColor,
-            })}
-
-            {createSelectHasBlood({
-              hasBlood,
-              handleChangeHasBlood: this.handleChangeHasBlood,
-            })}
-
-            {createSelectIsConspicuous({
-              isConspicuous,
-              handleChangeIsConspicuous: this.handleChangeIsConspicuous,
-            })}
-
-            {createSelectAdditionalInformation({
-              additionalInformation,
-              handleAdditionalInformationChange: this
-                .handleAdditionalInformationChange,
-            })}
-          </Form>
-
-          <Button
-            primary
-            block
-            style={{ marginLeft: 15, marginRight: 15 }}
-            onPress={() => this.handleClose()}
-          >
-            <Text style={{ color: '#FFF' }}>Speichern</Text>
-          </Button>
-        </Content>
-      </Container>
+      <Screen>
+        <NavigationBar
+          leftComponent={
+            <Icon name="back" onPress={() => navigation.goBack()} />
+          }
+          rightComponent={
+            <Icon name="error" onPress={navigation.getParam('onDelete')} />
+          }
+          title="Bearbeiten"
+          styleName="inline"
+        />
+        {createSelectDate({
+          date,
+          handleChangeDate: this.handleChangeDate,
+        })}
+        {createSelectTime({
+          time,
+          handleChangeTime: this.handleChangeTime,
+        })}
+        {createSelectQuality({
+          qualitySelected: quality,
+          handleChangeQuality: this.handleChangeQuality,
+        })}
+        {createSelectConsistency({
+          consistencySelected: consistency,
+          handleChangeConsistency: this.handleChangeConsistency,
+        })}
+        {createSelectColor({
+          colorSelected: color,
+          handleChangeColor: this.handleChangeColor,
+        })}
+        {createSelectHasBlood({
+          hasBlood,
+          handleChangeHasBlood: this.handleChangeHasBlood,
+        })}
+        {createSelectIsConspicuous({
+          isConspicuous,
+          handleChangeIsConspicuous: this.handleChangeIsConspicuous,
+        })}
+        {createSelectAdditionalInformation({
+          additionalInformation,
+          handleAdditionalInformationChange: this
+            .handleAdditionalInformationChange,
+        })}
+        <Button onPress={() => this.handleClose()}>
+          <Text style={{ color: '#FFF' }}>Speichern</Text>
+        </Button>
+      </Screen>
     );
   }
 }

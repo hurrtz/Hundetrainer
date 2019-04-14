@@ -1,8 +1,17 @@
 import React, { Component, Fragment } from 'react';
-import { Container, Content, H1, Text } from 'native-base';
+import {
+  NavigationBar,
+  Header,
+  Text,
+  Icon,
+  Divider,
+  View,
+  Screen,
+} from '@shoutem/ui';
 
 import { IPoop } from 'apptypes/poop';
 import { TNavigation } from 'apptypes/base';
+import { StandardView } from 'ui/Layout';
 import PoopList from './PoopList';
 
 interface Props {
@@ -16,7 +25,7 @@ class PoopOverview extends Component<Props, State> {
   createDefault() {
     return (
       <Fragment>
-        <H1>Keine Daten vorhanden</H1>
+        <Header>Keine Daten vorhanden</Header>
         <Text>
           Bitte hinterlegen Sie Stuhlgänge, um einen Überblick über einen
           wichtigen Aspekt der Gesundheit Ihres Hundes zu erhalten.
@@ -46,15 +55,33 @@ class PoopOverview extends Component<Props, State> {
     });
 
     return datesSorted.map(date => (
-      <PoopList key={date} poops={poops[date]} navigation={navigation} />
+      <Fragment key={date}>
+        <PoopList poops={poops[date]} navigation={navigation} />
+        <Divider styleName="line" style={{ marginTop: 5, marginBottom: 5 }} />
+      </Fragment>
     ));
   }
 
   render() {
+    const { navigation } = this.props;
+
     return (
-      <Container>
-        <Content padder>{this.createPoopLists()}</Content>
-      </Container>
+      <Screen>
+        <NavigationBar
+          leftComponent={
+            <Icon name="sidebar" onPress={() => navigation.toggleDrawer()} />
+          }
+          rightComponent={
+            <Icon
+              name="plus-button"
+              onPress={() => navigation.push('PoopAdd')}
+            />
+          }
+          title="Stuhlgang"
+          styleName="inline"
+        />
+        <StandardView>{this.createPoopLists()}</StandardView>
+      </Screen>
     );
   }
 }

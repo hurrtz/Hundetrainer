@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardItem, Text } from 'native-base';
+import { Card, Subtitle, TouchableOpacity, Divider, View } from '@shoutem/ui';
 
 import { IPoop } from 'apptypes/poop';
 import { TNavigation } from 'apptypes/base';
@@ -29,23 +29,21 @@ class PoopList extends Component<Props, State> {
     const { poops, navigation } = this.props;
 
     return (
-      <Card key={poops[0].date} transparent>
-        <CardItem
-          key={`headline-${poops[0].date}`}
-          header
-          style={{ marginBottom: -5 }}
-        >
-          <Text>{this.formatDate(poops[0].date)}</Text>
-        </CardItem>
+      <Card
+        style={{
+          width: '100%',
+          padding: 10,
+        }}
+      >
+        <Subtitle>{this.formatDate(poops[0].date)}</Subtitle>
+
         {poops.map(poop => (
-          <CardItem
+          <TouchableOpacity
             key={`entry-${poop.date}`}
-            button
             onPress={() => navigation.push('PoopDetails', { poop })}
-            style={{ marginTop: -10 }}
           >
             <PoopDetails poop={poop} />
-          </CardItem>
+          </TouchableOpacity>
         ))}
       </Card>
     );

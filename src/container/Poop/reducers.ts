@@ -1,12 +1,35 @@
 import { AnyAction } from 'redux';
 
-import { IPoop } from 'apptypes/poop';
+import { IPoop, COLOR } from 'apptypes/poop';
 import { ADD_POOP, UPDATE_POOP, REMOVE_POOP } from './actions';
 
 export interface State {
   items: IPoop[];
   isLoading: boolean;
 }
+
+export const COLORS = [
+  {
+    title: 'hell',
+    value: COLOR.LIGHT,
+  },
+  {
+    title: 'normal',
+    value: COLOR.MEDIUM,
+  },
+  {
+    title: 'dunkel',
+    value: COLOR.DARK,
+  },
+  {
+    title: 'schwarz',
+    value: COLOR.BLACK,
+  },
+  {
+    title: 'andere Farbe',
+    value: COLOR.OTHER,
+  },
+];
 
 const initialState: State = {
   items: [],

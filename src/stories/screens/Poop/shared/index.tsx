@@ -1,17 +1,12 @@
 import React from 'react';
 import {
-  Content,
+  Screen,
   Text,
-  Item,
-  Label,
-  Textarea,
-  ListItem,
-  Radio,
-  Left,
-  Right,
-  CheckBox,
-  Body,
-} from 'native-base';
+  TextInput,
+  Switch,
+  View,
+  DropDownMenu,
+} from '@shoutem/ui';
 import DatePicker from 'react-native-datepicker';
 
 import { QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
@@ -35,7 +30,16 @@ interface ISelectConsistency {
 }
 
 interface ISelectColor {
-  colorSelected: COLOR;
+  colors: [
+    {
+      title: string;
+      value: COLOR;
+    }
+  ];
+  colorSelected: {
+    title: string;
+    value: COLOR;
+  };
   handleChangeColor: Function;
 }
 
@@ -71,165 +75,124 @@ const _createListItem = ({
   noBorder,
   handleChange,
 }: IListItem) => (
-  <ListItem
+  <View
+    styleName="content"
     selected={itemSelected === item}
     onPress={() => {
       handleChange(item);
     }}
     noBorder={noBorder}
   >
-    <Left>
-      <Text>{label}</Text>
-    </Left>
-    <Right>
-      <Radio selectedColor={'#5cb85c'} selected={itemSelected === item} />
-    </Right>
-  </ListItem>
+    <Text>{label}</Text>
+    <Switch value={itemSelected === item} />
+  </View>
 );
 
 export const createSelectQuality = ({
   qualitySelected,
   handleChangeQuality,
 }: ISelectQuality) => (
-  <Item>
-    <Label style={{ minWidth: 100 }}>Qualität:</Label>
-    <Content>
-      {_createListItem({
-        item: QUALITY.GOOD,
-        itemSelected: qualitySelected,
-        label: 'gut',
-        handleChange: handleChangeQuality,
-      })}
-      {_createListItem({
-        item: QUALITY.MEDIUM,
-        itemSelected: qualitySelected,
-        label: 'mäßig',
-        handleChange: handleChangeQuality,
-      })}
-      {_createListItem({
-        item: QUALITY.BAD,
-        itemSelected: qualitySelected,
-        label: 'schlecht',
-        noBorder: true,
-        handleChange: handleChangeQuality,
-      })}
-    </Content>
-  </Item>
+  <View style="content">
+    <Text>Qualität:</Text>
+    {_createListItem({
+      item: QUALITY.GOOD,
+      itemSelected: qualitySelected,
+      label: 'gut',
+      handleChange: handleChangeQuality,
+    })}
+    {_createListItem({
+      item: QUALITY.MEDIUM,
+      itemSelected: qualitySelected,
+      label: 'mäßig',
+      handleChange: handleChangeQuality,
+    })}
+    {_createListItem({
+      item: QUALITY.BAD,
+      itemSelected: qualitySelected,
+      label: 'schlecht',
+      noBorder: true,
+      handleChange: handleChangeQuality,
+    })}
+  </View>
 );
 
 export const createSelectConsistency = ({
   consistencySelected,
   handleChangeConsistency,
 }: ISelectConsistency) => (
-  <Item>
-    <Label style={{ minWidth: 100 }}>Konsistenz:</Label>
-    <Content>
-      {_createListItem({
-        item: CONSISTENCY.LIQUID,
-        itemSelected: consistencySelected,
-        label: 'flüssig',
-        handleChange: handleChangeConsistency,
-      })}
-      {_createListItem({
-        item: CONSISTENCY.SOFT,
-        itemSelected: consistencySelected,
-        label: 'weich',
-        handleChange: handleChangeConsistency,
-      })}
-      {_createListItem({
-        item: CONSISTENCY.NORMAL,
-        itemSelected: consistencySelected,
-        label: 'normal',
-        handleChange: handleChangeConsistency,
-      })}
-      {_createListItem({
-        item: CONSISTENCY.HARD,
-        itemSelected: consistencySelected,
-        label: 'hart',
-        handleChange: handleChangeConsistency,
-      })}
-    </Content>
-  </Item>
+  <View styleName="content">
+    <Text>Konsistenz:</Text>
+    {_createListItem({
+      item: CONSISTENCY.LIQUID,
+      itemSelected: consistencySelected,
+      label: 'flüssig',
+      handleChange: handleChangeConsistency,
+    })}
+    {_createListItem({
+      item: CONSISTENCY.SOFT,
+      itemSelected: consistencySelected,
+      label: 'weich',
+      handleChange: handleChangeConsistency,
+    })}
+    {_createListItem({
+      item: CONSISTENCY.NORMAL,
+      itemSelected: consistencySelected,
+      label: 'normal',
+      handleChange: handleChangeConsistency,
+    })}
+    {_createListItem({
+      item: CONSISTENCY.HARD,
+      itemSelected: consistencySelected,
+      label: 'hart',
+      handleChange: handleChangeConsistency,
+    })}
+  </View>
 );
 
 export const createSelectColor = ({
+  colors,
   colorSelected,
   handleChangeColor,
 }: ISelectColor) => (
-  <Item>
-    <Label style={{ minWidth: 100 }}>Farbe:</Label>
-    <Content>
-      {_createListItem({
-        item: COLOR.LIGHT,
-        itemSelected: colorSelected,
-        label: 'hell',
-        handleChange: handleChangeColor,
-      })}
-      {_createListItem({
-        item: COLOR.MEDIUM,
-        itemSelected: colorSelected,
-        label: 'normal',
-        handleChange: handleChangeColor,
-      })}
-      {_createListItem({
-        item: COLOR.DARK,
-        itemSelected: colorSelected,
-        label: 'dunkel',
-        handleChange: handleChangeColor,
-      })}
-      {_createListItem({
-        item: COLOR.BLACK,
-        itemSelected: colorSelected,
-        label: 'schwarz',
-        handleChange: handleChangeColor,
-      })}
-      {_createListItem({
-        item: COLOR.OTHER,
-        itemSelected: colorSelected,
-        label: 'andere Farbe',
-        handleChange: handleChangeColor,
-      })}
-    </Content>
-  </Item>
+  <DropDownMenu
+    options={colors}
+    selectedOption={colorSelected}
+    onOptionSelected={option => handleChangeColor(option)}
+    titleProperty="title"
+    valueProperty="value"
+    styleName="horizontal"
+  />
 );
 
 export const createSelectHasBlood = ({
   hasBlood,
   handleChangeHasBlood,
 }: ISelectHasBlood) => (
-  <Content>
-    <ListItem>
-      <CheckBox
-        checked={hasBlood}
-        onPress={() => handleChangeHasBlood(!hasBlood)}
-      />
-      <Body style={{ alignItems: 'flex-start' }}>
-        <Text>Blut im Stuhl</Text>
-      </Body>
-    </ListItem>
-  </Content>
+  <View styleName="content horizontal v-center">
+    <Switch
+      value={hasBlood}
+      onValueChange={(value: boolean) => handleChangeHasBlood(value)}
+    />
+    <Text style={{ marginLeft: 10 }}>Blut im Stuhl</Text>
+  </View>
 );
 
 export const createSelectIsConspicuous = ({
   isConspicuous,
   handleChangeIsConspicuous,
 }: ISelectIsConspicuous) => (
-  <Content>
-    <ListItem>
-      <CheckBox
-        checked={isConspicuous}
-        onPress={() => handleChangeIsConspicuous(!isConspicuous)}
-      />
-      <Body style={{ alignItems: 'flex-start' }}>
-        <Text>Stuhl ist auffällig</Text>
-      </Body>
-    </ListItem>
-  </Content>
+  <View styleName="content horizontal v-center">
+    <Switch
+      value={isConspicuous}
+      onValueChange={(value: boolean) => handleChangeIsConspicuous(value)}
+    />
+    <Text style={{ marginLeft: 10 }}>Stuhl ist auffällig</Text>
+  </View>
 );
 
 export const createSelectDate = ({ date, handleChangeDate }: ISelectDate) => (
-  <Item>
-    <Label>Tag:</Label>
+  <View styleName="content horizontal v-center">
+    <Text>Tag:</Text>
     <DatePicker
       mode="date"
       format="DD.MM.YYYY"
@@ -248,12 +211,12 @@ export const createSelectDate = ({ date, handleChangeDate }: ISelectDate) => (
         },
       }}
     />
-  </Item>
+  </View>
 );
 
 export const createSelectTime = ({ time, handleChangeTime }: ISelectTime) => (
-  <Item>
-    <Label>Uhrzeit:</Label>
+  <View styleName="content horizontal v-center">
+    <Text>Uhrzeit:</Text>
     <DatePicker
       mode="time"
       format="HH:mm \U\h\r"
@@ -273,27 +236,20 @@ export const createSelectTime = ({ time, handleChangeTime }: ISelectTime) => (
       }}
       is24Hour
     />
-  </Item>
+  </View>
 );
 
 export const createSelectAdditionalInformation = ({
   additionalInformation,
   handleAdditionalInformationChange,
 }: ISelectAdditionalInformation) => (
-  <Content padder>
-    <Textarea
-      rowSpan={5}
+  <Screen>
+    <TextInput
+      multiline
+      numberOfLines={5}
       placeholder="Sonstige Informationen"
-      style={{
-        borderStyle: 'solid',
-        borderWidth: 1,
-        borderColor: '#CCC',
-        marginLeft: -5,
-        marginRight: -5,
-        marginTop: -5,
-      }}
       defaultValue={additionalInformation}
       onChangeText={(text: string) => handleAdditionalInformationChange(text)}
     />
-  </Content>
+  </Screen>
 );
