@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Subtitle, TouchableOpacity, Divider, View } from '@shoutem/ui';
+import { Card, Subtitle, TouchableOpacity } from '@shoutem/ui';
 
 import { IPoop } from 'apptypes/poop';
 import { TNavigation } from 'apptypes/base';

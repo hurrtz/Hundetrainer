@@ -11,35 +11,36 @@ import DatePicker from 'react-native-datepicker';
 
 import { QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
 
-interface IListItem {
-  item: QUALITY | CONSISTENCY | COLOR;
-  itemSelected: QUALITY | CONSISTENCY | COLOR;
-  label: string;
-  noBorder?: boolean;
-  handleChange: Function;
-}
+type TQuality = {
+  title: string;
+  value: QUALITY;
+};
 
 interface ISelectQuality {
-  qualitySelected: QUALITY;
+  qualities: TQuality[];
+  qualitySelected: TQuality;
   handleChangeQuality: Function;
 }
 
+type TConsistency = {
+  title: string;
+  value: CONSISTENCY;
+};
+
 interface ISelectConsistency {
-  consistencySelected: CONSISTENCY;
+  consistencies: TConsistency[];
+  consistencySelected: TConsistency;
   handleChangeConsistency: Function;
 }
 
+type TColor = {
+  title: string;
+  value: COLOR;
+};
+
 interface ISelectColor {
-  colors: [
-    {
-      title: string;
-      value: COLOR;
-    }
-  ];
-  colorSelected: {
-    title: string;
-    value: COLOR;
-  };
+  colors: TColor[];
+  colorSelected: TColor;
   handleChangeColor: Function;
 }
 
@@ -68,85 +69,34 @@ interface ISelectAdditionalInformation {
   handleAdditionalInformationChange: Function;
 }
 
-const _createListItem = ({
-  item,
-  itemSelected,
-  label,
-  noBorder,
-  handleChange,
-}: IListItem) => (
-  <View
-    styleName="content"
-    selected={itemSelected === item}
-    onPress={() => {
-      handleChange(item);
-    }}
-    noBorder={noBorder}
-  >
-    <Text>{label}</Text>
-    <Switch value={itemSelected === item} />
-  </View>
-);
-
 export const createSelectQuality = ({
+  qualities,
   qualitySelected,
   handleChangeQuality,
 }: ISelectQuality) => (
-  <View style="content">
-    <Text>Qualität:</Text>
-    {_createListItem({
-      item: QUALITY.GOOD,
-      itemSelected: qualitySelected,
-      label: 'gut',
-      handleChange: handleChangeQuality,
-    })}
-    {_createListItem({
-      item: QUALITY.MEDIUM,
-      itemSelected: qualitySelected,
-      label: 'mäßig',
-      handleChange: handleChangeQuality,
-    })}
-    {_createListItem({
-      item: QUALITY.BAD,
-      itemSelected: qualitySelected,
-      label: 'schlecht',
-      noBorder: true,
-      handleChange: handleChangeQuality,
-    })}
-  </View>
+  <DropDownMenu
+    options={qualities}
+    selectedOption={qualitySelected}
+    onOptionSelected={option => handleChangeQuality(option)}
+    titleProperty="title"
+    valueProperty="value"
+    styleName="horizontal"
+  />
 );
 
 export const createSelectConsistency = ({
+  consistencies,
   consistencySelected,
   handleChangeConsistency,
 }: ISelectConsistency) => (
-  <View styleName="content">
-    <Text>Konsistenz:</Text>
-    {_createListItem({
-      item: CONSISTENCY.LIQUID,
-      itemSelected: consistencySelected,
-      label: 'flüssig',
-      handleChange: handleChangeConsistency,
-    })}
-    {_createListItem({
-      item: CONSISTENCY.SOFT,
-      itemSelected: consistencySelected,
-      label: 'weich',
-      handleChange: handleChangeConsistency,
-    })}
-    {_createListItem({
-      item: CONSISTENCY.NORMAL,
-      itemSelected: consistencySelected,
-      label: 'normal',
-      handleChange: handleChangeConsistency,
-    })}
-    {_createListItem({
-      item: CONSISTENCY.HARD,
-      itemSelected: consistencySelected,
-      label: 'hart',
-      handleChange: handleChangeConsistency,
-    })}
-  </View>
+  <DropDownMenu
+    options={consistencies}
+    selectedOption={consistencySelected}
+    onOptionSelected={option => handleChangeConsistency(option)}
+    titleProperty="title"
+    valueProperty="value"
+    styleName="horizontal"
+  />
 );
 
 export const createSelectColor = ({

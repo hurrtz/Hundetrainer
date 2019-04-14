@@ -5,7 +5,6 @@ import {
   Text,
   Icon,
   Divider,
-  View,
   Screen,
 } from '@shoutem/ui';
 

@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
-import { View, Screen, Button, Text, NavigationBar, Icon } from '@shoutem/ui';
+import {
+  View,
+  Screen,
+  Button,
+  Text,
+  NavigationBar,
+  Icon,
+  Divider,
+  Caption,
+} from '@shoutem/ui';
 
+import { COLORS, CONSISTENCIES, QUALITIES } from 'container/Poop/reducers';
 import {
   createSelectDate,
   createSelectTime,
@@ -13,6 +23,7 @@ import {
 } from '../shared';
 import { TNavigation } from 'apptypes/base';
 import { IPoop, QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
+import { StandardView } from 'ui/Layout';
 
 interface Props {
   navigation: TNavigation;
@@ -153,42 +164,86 @@ class PoopEdit extends Component<Props, State> {
           title="Bearbeiten"
           styleName="inline"
         />
-        {createSelectDate({
-          date,
-          handleChangeDate: this.handleChangeDate,
-        })}
-        {createSelectTime({
-          time,
-          handleChangeTime: this.handleChangeTime,
-        })}
-        {createSelectQuality({
-          qualitySelected: quality,
-          handleChangeQuality: this.handleChangeQuality,
-        })}
-        {createSelectConsistency({
-          consistencySelected: consistency,
-          handleChangeConsistency: this.handleChangeConsistency,
-        })}
-        {createSelectColor({
-          colorSelected: color,
-          handleChangeColor: this.handleChangeColor,
-        })}
-        {createSelectHasBlood({
-          hasBlood,
-          handleChangeHasBlood: this.handleChangeHasBlood,
-        })}
-        {createSelectIsConspicuous({
-          isConspicuous,
-          handleChangeIsConspicuous: this.handleChangeIsConspicuous,
-        })}
-        {createSelectAdditionalInformation({
-          additionalInformation,
-          handleAdditionalInformationChange: this
-            .handleAdditionalInformationChange,
-        })}
-        <Button onPress={() => this.handleClose()}>
-          <Text style={{ color: '#FFF' }}>Speichern</Text>
-        </Button>
+
+        <StandardView>
+          <Divider styleName="section-header">
+            <Caption>Zeitpunkt</Caption>
+          </Divider>
+
+          {createSelectDate({
+            date,
+            handleChangeDate: this.handleChangeDate,
+          })}
+
+          {createSelectTime({
+            time,
+            handleChangeTime: this.handleChangeTime,
+          })}
+
+          <Divider styleName="section-header">
+            <Caption>Eigenschaften</Caption>
+          </Divider>
+
+          <View styleName="horizontal v-center">
+            <Text>Qualität:</Text>
+
+            {createSelectQuality({
+              qualities: QUALITIES,
+              qualitySelected: QUALITIES.find(({ value }) => value === quality),
+              handleChangeQuality: this.handleChangeQuality,
+            })}
+          </View>
+
+          <View styleName="horizontal v-center">
+            <Text>Konsistenz:</Text>
+
+            {createSelectConsistency({
+              consistencies: CONSISTENCIES,
+              consistencySelected: CONSISTENCIES.find(
+                ({ value }) => value === consistency,
+              ),
+              handleChangeConsistency: this.handleChangeConsistency,
+            })}
+          </View>
+
+          <View styleName="horizontal v-center">
+            <Text>Farbe:</Text>
+
+            {createSelectColor({
+              colors: COLORS,
+              colorSelected: COLORS.find(({ value }) => value === color),
+              handleChangeColor: this.handleChangeColor,
+            })}
+          </View>
+
+          <Divider styleName="section-header">
+            <Caption>Sonstige Merkmale</Caption>
+          </Divider>
+
+          {createSelectHasBlood({
+            hasBlood,
+            handleChangeHasBlood: this.handleChangeHasBlood,
+          })}
+
+          {createSelectIsConspicuous({
+            isConspicuous,
+            handleChangeIsConspicuous: this.handleChangeIsConspicuous,
+          })}
+
+          <Divider />
+
+          {createSelectAdditionalInformation({
+            additionalInformation,
+            handleAdditionalInformationChange: this
+              .handleAdditionalInformationChange,
+          })}
+
+          <Divider />
+
+          <Button styleName="full-width" onPress={() => this.handleClose()}>
+            <Text>Speichern</Text>
+          </Button>
+        </StandardView>
       </Screen>
     );
   }

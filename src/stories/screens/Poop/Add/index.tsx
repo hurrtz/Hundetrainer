@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { COLORS } from 'container/Poop/reducers';
 import {
   View,
   Screen,
@@ -8,8 +7,10 @@ import {
   NavigationBar,
   Icon,
   Divider,
+  Caption,
 } from '@shoutem/ui';
 
+import { COLORS, CONSISTENCIES, QUALITIES } from 'container/Poop/reducers';
 import { TNavigation } from 'apptypes/base';
 import { QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
 import { StandardView } from 'ui/Layout';
@@ -17,8 +18,8 @@ import { StandardView } from 'ui/Layout';
 import {
   createSelectDate,
   createSelectTime,
-  createSelectQuality,
   createSelectConsistency,
+  createSelectQuality,
   createSelectColor,
   createSelectHasBlood,
   createSelectIsConspicuous,
@@ -112,16 +113,16 @@ class PoopAdd extends Component<Props, State> {
     this.setState(prevState => ({ ...prevState, time }));
   }
 
-  handleChangeQuality(value: QUALITY) {
-    this.setState(prevState => ({ ...prevState, quality: value }));
+  handleChangeQuality({ value: quality }: { value: QUALITY }) {
+    this.setState(prevState => ({ ...prevState, quality }));
   }
 
-  handleChangeConsistency(value: CONSISTENCY) {
-    this.setState(prevState => ({ ...prevState, consistency: value }));
+  handleChangeConsistency({ value: consistency }: { value: CONSISTENCY }) {
+    this.setState(prevState => ({ ...prevState, consistency }));
   }
 
-  handleChangeColor(value: COLOR) {
-    this.setState(prevState => ({ ...prevState, color: value }));
+  handleChangeColor({ value: color }: { value: COLOR }) {
+    this.setState(prevState => ({ ...prevState, color }));
   }
 
   handleChangeHasBlood(hasBlood: boolean) {
@@ -168,6 +169,10 @@ class PoopAdd extends Component<Props, State> {
         />
 
         <StandardView>
+          <Divider styleName="section-header">
+            <Caption>Zeitpunkt</Caption>
+          </Divider>
+
           {createSelectDate({
             date,
             handleChangeDate: this.handleChangeDate,
@@ -178,21 +183,45 @@ class PoopAdd extends Component<Props, State> {
             handleChangeTime: this.handleChangeTime,
           })}
 
-          {/* {createSelectQuality({
-            qualitySelected: quality,
-            handleChangeQuality: this.handleChangeQuality,
-          })} */}
+          <Divider styleName="section-header">
+            <Caption>Eigenschaften</Caption>
+          </Divider>
 
-          {/* {createSelectConsistency({
-            consistencySelected: consistency,
-            handleChangeConsistency: this.handleChangeConsistency,
-          })} */}
+          <View styleName="horizontal v-center">
+            <Text>Qualität:</Text>
 
-          {createSelectColor({
-            colors: COLORS,
-            colorSelected: COLORS.find(({ value }) => value === color),
-            handleChangeColor: this.handleChangeColor,
-          })}
+            {createSelectQuality({
+              qualities: QUALITIES,
+              qualitySelected: QUALITIES.find(({ value }) => value === quality),
+              handleChangeQuality: this.handleChangeQuality,
+            })}
+          </View>
+
+          <View styleName="horizontal v-center">
+            <Text>Konsistenz:</Text>
+
+            {createSelectConsistency({
+              consistencies: CONSISTENCIES,
+              consistencySelected: CONSISTENCIES.find(
+                ({ value }) => value === consistency,
+              ),
+              handleChangeConsistency: this.handleChangeConsistency,
+            })}
+          </View>
+
+          <View styleName="horizontal v-center">
+            <Text>Farbe:</Text>
+
+            {createSelectColor({
+              colors: COLORS,
+              colorSelected: COLORS.find(({ value }) => value === color),
+              handleChangeColor: this.handleChangeColor,
+            })}
+          </View>
+
+          <Divider styleName="section-header">
+            <Caption>Sonstige Merkmale</Caption>
+          </Divider>
 
           {createSelectHasBlood({
             hasBlood,

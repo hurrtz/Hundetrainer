@@ -1,6 +1,6 @@
 import { AnyAction } from 'redux';
 
-import { IPoop, COLOR } from 'apptypes/poop';
+import { IPoop, COLOR, CONSISTENCY, QUALITY } from 'apptypes/poop';
 import { ADD_POOP, UPDATE_POOP, REMOVE_POOP } from './actions';
 
 export interface State {
@@ -28,6 +28,40 @@ export const COLORS = [
   {
     title: 'andere Farbe',
     value: COLOR.OTHER,
+  },
+];
+
+export const CONSISTENCIES = [
+  {
+    title: 'flüssig',
+    value: CONSISTENCY.LIQUID,
+  },
+  {
+    title: 'weich',
+    value: CONSISTENCY.SOFT,
+  },
+  {
+    title: 'normal',
+    value: CONSISTENCY.NORMAL,
+  },
+  {
+    title: 'hart',
+    value: CONSISTENCY.HARD,
+  },
+];
+
+export const QUALITIES = [
+  {
+    title: 'gut',
+    value: QUALITY.GOOD,
+  },
+  {
+    title: 'mäßig',
+    value: QUALITY.MEDIUM,
+  },
+  {
+    title: 'schlecht',
+    value: QUALITY.BAD,
   },
 ];
 
