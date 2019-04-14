@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { Root } from 'native-base';
+import React, { Component, Fragment } from 'react';
 import { StatusBar } from 'react-native';
 import { createAppContainer } from 'react-navigation';
 
@@ -14,10 +13,10 @@ const Navigation = createAppContainer(DrawerNavigator);
 class AppRoot extends Component<Props, State> {
   render() {
     return (
-      <Root>
+      <Fragment>
         <StatusBar hidden />
         <Navigation />
-      </Root>
+      </Fragment>
     );
   }
 }

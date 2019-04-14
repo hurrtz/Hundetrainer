@@ -1,6 +1,7 @@
 import { NavigationScreenProp } from 'react-navigation';
 
-import { State as PoopState } from 'container/Poop/reducer';
+import { State as PoopState } from 'container/Poop/reducers';
+import { State as AddressBookState } from 'container/AddressBook/reducers';
 
 export type TNavigation = NavigationScreenProp<any, any>;
 
@@ -10,4 +11,5 @@ export interface INavigation {
 
 export interface RootState {
   Poop: PoopState;
+  AddressBook: AddressBookState;
 }

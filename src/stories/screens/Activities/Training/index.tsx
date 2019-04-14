@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
-import {
-  Container,
-  Header,
-  Title,
-  Content,
-  Left,
-  Body,
-  Right,
-} from 'native-base';
+import { Screen, NavigationBar, Icon } from '@shoutem/ui';
 
+import { StandardView } from 'ui/Layout';
 import { TNavigation } from 'apptypes/base';
 
 interface Props {
@@ -28,22 +21,16 @@ class Training extends Component<Props, State> {
     const { navigation } = this.props;
 
     return (
-      <Container>
-        <Header>
-          <Left>
-            <IconComponent
-              onPress={() => navigation.toggleDrawer()}
-              name="menu"
-              size={25}
-            />
-          </Left>
-          <Body>
-            <Title>Übungen</Title>
-          </Body>
-          <Right />
-        </Header>
-        <Content />
-      </Container>
+      <Screen>
+        <NavigationBar
+          leftComponent={
+            <Icon name="sidebar" onPress={() => navigation.toggleDrawer()} />
+          }
+          title="Übungen"
+          styleName="inline"
+        />
+        <StandardView />
+      </Screen>
     );
   }
 }

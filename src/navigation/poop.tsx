@@ -16,6 +16,7 @@ const PoopNavigator = createStackNavigator(
   },
   {
     initialRouteName: 'PoopOverview',
+    headerMode: 'none',
   },
 );
 

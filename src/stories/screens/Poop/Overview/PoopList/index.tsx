@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { Card } from 'native-base';
+import { Card, Subtitle, TouchableOpacity } from '@shoutem/ui';
 
 import { IPoop } from 'apptypes/poop';
 import { TNavigation } from 'apptypes/base';
-import PoopEntry from './PoopEntry';
+import PoopDetails from './PoopDetails';
 
 interface Props {
   navigation: TNavigation;
@@ -13,13 +13,37 @@ interface Props {
 interface State {}
 
 class PoopList extends Component<Props, State> {
+  getTwoDigitNumber(value: number): string {
+    return value < 10 ? `0${value}` : String(value);
+  }
+
+  formatDate(_date: string) {
+    const date = new Date(_date);
+
+    return `${this.getTwoDigitNumber(date.getDate())}.${this.getTwoDigitNumber(
+      date.getMonth() + 1,
+    )}.${date.getFullYear()}`;
+  }
+
   render() {
     const { poops, navigation } = this.props;
 
     return (
-      <Card transparent>
+      <Card
+        style={{
+          width: '100%',
+          padding: 10,
+        }}
+      >
+        <Subtitle>{this.formatDate(poops[0].date)}</Subtitle>
+
         {poops.map(poop => (
-          <PoopEntry key={poop.date} poop={poop} navigation={navigation} />
+          <TouchableOpacity
+            key={`entry-${poop.date}`}
+            onPress={() => navigation.push('PoopDetails', { poop })}
+          >
+            <PoopDetails poop={poop} />
+          </TouchableOpacity>
         ))}
       </Card>
     );

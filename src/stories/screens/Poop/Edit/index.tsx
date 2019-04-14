@@ -1,6 +1,16 @@
 import React, { Component } from 'react';
-import { Container, Content, Button, Text, Form } from 'native-base';
+import {
+  View,
+  Screen,
+  Button,
+  Text,
+  NavigationBar,
+  Icon,
+  Divider,
+  Caption,
+} from '@shoutem/ui';
 
+import { COLORS, CONSISTENCIES, QUALITIES } from 'container/Poop/reducers';
 import {
   createSelectDate,
   createSelectTime,
@@ -13,6 +23,7 @@ import {
 } from '../shared';
 import { TNavigation } from 'apptypes/base';
 import { IPoop, QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
+import { StandardView } from 'ui/Layout';
 
 interface Props {
   navigation: TNavigation;
@@ -128,6 +139,8 @@ class PoopEdit extends Component<Props, State> {
   }
 
   render() {
+    const { navigation } = this.props;
+
     const {
       date,
       time,
@@ -140,61 +153,98 @@ class PoopEdit extends Component<Props, State> {
     } = this.state;
 
     return (
-      <Container>
-        <Content>
-          <Form>
-            {createSelectDate({
-              date,
-              handleChangeDate: this.handleChangeDate,
-            })}
+      <Screen>
+        <NavigationBar
+          leftComponent={
+            <Icon name="back" onPress={() => navigation.goBack()} />
+          }
+          rightComponent={
+            <Icon name="error" onPress={navigation.getParam('onDelete')} />
+          }
+          title="Bearbeiten"
+          styleName="inline"
+        />
 
-            {createSelectTime({
-              time,
-              handleChangeTime: this.handleChangeTime,
-            })}
+        <StandardView>
+          <Divider styleName="section-header">
+            <Caption>Zeitpunkt</Caption>
+          </Divider>
+
+          {createSelectDate({
+            date,
+            handleChangeDate: this.handleChangeDate,
+          })}
+
+          {createSelectTime({
+            time,
+            handleChangeTime: this.handleChangeTime,
+          })}
+
+          <Divider styleName="section-header">
+            <Caption>Eigenschaften</Caption>
+          </Divider>
+
+          <View styleName="horizontal v-center">
+            <Text>Qualität:</Text>
 
             {createSelectQuality({
-              qualitySelected: quality,
+              qualities: QUALITIES,
+              qualitySelected: QUALITIES.find(({ value }) => value === quality),
               handleChangeQuality: this.handleChangeQuality,
             })}
+          </View>
+
+          <View styleName="horizontal v-center">
+            <Text>Konsistenz:</Text>
 
             {createSelectConsistency({
-              consistencySelected: consistency,
+              consistencies: CONSISTENCIES,
+              consistencySelected: CONSISTENCIES.find(
+                ({ value }) => value === consistency,
+              ),
               handleChangeConsistency: this.handleChangeConsistency,
             })}
+          </View>
+
+          <View styleName="horizontal v-center">
+            <Text>Farbe:</Text>
 
             {createSelectColor({
-              colorSelected: color,
+              colors: COLORS,
+              colorSelected: COLORS.find(({ value }) => value === color),
               handleChangeColor: this.handleChangeColor,
             })}
+          </View>
 
-            {createSelectHasBlood({
-              hasBlood,
-              handleChangeHasBlood: this.handleChangeHasBlood,
-            })}
+          <Divider styleName="section-header">
+            <Caption>Sonstige Merkmale</Caption>
+          </Divider>
 
-            {createSelectIsConspicuous({
-              isConspicuous,
-              handleChangeIsConspicuous: this.handleChangeIsConspicuous,
-            })}
+          {createSelectHasBlood({
+            hasBlood,
+            handleChangeHasBlood: this.handleChangeHasBlood,
+          })}
 
-            {createSelectAdditionalInformation({
-              additionalInformation,
-              handleAdditionalInformationChange: this
-                .handleAdditionalInformationChange,
-            })}
-          </Form>
+          {createSelectIsConspicuous({
+            isConspicuous,
+            handleChangeIsConspicuous: this.handleChangeIsConspicuous,
+          })}
 
-          <Button
-            primary
-            block
-            style={{ marginLeft: 15, marginRight: 15 }}
-            onPress={() => this.handleClose()}
-          >
-            <Text style={{ color: '#FFF' }}>Speichern</Text>
+          <Divider />
+
+          {createSelectAdditionalInformation({
+            additionalInformation,
+            handleAdditionalInformationChange: this
+              .handleAdditionalInformationChange,
+          })}
+
+          <Divider />
+
+          <Button styleName="full-width" onPress={() => this.handleClose()}>
+            <Text>Speichern</Text>
           </Button>
-        </Content>
-      </Container>
+        </StandardView>
+      </Screen>
     );
   }
 }
