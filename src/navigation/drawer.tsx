@@ -2,7 +2,7 @@ import { createDrawerNavigator } from 'react-navigation';
 
 import ActivitiesNavigator from 'navigation/activities';
 import PoopNavigator from 'navigation/poop';
-// import AdressBookNavigator from 'navigation/adressBook';
+import AdressBookNavigator from 'navigation/adressBook';
 
 import Dashboard from 'container/Dashboard';
 import Health from 'container/Health';
@@ -31,9 +31,9 @@ const DrawerNavigator = createDrawerNavigator(
     Poop: {
       screen: PoopNavigator,
     },
-    // AddressBook: {
-    //   screen: AdressBookNavigator,
-    // },
+    AddressBook: {
+      screen: AdressBookNavigator,
+    },
     MyDog: {
       screen: MyDog,
     },
