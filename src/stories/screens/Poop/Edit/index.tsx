@@ -165,7 +165,7 @@ class PoopEdit extends Component<Props, State> {
           styleName="inline"
         />
 
-        <StandardView>
+        <StandardView noPaddingTop>
           <Divider styleName="section-header">
             <Caption>Zeitpunkt</Caption>
           </Divider>

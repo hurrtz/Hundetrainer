@@ -42,7 +42,7 @@ const DrawerNavigator = createDrawerNavigator(
     },
   },
   {
-    initialRouteName: 'Dashboard',
+    initialRouteName: 'AddressBook',
     defaultNavigationOptions: ({ navigation }) => ({
       title: (() => {
         const { routeName } = navigation.state;

@@ -19,7 +19,6 @@ export interface IAddress {
 export interface IContact {
   telephone: number;
   mobile: number;
-  fax: number;
   email: string;
   homepage: string;
 }

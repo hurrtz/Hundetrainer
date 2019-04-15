@@ -1,5 +1,12 @@
 import React from 'react';
-import { View, Screen, TextInput, DropDownMenu } from '@shoutem/ui';
+import {
+  View,
+  Screen,
+  TextInput,
+  DropDownMenu,
+  Divider,
+  Icon,
+} from '@shoutem/ui';
 
 import { ADDRESS_TYPES } from 'container/AddressBook/reducers';
 
@@ -8,9 +15,7 @@ interface ISelectAdditionalInformation {
   handleAdditionalInformationChange: Function;
 }
 
-export const createSelectName = () => (
-  <TextInput placeholder="Name:" onChangeText={() => ({})} />
-);
+export const createSelectName = () => <TextInput onChangeText={() => ({})} />;
 
 export const createSelectType = () => (
   <DropDownMenu
@@ -23,20 +28,87 @@ export const createSelectType = () => (
   />
 );
 
-export const createSelectAddress = () => [
-  <View key="street" styleName="horizontal">
+export const createSelectAddress = () => (
+  <View>
     <TextInput placeholder="Straße:" onChangeText={() => ({})} />
-  </View>,
-  <View key="zip" styleName="horizontal">
-    <TextInput placeholder="Postleitzahl:" onChangeText={() => ({})} />
-  </View>,
-  <View key="place" styleName="horizontal">
-    <TextInput placeholder="Stadt/Ort:" onChangeText={() => ({})} />
-  </View>,
-  <View key="country" styleName="horizontal">
+    <Divider styleName="line" style={{ marginTop: 5, marginBottom: 5 }} />
+    <View styleName="horizontal space-between">
+      <TextInput placeholder="Postleitzahl:" onChangeText={() => ({})} />
+      <TextInput
+        placeholder="Stadt/Ort:"
+        onChangeText={() => ({})}
+        style={{
+          marginLeft: 10,
+          flexBasis: '100%',
+          flexGrow: 1,
+          flexShrink: 1,
+        }}
+      />
+    </View>
+    <Divider styleName="line" style={{ marginTop: 5, marginBottom: 5 }} />
     <TextInput placeholder="Land:" onChangeText={() => ({})} />
-  </View>,
-];
+  </View>
+);
+
+export const createSelectContact = () => (
+  <View>
+    <View styleName="horizontal v-center">
+      <Icon name="call" />
+      <TextInput
+        style={{
+          marginLeft: 10,
+          flexBasis: '100%',
+          flexGrow: 1,
+          flexShrink: 1,
+        }}
+        placeholder="Telefon:"
+        onChangeText={() => ({})}
+      />
+    </View>
+    <Divider styleName="line" style={{ marginTop: 5, marginBottom: 5 }} />
+    <View styleName="horizontal v-center">
+      <Icon name="social-wall" />
+      <TextInput
+        style={{
+          marginLeft: 10,
+          flexBasis: '100%',
+          flexGrow: 1,
+          flexShrink: 1,
+        }}
+        placeholder="Mobil:"
+        onChangeText={() => ({})}
+      />
+    </View>
+    <Divider styleName="line" style={{ marginTop: 5, marginBottom: 5 }} />
+    <View styleName="horizontal v-center">
+      <Icon name="email" />
+      <TextInput
+        style={{
+          marginLeft: 10,
+          flexBasis: '100%',
+          flexGrow: 1,
+          flexShrink: 1,
+        }}
+        placeholder="E-Mail:"
+        onChangeText={() => ({})}
+      />
+    </View>
+    <Divider styleName="line" style={{ marginTop: 5, marginBottom: 5 }} />
+    <View styleName="horizontal v-center">
+      <Icon name="web" />
+      <TextInput
+        style={{
+          marginLeft: 10,
+          flexBasis: '100%',
+          flexGrow: 1,
+          flexShrink: 1,
+        }}
+        placeholder="Homepage:"
+        onChangeText={() => ({})}
+      />
+    </View>
+  </View>
+);
 
 export const createSelectAdditionalInformation = ({
   additionalInformation,

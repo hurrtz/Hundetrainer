@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
-import { Screen, NavigationBar, Icon } from '@shoutem/ui';
+import {
+  Screen,
+  NavigationBar,
+  Icon,
+  Divider,
+  Button,
+  Text,
+  Caption,
+} from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
 import {
   createSelectName,
   createSelectType,
   createSelectAddress,
+  createSelectContact,
   createSelectAdditionalInformation,
 } from '../shared';
 
@@ -30,14 +39,43 @@ class AddressBookAdd extends Component<Props, State> {
           styleName="inline"
         />
 
-        <StandardView>
+        <StandardView noPaddingTop>
+          <Divider styleName="section-header">
+            <Caption>Titel</Caption>
+          </Divider>
+
           {createSelectName()}
+
+          <Divider styleName="section-header">
+            <Caption>Typ</Caption>
+          </Divider>
+
           {createSelectType()}
+
+          <Divider styleName="section-header">
+            <Caption>Adresse</Caption>
+          </Divider>
+
           {createSelectAddress()}
+
+          <Divider styleName="section-header">
+            <Caption>Kontakt</Caption>
+          </Divider>
+
+          {createSelectContact()}
+
+          <Divider />
+
           {createSelectAdditionalInformation({
             additionalInformation: '',
             handleAdditionalInformationChange: () => ({}),
           })}
+
+          <Divider />
+
+          <Button styleName="full-width" onPress={() => ({})}>
+            <Text>Speichern</Text>
+          </Button>
         </StandardView>
       </Screen>
     );
