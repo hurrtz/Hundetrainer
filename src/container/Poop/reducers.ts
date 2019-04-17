@@ -2,7 +2,12 @@ import { AnyAction } from 'redux';
 import uuidv4 from 'uuid/v4';
 
 import { IPoop, COLOR, CONSISTENCY, QUALITY } from 'apptypes/poop';
-import { ADD_POOP, UPDATE_POOP, REMOVE_POOP } from './actions';
+import {
+  ADD_POOP,
+  UPDATE_POOP,
+  REMOVE_POOP,
+  UPDATE_POOPS_TO_HAVE_IDS,
+} from './actions';
 
 export interface State {
   items: IPoop[];
@@ -93,6 +98,21 @@ function removePoop(state: State, poopToDelete: IPoop) {
   };
 }
 
+function updatePoopsToHaveIds(state: State) {
+  const poops = state.items.map(poop => {
+    if (poop.id === undefined) {
+      return { ...poop, id: uuidv4() };
+    }
+
+    return poop;
+  });
+
+  return {
+    ...state,
+    items: poops,
+  };
+}
+
 export default function(state: State = initialState, action: AnyAction): State {
   switch (action.type) {
     case ADD_POOP:
@@ -103,6 +123,9 @@ export default function(state: State = initialState, action: AnyAction): State {
 
     case REMOVE_POOP:
       return removePoop(state, action.poop);
+
+    case UPDATE_POOPS_TO_HAVE_IDS:
+      return updatePoopsToHaveIds(state);
 
     default:
       return state;
