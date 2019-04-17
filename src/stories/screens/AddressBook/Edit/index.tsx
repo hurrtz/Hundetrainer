@@ -131,6 +131,9 @@ class AddressBookEdit extends Component<Props, State> {
           leftComponent={
             <Icon name="back" onPress={() => navigation.goBack()} />
           }
+          rightComponent={
+            <Icon name="error" onPress={navigation.getParam('onDelete')} />
+          }
           title="Bearbeiten"
           styleName="inline"
         />
