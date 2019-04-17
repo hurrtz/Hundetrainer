@@ -173,21 +173,23 @@ class PoopAdd extends Component<Props, State> {
             <Caption>Zeitpunkt</Caption>
           </Divider>
 
-          {createSelectDate({
-            date,
-            handleChangeDate: this.handleChangeDate,
-          })}
+          <View styleName="md-gutter-top">
+            {createSelectDate({
+              date,
+              handleChangeDate: this.handleChangeDate,
+            })}
 
-          {createSelectTime({
-            time,
-            handleChangeTime: this.handleChangeTime,
-          })}
+            {createSelectTime({
+              time,
+              handleChangeTime: this.handleChangeTime,
+            })}
+          </View>
 
-          <Divider styleName="section-header">
+          <Divider styleName="section-header lg-gutter-top">
             <Caption>Eigenschaften</Caption>
           </Divider>
 
-          <View styleName="horizontal v-center">
+          <View styleName="horizontal v-center md-gutter-top">
             <Text>Qualität:</Text>
 
             {createSelectQuality({
@@ -197,7 +199,7 @@ class PoopAdd extends Component<Props, State> {
             })}
           </View>
 
-          <View styleName="horizontal v-center">
+          <View styleName="horizontal v-center md-gutter-top">
             <Text>Konsistenz:</Text>
 
             {createSelectConsistency({
@@ -209,7 +211,7 @@ class PoopAdd extends Component<Props, State> {
             })}
           </View>
 
-          <View styleName="horizontal v-center">
+          <View styleName="horizontal v-center md-gutter-top">
             <Text>Farbe:</Text>
 
             {createSelectColor({
@@ -219,31 +221,36 @@ class PoopAdd extends Component<Props, State> {
             })}
           </View>
 
-          <Divider styleName="section-header">
+          <Divider styleName="section-header lg-gutter-top">
             <Caption>Sonstige Merkmale</Caption>
           </Divider>
 
-          {createSelectHasBlood({
-            hasBlood,
-            handleChangeHasBlood: this.handleChangeHasBlood,
-          })}
+          <View styleName="md-gutter-top">
+            {createSelectHasBlood({
+              hasBlood,
+              handleChangeHasBlood: this.handleChangeHasBlood,
+            })}
+          </View>
 
-          {createSelectIsConspicuous({
-            isConspicuous,
-            handleChangeIsConspicuous: this.handleChangeIsConspicuous,
-          })}
+          <View styleName="md-gutter-top">
+            {createSelectIsConspicuous({
+              isConspicuous,
+              handleChangeIsConspicuous: this.handleChangeIsConspicuous,
+            })}
+          </View>
 
-          <Divider />
+          <View styleName="lg-gutter-top">
+            {createSelectAdditionalInformation({
+              additionalInformation,
+              handleAdditionalInformationChange: this
+                .handleAdditionalInformationChange,
+            })}
+          </View>
 
-          {createSelectAdditionalInformation({
-            additionalInformation,
-            handleAdditionalInformationChange: this
-              .handleAdditionalInformationChange,
-          })}
-
-          <Divider />
-
-          <Button styleName="full-width" onPress={() => this.handleClose()}>
+          <Button
+            styleName="full-width lg-gutter-top"
+            onPress={() => this.handleClose()}
+          >
             <Text>Speichern</Text>
           </Button>
         </StandardView>

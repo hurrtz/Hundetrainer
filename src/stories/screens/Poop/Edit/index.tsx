@@ -107,16 +107,16 @@ class PoopEdit extends Component<Props, State> {
     this.setState(prevState => ({ ...prevState, time }));
   }
 
-  handleChangeQuality(value: QUALITY) {
-    this.setState(prevState => ({ ...prevState, quality: value }));
+  handleChangeQuality({ value: quality }: { value: QUALITY }) {
+    this.setState(prevState => ({ ...prevState, quality }));
   }
 
-  handleChangeConsistency(value: CONSISTENCY) {
-    this.setState(prevState => ({ ...prevState, consistency: value }));
+  handleChangeConsistency({ value: consistency }: { value: CONSISTENCY }) {
+    this.setState(prevState => ({ ...prevState, consistency }));
   }
 
-  handleChangeColor(value: COLOR) {
-    this.setState(prevState => ({ ...prevState, color: value }));
+  handleChangeColor({ value: color }: { value: COLOR }) {
+    this.setState(prevState => ({ ...prevState, color }));
   }
 
   handleChangeHasBlood(hasBlood: boolean) {
@@ -170,21 +170,23 @@ class PoopEdit extends Component<Props, State> {
             <Caption>Zeitpunkt</Caption>
           </Divider>
 
-          {createSelectDate({
-            date,
-            handleChangeDate: this.handleChangeDate,
-          })}
+          <View styleName="md-gutter-top">
+            {createSelectDate({
+              date,
+              handleChangeDate: this.handleChangeDate,
+            })}
 
-          {createSelectTime({
-            time,
-            handleChangeTime: this.handleChangeTime,
-          })}
+            {createSelectTime({
+              time,
+              handleChangeTime: this.handleChangeTime,
+            })}
+          </View>
 
-          <Divider styleName="section-header">
+          <Divider styleName="section-header lg-gutter-top">
             <Caption>Eigenschaften</Caption>
           </Divider>
 
-          <View styleName="horizontal v-center">
+          <View styleName="horizontal v-center md-gutter-top">
             <Text>Qualität:</Text>
 
             {createSelectQuality({
@@ -194,7 +196,7 @@ class PoopEdit extends Component<Props, State> {
             })}
           </View>
 
-          <View styleName="horizontal v-center">
+          <View styleName="horizontal v-center md-gutter-top">
             <Text>Konsistenz:</Text>
 
             {createSelectConsistency({
@@ -206,7 +208,7 @@ class PoopEdit extends Component<Props, State> {
             })}
           </View>
 
-          <View styleName="horizontal v-center">
+          <View styleName="horizontal v-center md-gutter-top">
             <Text>Farbe:</Text>
 
             {createSelectColor({
@@ -216,31 +218,36 @@ class PoopEdit extends Component<Props, State> {
             })}
           </View>
 
-          <Divider styleName="section-header">
+          <Divider styleName="section-header lg-gutter-top">
             <Caption>Sonstige Merkmale</Caption>
           </Divider>
 
-          {createSelectHasBlood({
-            hasBlood,
-            handleChangeHasBlood: this.handleChangeHasBlood,
-          })}
+          <View styleName="md-gutter-top">
+            {createSelectHasBlood({
+              hasBlood,
+              handleChangeHasBlood: this.handleChangeHasBlood,
+            })}
+          </View>
 
-          {createSelectIsConspicuous({
-            isConspicuous,
-            handleChangeIsConspicuous: this.handleChangeIsConspicuous,
-          })}
+          <View styleName="md-gutter-top">
+            {createSelectIsConspicuous({
+              isConspicuous,
+              handleChangeIsConspicuous: this.handleChangeIsConspicuous,
+            })}
+          </View>
 
-          <Divider />
+          <View styleName="lg-gutter-top">
+            {createSelectAdditionalInformation({
+              additionalInformation,
+              handleAdditionalInformationChange: this
+                .handleAdditionalInformationChange,
+            })}
+          </View>
 
-          {createSelectAdditionalInformation({
-            additionalInformation,
-            handleAdditionalInformationChange: this
-              .handleAdditionalInformationChange,
-          })}
-
-          <Divider />
-
-          <Button styleName="full-width" onPress={() => this.handleClose()}>
+          <Button
+            styleName="full-width lg-gutter-top"
+            onPress={() => this.handleClose()}
+          >
             <Text>Speichern</Text>
           </Button>
         </StandardView>
