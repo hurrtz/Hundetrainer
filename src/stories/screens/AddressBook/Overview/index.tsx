@@ -34,7 +34,7 @@ class AddressBookDetails extends Component<Props, State> {
     }
 
     return addresses.map((address: IAddressBookEntry) => (
-      <View styleName="md-gutter-top">
+      <View key={address.id} styleName="md-gutter-top">
         <Text>{address.name}</Text>
         <Text>
           {ADDRESS_TYPES.find(({ value }) => value === address.type).title}
