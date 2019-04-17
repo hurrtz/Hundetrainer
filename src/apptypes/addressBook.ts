@@ -11,14 +11,14 @@ export enum ADDRESS_TYPES {
 
 export interface IAddress {
   street: string;
-  zip: number;
+  zip: string;
   city: string;
   country: string;
 }
 
 export interface IContact {
-  telephone: number;
-  mobile: number;
+  telephone: string;
+  mobile: string;
   email: string;
   homepage: string;
 }

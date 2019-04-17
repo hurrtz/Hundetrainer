@@ -46,6 +46,12 @@ class AddressBookDetails extends Component<Props, State> {
           leftComponent={
             <Icon name="back" onPress={() => navigation.goBack()} />
           }
+          rightComponent={
+            <Icon
+              name="edit"
+              onPress={() => navigation.push('AddressBookEdit', { address })}
+            />
+          }
           title={address.name}
           styleName="inline"
         />
