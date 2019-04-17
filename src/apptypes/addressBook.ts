@@ -24,9 +24,10 @@ export interface IContact {
 }
 
 export interface IAddressBookEntry {
+  id: string;
   name: string;
   type: ADDRESS_TYPES;
-  picture: string;
+  picture?: string;
   address: IAddress;
   contact: IContact;
   additionalInformation: string;

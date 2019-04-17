@@ -20,6 +20,7 @@ export enum CONSISTENCY {
 }
 
 export interface IPoop {
+  id: string;
   date: string;
   quality: QUALITY;
   color: COLOR;

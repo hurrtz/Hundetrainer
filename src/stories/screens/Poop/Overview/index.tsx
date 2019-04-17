@@ -1,12 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import {
-  NavigationBar,
-  Header,
-  Text,
-  Icon,
-  Divider,
-  Screen,
-} from '@shoutem/ui';
+import { NavigationBar, Title, Text, Icon, Screen, View } from '@shoutem/ui';
 
 import { IPoop } from 'apptypes/poop';
 import { TNavigation } from 'apptypes/base';
@@ -24,8 +17,8 @@ class PoopOverview extends Component<Props, State> {
   createDefault() {
     return (
       <Fragment>
-        <Header>Keine Daten vorhanden</Header>
-        <Text>
+        <Title>Keine Daten vorhanden</Title>
+        <Text styleName="md-gutter-top">
           Bitte hinterlegen Sie Stuhlgänge, um einen Überblick über einen
           wichtigen Aspekt der Gesundheit Ihres Hundes zu erhalten.
         </Text>
@@ -54,10 +47,9 @@ class PoopOverview extends Component<Props, State> {
     });
 
     return datesSorted.map(date => (
-      <Fragment key={date}>
+      <View key={date} styleName="md-gutter-top">
         <PoopList poops={poops[date]} navigation={navigation} />
-        <Divider styleName="line" style={{ marginTop: 5, marginBottom: 5 }} />
-      </Fragment>
+      </View>
     ));
   }
 
@@ -79,7 +71,7 @@ class PoopOverview extends Component<Props, State> {
           title="Stuhlgang"
           styleName="inline"
         />
-        <StandardView>{this.createPoopLists()}</StandardView>
+        <StandardView noPaddingTop>{this.createPoopLists()}</StandardView>
       </Screen>
     );
   }

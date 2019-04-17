@@ -1,4 +1,5 @@
 import { AnyAction } from 'redux';
+import uuidv4 from 'uuid/v4';
 
 import {
   IAddressBookEntry,
@@ -52,7 +53,10 @@ export const ADDRESS_TYPES = [
 ];
 
 function setAddress(state: State, address: IAddressBookEntry) {
-  return { ...state, addresses: [...state.addresses, address] };
+  return {
+    ...state,
+    addresses: [...state.addresses, { ...address, id: uuidv4() }],
+  };
 }
 
 function updateAddress(

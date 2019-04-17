@@ -11,14 +11,14 @@ interface IUpdateAddress {
   newAddress: IAddressBookEntry;
 }
 
-export function addPoop(address: IAddressBookEntry) {
+export function addAddress(address: IAddressBookEntry) {
   return {
     type: ADD_ADDRESS,
     address,
   };
 }
 
-export function updatePoop({ currentAddress, newAddress }: IUpdateAddress) {
+export function updateAddress({ currentAddress, newAddress }: IUpdateAddress) {
   return {
     type: UPDATE_ADDRESS,
     currentAddress,

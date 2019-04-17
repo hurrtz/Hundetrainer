@@ -1,4 +1,5 @@
 import { AnyAction } from 'redux';
+import uuidv4 from 'uuid/v4';
 
 import { IPoop, COLOR, CONSISTENCY, QUALITY } from 'apptypes/poop';
 import { ADD_POOP, UPDATE_POOP, REMOVE_POOP } from './actions';
@@ -71,7 +72,7 @@ const initialState: State = {
 };
 
 function setPoop(state: State, poop: IPoop) {
-  return { ...state, items: [...state.items, poop] };
+  return { ...state, items: [...state.items, { ...poop, id: uuidv4() }] };
 }
 
 function updatePoop(state: State, currentPoop: IPoop, newPoop: IPoop) {
