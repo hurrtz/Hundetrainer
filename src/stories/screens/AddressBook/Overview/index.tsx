@@ -1,5 +1,15 @@
 import React, { Component, Fragment } from 'react';
-import { Screen, NavigationBar, Icon, Title, Text, View } from '@shoutem/ui';
+import {
+  Screen,
+  NavigationBar,
+  Icon,
+  Title,
+  Text,
+  View,
+  Card,
+  Subtitle,
+  TouchableOpacity,
+} from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
 import { TNavigation } from 'apptypes/base';
@@ -27,19 +37,31 @@ class AddressBookDetails extends Component<Props, State> {
   }
 
   createAddressesList() {
-    const { addresses } = this.props;
+    const { addresses, navigation } = this.props;
 
     if (addresses.length === 0) {
       return this.createDefault();
     }
 
     return addresses.map((address: IAddressBookEntry) => (
-      <View key={address.id} styleName="md-gutter-top">
-        <Text>{address.name}</Text>
-        <Text>
-          {ADDRESS_TYPES.find(({ value }) => value === address.type).title}
-        </Text>
-      </View>
+      <TouchableOpacity
+        key={address.id}
+        onPress={() => navigation.push('AddressBookDetails', { address })}
+      >
+        <View styleName="md-gutter-top">
+          <Card
+            style={{
+              width: '100%',
+              padding: 10,
+            }}
+          >
+            <Subtitle>{address.name}</Subtitle>
+            <Text>
+              {ADDRESS_TYPES.find(({ value }) => value === address.type).title}
+            </Text>
+          </Card>
+        </View>
+      </TouchableOpacity>
     ));
   }
 

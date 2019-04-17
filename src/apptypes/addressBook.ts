@@ -12,7 +12,7 @@ export enum ADDRESS_TYPES {
 export interface IAddress {
   street: string;
   zip: number;
-  place: string;
+  city: string;
   country: string;
 }
 
