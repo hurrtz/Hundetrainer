@@ -23,6 +23,7 @@
     "lodash": "^4.17.11",
     "react": "^16.8.4",
     "react-native": "^0.59.1",
+    "react-native-action-button": "^2.8.5",
     "react-native-datepicker": "^1.7.2",
     "react-native-gesture-handler": "^1.1.0",
     "react-native-share": "^1.1.3",
