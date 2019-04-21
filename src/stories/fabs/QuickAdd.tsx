@@ -25,7 +25,7 @@ class QuickAdd extends PureComponent<Props, State> {
     const { Item } = ActionButton;
 
     return (
-      <ActionButton buttonColor="rgba(231,76,60,1)">
+      <ActionButton buttonColor="rgba(244, 226, 66,0.25)">
         <Item buttonColor="#3498db" onPress={() => ({})}>
           <IconComponent name="bone" style={styles.actionButtonIcon} />
         </Item>

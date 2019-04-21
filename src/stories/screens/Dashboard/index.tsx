@@ -8,6 +8,8 @@ import {
   Subtitle,
   Overlay,
   Icon,
+  Screen,
+  View,
 } from '@shoutem/ui';
 
 // @ts-ignore
@@ -28,23 +30,27 @@ class Dashboard extends Component<Props, State> {
     const { height } = Dimensions.get('window');
 
     return (
-      <ImageBackground
-        style={{ width: undefined, height }}
-        source={BoGamePicture}
-      >
+      <Screen>
         <NavigationBar
           leftComponent={
             <Icon onPress={() => navigation.toggleDrawer()} name="sidebar" />
           }
-          styleName="clear"
+          styleName="inline"
         />
-        <Tile>
-          <Overlay styleName="image-overlay">
-            <Title styleName="sm-gutter-horizontal">Hundetrainer</Title>
-            <Subtitle styleName="sm-gutter-horizontal">{version}</Subtitle>
-          </Overlay>
-        </Tile>
-      </ImageBackground>
+        <View>
+          <ImageBackground
+            style={{ width: undefined, height }}
+            source={BoGamePicture}
+          >
+            <Tile>
+              <Overlay styleName="image-overlay">
+                <Title styleName="sm-gutter-horizontal">Hundetrainer</Title>
+                <Subtitle styleName="sm-gutter-horizontal">{version}</Subtitle>
+              </Overlay>
+            </Tile>
+          </ImageBackground>
+        </View>
+      </Screen>
     );
   }
 }
