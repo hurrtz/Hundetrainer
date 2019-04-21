@@ -1,131 +1,106 @@
 import { AnyAction } from 'redux';
 import uuidv4 from 'uuid/v4';
 
-import { IPoop, COLOR, CONSISTENCY, QUALITY } from 'apptypes/poop';
+import { IPoop } from 'apptypes/poop';
 import {
   ADD_POOP,
   UPDATE_POOP,
   REMOVE_POOP,
-  UPDATE_POOPS_TO_HAVE_IDS,
+  SET_POOP_TO_DETAILS,
+  SET_POOP_TO_EDIT,
 } from './actions';
 
 export interface State {
   items: IPoop[];
+  currentDetailsPoop: string | undefined;
+  currentEditPoop: string | undefined;
   isLoading: boolean;
 }
 
-export const COLORS = [
-  {
-    title: 'hell',
-    value: COLOR.LIGHT,
-  },
-  {
-    title: 'normal',
-    value: COLOR.MEDIUM,
-  },
-  {
-    title: 'dunkel',
-    value: COLOR.DARK,
-  },
-  {
-    title: 'schwarz',
-    value: COLOR.BLACK,
-  },
-  {
-    title: 'andere Farbe',
-    value: COLOR.OTHER,
-  },
-];
-
-export const CONSISTENCIES = [
-  {
-    title: 'flüssig',
-    value: CONSISTENCY.LIQUID,
-  },
-  {
-    title: 'weich',
-    value: CONSISTENCY.SOFT,
-  },
-  {
-    title: 'normal',
-    value: CONSISTENCY.NORMAL,
-  },
-  {
-    title: 'hart',
-    value: CONSISTENCY.HARD,
-  },
-];
-
-export const QUALITIES = [
-  {
-    title: 'gut',
-    value: QUALITY.GOOD,
-  },
-  {
-    title: 'mäßig',
-    value: QUALITY.MEDIUM,
-  },
-  {
-    title: 'schlecht',
-    value: QUALITY.BAD,
-  },
-];
-
 const initialState: State = {
   items: [],
+  currentDetailsPoop: undefined,
+  currentEditPoop: undefined,
   isLoading: true,
 };
 
-function setPoop(state: State, poop: IPoop) {
+function setPoop({ state, poop }: { state: State; poop: IPoop }) {
   return { ...state, items: [...state.items, { ...poop, id: uuidv4() }] };
 }
 
-function updatePoop(state: State, currentPoop: IPoop, newPoop: IPoop) {
+function updatePoop({
+  state,
+  currentPoop,
+  newPoop,
+}: {
+  state: State;
+  currentPoop: IPoop;
+  newPoop: IPoop;
+}) {
   return {
     ...state,
     items: [
       ...state.items.map((poop: IPoop) =>
-        poop.date === currentPoop.date ? newPoop : poop,
+        poop.id === currentPoop.id ? { ...newPoop, id: currentPoop.id } : poop,
       ),
     ],
   };
 }
 
-function removePoop(state: State, poopToDelete: IPoop) {
+function removePoop({
+  state,
+  poop: poopToDelete,
+}: {
+  state: State;
+  poop: IPoop;
+}) {
   return {
     ...state,
-    items: [...state.items.filter(poop => poop.date !== poopToDelete.date)],
+    items: [...state.items.filter(poop => poop.id !== poopToDelete.id)],
   };
 }
 
-function updatePoopsToHaveIds(state: State) {
-  const poops = state.items.map(poop => {
-    if (poop.id === undefined) {
-      return { ...poop, id: uuidv4() };
-    }
-
-    return poop;
-  });
-
+function setPoopToDetails({ state, id }: { state: State; id: string }) {
   return {
     ...state,
-    items: poops,
+    currentDetailsPoop:
+      typeof id === 'string' && id.length > 0 ? id : undefined,
+  };
+}
+
+function setPoopToEdit({ state, id }: { state: State; id: string }) {
+  return {
+    ...state,
+    currentEditPoop: typeof id === 'string' && id.length > 0 ? id : undefined,
   };
 }
 
 export default function(state: State = initialState, action: AnyAction): State {
   switch (action.type) {
     case ADD_POOP:
-      return setPoop(state, action.poop);
+      return setPoop({ state, poop: action.poop });
 
     case UPDATE_POOP:
-      return updatePoop(state, action.currentPoop, action.newPoop);
+      return updatePoop({
+        state,
+        currentPoop: action.currentPoop,
+        newPoop: action.newPoop,
+      });
 
     case REMOVE_POOP:
-      return removePoop(state, action.poop);
+      return removePoop({ state, poop: action.poop });
 
-    case UPDATE_POOPS_TO_HAVE_IDS:
-      return updatePoopsToHaveIds(state);
+    case SET_POOP_TO_DETAILS:
+      return setPoopToDetails({
+        state,
+        id: action.id,
+      });
+
+    case SET_POOP_TO_EDIT:
+      return setPoopToEdit({
+        state,
+        id: action.id,
+      });
 
     default:
       return state;

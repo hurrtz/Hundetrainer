@@ -10,7 +10,7 @@ import {
   Caption,
 } from '@shoutem/ui';
 
-import { COLORS, CONSISTENCIES, QUALITIES } from 'container/Poop/reducers';
+import { COLORS, CONSISTENCIES, QUALITIES } from 'container/Poop/constants';
 import { TNavigation } from 'apptypes/base';
 import { QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
 import { StandardView } from 'ui/Layout';

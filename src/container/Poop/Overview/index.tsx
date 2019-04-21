@@ -5,41 +5,43 @@ import { createStructuredSelector } from 'reselect';
 import PoopOverview from 'stories/screens/Poop/Overview';
 import { IPoop } from 'apptypes/poop';
 import { TNavigation } from 'apptypes/base';
-import {
-  itemsGroupedAndSortedByDateSelector,
-  itemsSelector,
-} from '../selectors';
-import { updatePoopToHaveIds } from '../actions';
+import { itemsGroupedAndSortedByDateSelector } from '../selectors';
+import { setPoopToDetails, setPoopToEdit } from '../actions';
 
 interface Props {
   navigation: TNavigation;
   poops: { [date: string]: IPoop[] };
-  allPoopsAsList: IPoop[];
-  updatePoopToHaveIds: Function;
+  setPoopToDetails: Function;
+  setPoopToEdit: Function;
 }
 
 interface State {}
 
 class PoopOverviewContainer extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    props.updatePoopToHaveIds();
-  }
-
   render() {
-    const { navigation, poops } = this.props;
+    const {
+      navigation,
+      poops,
+      setPoopToDetails: onShowDetails,
+      setPoopToEdit: onEditPoop,
+    } = this.props;
 
-    return <PoopOverview navigation={navigation} poops={poops} />;
+    return (
+      <PoopOverview
+        navigation={navigation}
+        poops={poops}
+        onShowDetails={onShowDetails}
+        onEditPoop={onEditPoop}
+      />
+    );
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  allPoopsAsList: itemsSelector,
   poops: itemsGroupedAndSortedByDateSelector,
 });
 
-const mapDispatchToProps = { updatePoopToHaveIds };
+const mapDispatchToProps = { setPoopToDetails, setPoopToEdit };
 
 export default connect(
   mapStateToProps,

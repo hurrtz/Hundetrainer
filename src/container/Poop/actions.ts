@@ -5,7 +5,8 @@ const NS = 'POOPS';
 export const ADD_POOP = `${NS}: Adding new poop`;
 export const UPDATE_POOP = `${NS}: Updating poop`;
 export const REMOVE_POOP = `${NS}: Removing poop`;
-export const UPDATE_POOPS_TO_HAVE_IDS = `${NS}: Update poops to have ids`;
+export const SET_POOP_TO_DETAILS = `${NS}: Setting poop for detail view`;
+export const SET_POOP_TO_EDIT = `${NS}: Setting poop for editing`;
 
 interface IUpdatePoops {
   currentPoop: IPoop;
@@ -34,8 +35,16 @@ export function removePoop(poop: IPoop) {
   };
 }
 
-export function updatePoopToHaveIds() {
+export function setPoopToDetails({ id }: { id: string }) {
   return {
-    type: UPDATE_POOPS_TO_HAVE_IDS,
+    type: SET_POOP_TO_DETAILS,
+    id,
+  };
+}
+
+export function setPoopToEdit({ id }: { id: string }) {
+  return {
+    type: SET_POOP_TO_EDIT,
+    id,
   };
 }

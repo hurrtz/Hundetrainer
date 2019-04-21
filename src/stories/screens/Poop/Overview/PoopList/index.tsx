@@ -8,11 +8,19 @@ import PoopDetails from './PoopDetails';
 interface Props {
   navigation: TNavigation;
   poops: IPoop[];
+  onShowDetails: Function;
+  onEditPoop: Function;
 }
 
 interface State {}
 
 class PoopList extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+
+    this.onShowDetails = this.onShowDetails.bind(this);
+  }
+
   getTwoDigitNumber(value: number): string {
     return value < 10 ? `0${value}` : String(value);
   }
@@ -25,8 +33,15 @@ class PoopList extends Component<Props, State> {
     )}.${date.getFullYear()}`;
   }
 
+  onShowDetails({ id }: { id: String }) {
+    const { navigation, onShowDetails } = this.props;
+
+    onShowDetails({ id });
+    navigation.push('PoopDetails');
+  }
+
   render() {
-    const { poops, navigation } = this.props;
+    const { poops } = this.props;
 
     return (
       <Card
@@ -40,7 +55,7 @@ class PoopList extends Component<Props, State> {
         {poops.map(poop => (
           <TouchableOpacity
             key={`entry-${poop.date}`}
-            onPress={() => navigation.push('PoopDetails', { poop })}
+            onPress={() => this.onShowDetails({ id: poop.id })}
           >
             <PoopDetails poop={poop} />
           </TouchableOpacity>

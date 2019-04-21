@@ -9,6 +9,8 @@ import PoopList from './PoopList';
 interface Props {
   navigation: TNavigation;
   poops: { [date: string]: IPoop[] };
+  onShowDetails: Function;
+  onEditPoop: Function;
 }
 
 interface State {}
@@ -27,7 +29,7 @@ class PoopOverview extends Component<Props, State> {
   }
 
   createPoopLists() {
-    const { poops, navigation } = this.props;
+    const { poops, navigation, onShowDetails, onEditPoop } = this.props;
     const dates = Object.keys(poops);
 
     if (dates.length === 0) {
@@ -48,7 +50,12 @@ class PoopOverview extends Component<Props, State> {
 
     return datesSorted.map(date => (
       <View key={date} styleName="md-gutter-top">
-        <PoopList poops={poops[date]} navigation={navigation} />
+        <PoopList
+          poops={poops[date]}
+          navigation={navigation}
+          onShowDetails={onShowDetails}
+          onEditPoop={onEditPoop}
+        />
       </View>
     ));
   }

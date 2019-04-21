@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { Alert } from 'react-native';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import { TNavigation } from 'apptypes/base';
 import { IPoop } from 'apptypes/poop';
 import PoopEdit from 'stories/screens/Poop/Edit';
-import { removePoop, updatePoop } from '../actions';
+import { currentEditItemSelector } from '../selectors';
+import { removePoop, updatePoop, setPoopToEdit } from '../actions';
 
 interface Props {
   navigation: TNavigation;
+  poop: IPoop;
   removePoop: Function;
   updatePoop: Function;
+  setPoopToEdit: Function;
 }
 
 interface State {}
@@ -47,32 +51,42 @@ class PoopEditContainer extends Component<Props, State> {
   }
 
   onHandleSave(poop: IPoop) {
-    const { updatePoop: update, navigation } = this.props;
+    const { poop: currentPoop, updatePoop: update, navigation } = this.props;
 
-    update({ currentPoop: navigation.getParam('poop'), newPoop: poop });
+    update({ currentPoop, newPoop: poop });
 
-    navigation.pop(2);
+    navigation.goBack();
   }
 
   onDelete() {
-    const { navigation, removePoop: remove } = this.props;
-    const poopToDelete = navigation.getParam('poop') as IPoop;
+    const { poop, navigation, removePoop: remove } = this.props;
 
-    remove(poopToDelete);
+    remove(poop);
 
-    navigation.pop(2);
+    navigation.popToTop();
   }
 
   render() {
-    const { navigation } = this.props;
+    const { navigation, poop, setPoopToEdit: onEditPoop } = this.props;
 
-    return <PoopEdit navigation={navigation} onSave={this.onHandleSave} />;
+    return (
+      <PoopEdit
+        navigation={navigation}
+        poop={poop}
+        onSave={this.onHandleSave}
+        onEditPoop={onEditPoop}
+      />
+    );
   }
 }
 
-const mapDispatchToProps = { removePoop, updatePoop };
+const mapStateToProps = createStructuredSelector({
+  poop: currentEditItemSelector,
+});
+
+const mapDispatchToProps = { removePoop, updatePoop, setPoopToEdit };
 
 export default connect(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps,
 )(PoopEditContainer);

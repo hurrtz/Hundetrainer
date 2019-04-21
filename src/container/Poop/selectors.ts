@@ -9,6 +9,32 @@ const itemsSelector = createSelector(
   state => state.items || [],
 );
 
+const currentDetailSelector = createSelector(
+  selectPoopState,
+  state => state.currentDetailsPoop,
+);
+
+const currentEditSelector = createSelector(
+  selectPoopState,
+  state => state.currentEditPoop,
+);
+
+const itemByIdSelector = (id: string) =>
+  createSelector(
+    itemsSelector,
+    items => items.filter(item => item.id === id),
+  );
+
+const currentDetailItemSelector = createSelector(
+  [itemsSelector, currentDetailSelector],
+  (items, detailId) => items.filter(item => item.id === detailId)[0],
+);
+
+const currentEditItemSelector = createSelector(
+  [itemsSelector, currentEditSelector],
+  (items, editId) => items.filter(item => item.id === editId)[0],
+);
+
 const itemsSortedByDateSelector = createSelector(
   itemsSelector,
   items =>
@@ -56,6 +82,9 @@ const itemsGroupedAndSortedByDateSelector = createSelector(
 export {
   selectPoopState,
   itemsSelector,
+  itemByIdSelector,
   itemsSortedByDateSelector,
   itemsGroupedAndSortedByDateSelector,
+  currentDetailItemSelector,
+  currentEditItemSelector,
 };

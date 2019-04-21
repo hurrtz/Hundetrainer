@@ -10,7 +10,7 @@ import {
   Caption,
 } from '@shoutem/ui';
 
-import { COLORS, CONSISTENCIES, QUALITIES } from 'container/Poop/reducers';
+import { COLORS, CONSISTENCIES, QUALITIES } from 'container/Poop/constants';
 import {
   createSelectDate,
   createSelectTime,
@@ -27,7 +27,9 @@ import { StandardView } from 'ui/Layout';
 
 interface Props {
   navigation: TNavigation;
+  poop: IPoop;
   onSave: Function;
+  onEditPoop: Function;
 }
 
 interface State {
@@ -45,12 +47,10 @@ class PoopEdit extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const poop: IPoop = props.navigation.getParam('poop');
-
     this.state = {
-      ...poop,
-      date: new Date(poop.date),
-      time: new Date(poop.date),
+      ...props.poop,
+      date: new Date(props.poop.date),
+      time: new Date(props.poop.date),
     };
 
     this.handleChangeDate = this.handleChangeDate.bind(this);
@@ -63,6 +63,12 @@ class PoopEdit extends Component<Props, State> {
     this.handleAdditionalInformationChange = this.handleAdditionalInformationChange.bind(
       this,
     );
+  }
+
+  componentWillUnmount() {
+    const { onEditPoop } = this.props;
+
+    onEditPoop({ id: undefined });
   }
 
   handleClose() {

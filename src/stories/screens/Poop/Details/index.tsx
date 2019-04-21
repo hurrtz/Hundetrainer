@@ -15,23 +15,24 @@ import { StandardView } from 'ui/Layout';
 
 interface Props {
   navigation: TNavigation;
+  poop: IPoop;
+  onDetailsPoop: Function;
+  onEditPoop: Function;
 }
 
 interface State {}
 
-interface INavigationProps {
-  poop: IPoop;
-}
-
 class PoopDetails extends Component<Props, State> {
-  navigationProps: INavigationProps;
-
   constructor(props: Props) {
     super(props);
 
-    this.navigationProps = {
-      poop: props.navigation.getParam('poop', undefined),
-    };
+    this.onGoingBack = this.onGoingBack.bind(this);
+  }
+
+  componentWillUnmount() {
+    const { onDetailsPoop } = this.props;
+
+    onDetailsPoop({ id: undefined });
   }
 
   formatDate(date: Date) {
@@ -53,7 +54,7 @@ class PoopDetails extends Component<Props, State> {
   }
 
   createQuality() {
-    const { poop } = this.navigationProps;
+    const { poop } = this.props;
 
     switch (poop.quality) {
       case QUALITY.BAD:
@@ -68,7 +69,7 @@ class PoopDetails extends Component<Props, State> {
   }
 
   createConsistency() {
-    const { poop } = this.navigationProps;
+    const { poop } = this.props;
 
     switch (poop.consistency) {
       case CONSISTENCY.LIQUID:
@@ -86,7 +87,7 @@ class PoopDetails extends Component<Props, State> {
   }
 
   createColor() {
-    const { poop } = this.navigationProps;
+    const { poop } = this.props;
 
     switch (poop.color) {
       case COLOR.LIGHT:
@@ -107,7 +108,7 @@ class PoopDetails extends Component<Props, State> {
   }
 
   createSecondaryInformations() {
-    const { poop } = this.navigationProps;
+    const { poop } = this.props;
     const out = [];
 
     if (poop.isConspicuous) {
@@ -145,26 +146,28 @@ class PoopDetails extends Component<Props, State> {
     return out;
   }
 
-  render() {
+  onGoingBack() {
     const { navigation } = this.props;
 
-    const { poop } = this.navigationProps;
+    navigation.goBack();
+  }
+
+  render() {
+    const { navigation, poop, onEditPoop } = this.props;
+
     const date = new Date(poop.date);
 
     return (
       <Screen>
         <NavigationBar
-          leftComponent={
-            <Icon name="back" onPress={() => navigation.goBack()} />
-          }
+          leftComponent={<Icon name="back" onPress={this.onGoingBack} />}
           rightComponent={
             <Icon
               name="edit"
-              onPress={() =>
-                navigation.navigate('PoopEdit', {
-                  poop: navigation.getParam('poop'),
-                })
-              }
+              onPress={() => {
+                onEditPoop({ id: poop.id });
+                navigation.navigate('PoopEdit');
+              }}
             />
           }
           title="Stuhlgang"
