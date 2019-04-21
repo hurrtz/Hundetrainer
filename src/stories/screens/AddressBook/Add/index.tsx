@@ -20,7 +20,7 @@ import {
 } from '../shared';
 
 import { TNavigation } from 'apptypes/base';
-import { ADDRESS_TYPES } from 'container/AddressBook/reducers';
+import { ADDRESS_TYPES } from 'container/AddressBook/constants';
 import { ADDRESS_TYPES as TYPES } from 'apptypes/addressBook';
 
 interface Props {

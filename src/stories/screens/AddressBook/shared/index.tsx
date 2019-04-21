@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  View,
-  Screen,
-  TextInput,
-  DropDownMenu,
-  Divider,
-  Icon,
-} from '@shoutem/ui';
+import { View, Screen, TextInput, DropDownMenu, Icon } from '@shoutem/ui';
 
-import { ADDRESS_TYPES } from 'container/AddressBook/reducers';
+import { ADDRESS_TYPES } from 'container/AddressBook/constants';
 import { ADDRESS_TYPES as TYPES } from 'apptypes/addressBook';
 
 interface ISelectAdditionalInformation {

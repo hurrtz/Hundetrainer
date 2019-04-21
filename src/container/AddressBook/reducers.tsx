@@ -1,56 +1,28 @@
 import { AnyAction } from 'redux';
 import uuidv4 from 'uuid/v4';
 
+import { IAddressBookEntry } from 'apptypes/addressBook';
 import {
-  IAddressBookEntry,
-  ADDRESS_TYPES as TYPES,
-} from 'apptypes/addressBook';
-import { ADD_ADDRESS, UPDATE_ADDRESS, REMOVE_ADDRESS } from './actions';
+  ADD_ADDRESS,
+  UPDATE_ADDRESS,
+  REMOVE_ADDRESS,
+  SET_ADDRESS_TO_DETAILS,
+  SET_ADDRESS_TO_EDIT,
+} from './actions';
 
 export interface State {
   addresses: IAddressBookEntry[];
+  currentDetailsAddress: string | undefined;
+  currentEditAddress: string | undefined;
   isLoading: boolean;
 }
 
 const initialState: State = {
   addresses: [],
+  currentDetailsAddress: undefined,
+  currentEditAddress: undefined,
   isLoading: true,
 };
-
-export const ADDRESS_TYPES = [
-  {
-    title: 'Ernährung',
-    value: TYPES.DIET,
-  },
-  {
-    title: 'Gesundheit',
-    value: TYPES.HEALTH,
-  },
-  {
-    title: 'Training',
-    value: TYPES.TRAINING,
-  },
-  {
-    title: 'Auslauf',
-    value: TYPES.EXCERCISE,
-  },
-  {
-    title: 'Hundeauslaufgebiet',
-    value: TYPES.DOG_PARK,
-  },
-  {
-    title: 'Hundebetreuung',
-    value: TYPES.DOG_SITTING,
-  },
-  {
-    title: 'Hunde-Pension',
-    value: TYPES.DOG_PENSION,
-  },
-  {
-    title: 'sonstige',
-    value: TYPES.OTHER,
-  },
-];
 
 function setAddress(state: State, address: IAddressBookEntry) {
   return {
@@ -68,7 +40,9 @@ function updateAddress(
     ...state,
     addresses: [
       ...state.addresses.map((address: IAddressBookEntry) =>
-        address.name === currentAddress.name ? newAddress : address,
+        address.id === currentAddress.id
+          ? { ...newAddress, id: currentAddress.id }
+          : address,
       ),
     ],
   };
@@ -78,10 +52,24 @@ function removeAddress(state: State, addressToDelete: IAddressBookEntry) {
   return {
     ...state,
     addresses: [
-      ...state.addresses.filter(
-        address => address.name !== addressToDelete.name,
-      ),
+      ...state.addresses.filter(address => address.id !== addressToDelete.id),
     ],
+  };
+}
+
+function setAddressToDetails({ state, id }: { state: State; id: string }) {
+  return {
+    ...state,
+    currentDetailsAddress:
+      typeof id === 'string' && id.length > 0 ? id : undefined,
+  };
+}
+
+function setAddressToEdit({ state, id }: { state: State; id: string }) {
+  return {
+    ...state,
+    currentEditAddress:
+      typeof id === 'string' && id.length > 0 ? id : undefined,
   };
 }
 
@@ -95,6 +83,18 @@ export default function(state: State = initialState, action: AnyAction): State {
 
     case REMOVE_ADDRESS:
       return removeAddress(state, action.address);
+
+    case SET_ADDRESS_TO_DETAILS:
+      return setAddressToDetails({
+        state,
+        id: action.id,
+      });
+
+    case SET_ADDRESS_TO_EDIT:
+      return setAddressToEdit({
+        state,
+        id: action.id,
+      });
 
     default:
       return state;

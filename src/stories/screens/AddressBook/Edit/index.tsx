@@ -20,13 +20,14 @@ import {
 } from '../shared';
 import { TNavigation } from 'apptypes/base';
 import { IAddressBookEntry } from 'apptypes/addressBook';
-import { ADDRESS_TYPES } from 'container/AddressBook/reducers';
+import { ADDRESS_TYPES } from 'container/AddressBook/constants';
 import { ADDRESS_TYPES as TYPES } from 'apptypes/addressBook';
 
 interface Props {
   navigation: TNavigation;
   onSave: Function;
   address: IAddressBookEntry;
+  onEditAddress: Function;
 }
 
 interface State {
@@ -66,6 +67,12 @@ class AddressBookEdit extends Component<Props, State> {
     this.handleAdditionalInformationChange = this.handleAdditionalInformationChange.bind(
       this,
     );
+  }
+
+  componentWillUnmount() {
+    const { onEditAddress } = this.props;
+
+    onEditAddress({ id: undefined });
   }
 
   handleNameChange({ name }) {

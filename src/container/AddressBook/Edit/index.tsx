@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { Alert } from 'react-native';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import { TNavigation } from 'apptypes/base';
 import { IAddressBookEntry } from 'apptypes/addressBook';
 import AddressBookEdit from 'stories/screens/AddressBook/Edit';
-import { removeAddress, updateAddress } from '../actions';
+import { currentEditItemSelector } from '../selectors';
+import { removeAddress, updateAddress, setAddressToEdit } from '../actions';
 
 interface Props {
   navigation: TNavigation;
+  address: IAddressBookEntry;
   removeAddress: Function;
   updateAddress: Function;
+  setAddressToEdit: Function;
 }
 
 interface State {}
@@ -47,42 +51,49 @@ class AddressBookEditContainer extends Component<Props, State> {
   }
 
   onHandleSave(address: IAddressBookEntry) {
-    const { updateAddress: update, navigation } = this.props;
+    const {
+      address: currentAddress,
+      updateAddress: update,
+      navigation,
+    } = this.props;
 
     update({
-      currentAddress: navigation.getParam('address'),
+      currentAddress,
       newAddress: address,
     });
 
-    navigation.pop(2);
+    navigation.goBack();
   }
 
   onDelete() {
-    const { navigation, removeAddress: remove } = this.props;
-    const addressToDelete = navigation.getParam('address') as IAddressBookEntry;
+    const { address, navigation, removeAddress: remove } = this.props;
 
-    remove(addressToDelete);
+    remove(address);
 
-    navigation.pop(2);
+    navigation.popToTop();
   }
 
   render() {
-    const { navigation } = this.props;
-    const address = navigation.getParam('address') as IAddressBookEntry;
+    const { navigation, address, setAddressToEdit: onEditAddress } = this.props;
 
     return (
       <AddressBookEdit
         address={address}
         navigation={navigation}
         onSave={this.onHandleSave}
+        onEditAddress={onEditAddress}
       />
     );
   }
 }
 
-const mapDispatchToProps = { removeAddress, updateAddress };
+const mapStateToProps = createStructuredSelector({
+  address: currentEditItemSelector,
+});
+
+const mapDispatchToProps = { removeAddress, updateAddress, setAddressToEdit };
 
 export default connect(
-  undefined,
+  mapStateToProps,
   mapDispatchToProps,
 )(AddressBookEditContainer);

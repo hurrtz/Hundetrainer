@@ -14,16 +14,24 @@ import {
 import { StandardView } from 'ui/Layout';
 import { TNavigation } from 'apptypes/base';
 import { IAddressBookEntry } from 'apptypes/addressBook';
-import { ADDRESS_TYPES } from 'container/AddressBook/reducers';
+import { ADDRESS_TYPES } from 'container/AddressBook/constants';
 
 interface Props {
   navigation: TNavigation;
   addresses: IAddressBookEntry[];
+  onShowDetails: Function;
+  onEditPoop: Function;
 }
 
 interface State {}
 
 class AddressBookDetails extends Component<Props, State> {
+  constructor(props) {
+    super(props);
+
+    this.onShowDetails = this.onShowDetails.bind(this);
+  }
+
   createDefault() {
     return (
       <Fragment>
@@ -36,8 +44,15 @@ class AddressBookDetails extends Component<Props, State> {
     );
   }
 
+  onShowDetails({ id }: { id: String }) {
+    const { navigation, onShowDetails } = this.props;
+
+    onShowDetails({ id });
+    navigation.push('AddressBookDetails');
+  }
+
   createAddressesList() {
-    const { addresses, navigation } = this.props;
+    const { addresses } = this.props;
 
     if (addresses.length === 0) {
       return this.createDefault();
@@ -46,7 +61,7 @@ class AddressBookDetails extends Component<Props, State> {
     return addresses.map((address: IAddressBookEntry) => (
       <TouchableOpacity
         key={address.id}
-        onPress={() => navigation.push('AddressBookDetails', { address })}
+        onPress={() => this.onShowDetails({ id: address.id })}
       >
         <View styleName="md-gutter-top">
           <Card

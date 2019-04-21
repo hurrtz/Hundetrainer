@@ -13,43 +13,50 @@ import {
 import { StandardView } from 'ui/Layout';
 import { TNavigation } from 'apptypes/base';
 import { IAddressBookEntry } from 'apptypes/addressBook';
-import { ADDRESS_TYPES } from 'container/AddressBook/reducers';
+import { ADDRESS_TYPES } from 'container/AddressBook/constants';
 
 interface Props {
   navigation: TNavigation;
+  address: IAddressBookEntry;
+  onDetailsAddress: Function;
+  onEditAddress: Function;
 }
 
 interface State {}
 
-interface INavigationProps {
-  address: IAddressBookEntry;
-}
-
 class AddressBookDetails extends Component<Props, State> {
-  navigationProps: INavigationProps;
-
   constructor(props: Props) {
     super(props);
 
-    this.navigationProps = {
-      address: props.navigation.getParam('address', undefined),
-    };
+    this.onGoingBack = this.onGoingBack.bind(this);
+  }
+
+  componentWillUnmount() {
+    const { onDetailsAddress } = this.props;
+
+    onDetailsAddress({ id: undefined });
+  }
+
+  onGoingBack() {
+    const { navigation } = this.props;
+
+    navigation.goBack();
   }
 
   render() {
-    const { navigation } = this.props;
-    const { address } = this.navigationProps;
+    const { navigation, address, onEditAddress } = this.props;
 
     return (
       <Screen>
         <NavigationBar
-          leftComponent={
-            <Icon name="back" onPress={() => navigation.goBack()} />
-          }
+          leftComponent={<Icon name="back" onPress={this.onGoingBack} />}
           rightComponent={
             <Icon
               name="edit"
-              onPress={() => navigation.push('AddressBookEdit', { address })}
+              onPress={() => {
+                onEditAddress({ id: address.id });
+                navigation.navigate('AddressBookEdit');
+              }}
             />
           }
           title={address.name}
@@ -65,25 +72,25 @@ class AddressBookDetails extends Component<Props, State> {
             <Caption>Adresse:</Caption>
           </Divider>
 
-          <Text styleName="sm-gutter-top">
+          <Text styleName="md-gutter-top">
             Straße: {address.address.street}
           </Text>
-          <Text styleName="sm-gutter-top">
+          <Text styleName="md-gutter-top">
             Postleitzahl: {address.address.zip}
           </Text>
-          <Text styleName="sm-gutter-top">Stadt: {address.address.city}</Text>
-          <Text styleName="sm-gutter-top">Land: {address.address.country}</Text>
+          <Text styleName="md-gutter-top">Stadt: {address.address.city}</Text>
+          <Text styleName="md-gutter-top">Land: {address.address.country}</Text>
 
           <Divider styleName="section-header">
             <Caption>Kontakt:</Caption>
           </Divider>
 
-          <Text styleName="sm-gutter-top">
+          <Text styleName="md-gutter-top">
             Telefon: {address.contact.telephone}
           </Text>
-          <Text styleName="sm-gutter-top">Mobil: {address.contact.mobile}</Text>
-          <Text styleName="sm-gutter-top">E-Mail: {address.contact.email}</Text>
-          <Text styleName="sm-gutter-top">
+          <Text styleName="md-gutter-top">Mobil: {address.contact.mobile}</Text>
+          <Text styleName="md-gutter-top">E-Mail: {address.contact.email}</Text>
+          <Text styleName="md-gutter-top">
             Homepage: {address.contact.homepage}
           </Text>
         </StandardView>
