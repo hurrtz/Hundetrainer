@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Screen, NavigationBar, Icon } from '@shoutem/ui';
+import React, { PureComponent } from 'react';
+import { Screen, NavigationBar, Icon, Title } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
 
@@ -11,7 +11,7 @@ interface Props {
 
 interface State {}
 
-class Food extends Component<Props, State> {
+class Food extends PureComponent<Props, State> {
   render() {
     const { navigation } = this.props;
 
@@ -24,7 +24,9 @@ class Food extends Component<Props, State> {
           title="Ernährung"
           styleName="inline"
         />
-        <StandardView />
+        <StandardView>
+          <Title>Ernährung</Title>
+        </StandardView>
       </Screen>
     );
   }

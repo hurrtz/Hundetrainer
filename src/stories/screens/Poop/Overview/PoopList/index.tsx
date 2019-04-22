@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Card, Subtitle, TouchableOpacity } from '@shoutem/ui';
 
 import { IPoop } from 'apptypes/poop';
@@ -14,7 +14,7 @@ interface Props {
 
 interface State {}
 
-class PoopList extends Component<Props, State> {
+class PoopList extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 

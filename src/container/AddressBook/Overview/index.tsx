@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -18,7 +18,7 @@ interface Props {
 
 interface State {}
 
-class AddressBookOverviewContainer extends Component<Props, State> {
+class AddressBookOverviewContainer extends PureComponent<Props, State> {
   render() {
     const {
       navigation,

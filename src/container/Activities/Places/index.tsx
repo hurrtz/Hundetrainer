@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import { TNavigation } from 'apptypes/base';
 import Places from 'stories/screens/Activities/Places';
@@ -9,7 +9,7 @@ interface Props {
 
 interface State {}
 
-class PlacesContainer extends Component<Props, State> {
+class PlacesContainer extends PureComponent<Props, State> {
   render() {
     const { navigation } = this.props;
 

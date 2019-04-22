@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -19,7 +19,7 @@ interface Props {
 
 interface State {}
 
-class PoopEditContainer extends Component<Props, State> {
+class PoopEditContainer extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 

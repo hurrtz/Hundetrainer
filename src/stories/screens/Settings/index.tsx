@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Screen, NavigationBar, Icon } from '@shoutem/ui';
+import React, { PureComponent } from 'react';
+import { Screen, NavigationBar, Icon, Title } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
 import { TNavigation } from 'apptypes/base';
@@ -10,7 +10,7 @@ interface Props {
 
 interface State {}
 
-class Settings extends Component<Props, State> {
+class Settings extends PureComponent<Props, State> {
   render() {
     const { navigation } = this.props;
 
@@ -23,7 +23,9 @@ class Settings extends Component<Props, State> {
           title="Einstellungen"
           styleName="inline"
         />
-        <StandardView />
+        <StandardView>
+          <Title>Einstellungen</Title>
+        </StandardView>
       </Screen>
     );
   }

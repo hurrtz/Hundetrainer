@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -18,7 +18,7 @@ interface Props {
 
 interface State {}
 
-class AddressBookDetailsContainer extends Component<Props, State> {
+class AddressBookDetailsContainer extends PureComponent<Props, State> {
   static navigationOptions = {
     drawerIcon: () => <IconComponent name="notebook" size={25} />,
   };

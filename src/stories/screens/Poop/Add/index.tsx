@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   View,
   Screen,
@@ -42,7 +42,7 @@ interface State {
   additionalInformation: string;
 }
 
-class PoopAdd extends Component<Props, State> {
+class PoopAdd extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 

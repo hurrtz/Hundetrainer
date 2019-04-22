@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import {
   Screen,
   NavigationBar,
@@ -25,8 +25,8 @@ interface Props {
 
 interface State {}
 
-class AddressBookDetails extends Component<Props, State> {
-  constructor(props) {
+class AddressBookDetails extends PureComponent<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.onShowDetails = this.onShowDetails.bind(this);

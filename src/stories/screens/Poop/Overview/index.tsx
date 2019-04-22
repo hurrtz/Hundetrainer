@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import { NavigationBar, Title, Text, Icon, Screen, View } from '@shoutem/ui';
 
 import { IPoop } from 'apptypes/poop';
@@ -15,7 +15,7 @@ interface Props {
 
 interface State {}
 
-class PoopOverview extends Component<Props, State> {
+class PoopOverview extends PureComponent<Props, State> {
   createDefault() {
     return (
       <Fragment>

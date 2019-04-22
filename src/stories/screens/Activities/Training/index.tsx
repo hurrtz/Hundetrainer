@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
-import { Screen, NavigationBar, Icon } from '@shoutem/ui';
+import { Screen, NavigationBar, Icon, Title } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
 import { TNavigation } from 'apptypes/base';
@@ -11,7 +11,7 @@ interface Props {
 
 interface State {}
 
-class Training extends Component<Props, State> {
+class Training extends PureComponent<Props, State> {
   static navigationOptions = {
     drawerLabel: 'trophy',
     drawerIcon: () => <IconComponent name="view-dashboard" size={25} />,
@@ -29,7 +29,9 @@ class Training extends Component<Props, State> {
           title="Übungen"
           styleName="inline"
         />
-        <StandardView />
+        <StandardView>
+          <Title>Übungen</Title>
+        </StandardView>
       </Screen>
     );
   }

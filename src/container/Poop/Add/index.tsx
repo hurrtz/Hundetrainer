@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import PoopAdd from 'stories/screens/Poop/Add';
@@ -13,7 +13,7 @@ interface Props {
 
 interface State {}
 
-class PoopAddContainer extends Component<Props, State> {
+class PoopAddContainer extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 

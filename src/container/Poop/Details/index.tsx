@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -17,7 +17,7 @@ interface Props {
 
 interface State {}
 
-class PoopDetailsContainer extends Component<Props, State> {
+class PoopDetailsContainer extends PureComponent<Props, State> {
   render() {
     const {
       navigation,

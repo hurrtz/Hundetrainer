@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import EntypoIconComponent from 'react-native-vector-icons/Entypo';
 import MaterialIconComponent from 'react-native-vector-icons/MaterialIcons';
@@ -12,7 +12,7 @@ interface Props {
 
 interface State {}
 
-class PoopDetails extends Component<Props, State> {
+class PoopDetails extends PureComponent<Props, State> {
   createEmoticon(poop: IPoop) {
     const { quality, isConspicuous } = poop;
 

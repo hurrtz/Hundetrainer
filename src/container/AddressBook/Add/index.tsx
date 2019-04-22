@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
@@ -14,7 +14,7 @@ interface Props {
 
 interface State {}
 
-class AddressBookAddContainer extends Component<Props, State> {
+class AddressBookAddContainer extends PureComponent<Props, State> {
   static navigationOptions = {
     drawerIcon: () => <IconComponent name="notebook" size={25} />,
   };

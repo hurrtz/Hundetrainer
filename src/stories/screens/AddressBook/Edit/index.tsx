@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import {
   Screen,
   NavigationBar,
@@ -48,7 +48,7 @@ interface State {
   additionalInformation: string;
 }
 
-class AddressBookEdit extends Component<Props, State> {
+class AddressBookEdit extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
 
