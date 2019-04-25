@@ -1,14 +1,5 @@
 import React, { PureComponent } from 'react';
-import {
-  View,
-  Screen,
-  Text,
-  Button,
-  NavigationBar,
-  Icon,
-  Divider,
-  Caption,
-} from '@shoutem/ui';
+import { View, Text, Button, NavigationBar, Icon } from '@shoutem/ui';
 
 import { COLORS, CONSISTENCIES, QUALITIES } from 'container/Poop/constants';
 import { TNavigation } from 'apptypes/base';
@@ -159,7 +150,7 @@ class PoopAdd extends PureComponent<Props, State> {
     } = this.state;
 
     return (
-      <Screen>
+      <View>
         <NavigationBar
           leftComponent={
             <Icon name="back" onPress={() => navigation.goBack()} />
@@ -169,11 +160,7 @@ class PoopAdd extends PureComponent<Props, State> {
         />
 
         <StandardView noPaddingTop>
-          <Divider styleName="section-header">
-            <Caption>Zeitpunkt</Caption>
-          </Divider>
-
-          <View styleName="md-gutter-top">
+          <View>
             {createSelectDate({
               date,
               handleChangeDate: this.handleChangeDate,
@@ -185,12 +172,8 @@ class PoopAdd extends PureComponent<Props, State> {
             })}
           </View>
 
-          <Divider styleName="section-header lg-gutter-top">
-            <Caption>Eigenschaften</Caption>
-          </Divider>
-
-          <View styleName="horizontal v-center md-gutter-top">
-            <Text>Qualität:</Text>
+          <View styleName="md-gutter-top">
+            <Text styleName="sm-gutter-bottom">Qualität:</Text>
 
             {createSelectQuality({
               qualities: QUALITIES,
@@ -199,8 +182,8 @@ class PoopAdd extends PureComponent<Props, State> {
             })}
           </View>
 
-          <View styleName="horizontal v-center md-gutter-top">
-            <Text>Konsistenz:</Text>
+          <View styleName="md-gutter-top">
+            <Text styleName="sm-gutter-bottom">Konsistenz:</Text>
 
             {createSelectConsistency({
               consistencies: CONSISTENCIES,
@@ -211,8 +194,8 @@ class PoopAdd extends PureComponent<Props, State> {
             })}
           </View>
 
-          <View styleName="horizontal v-center md-gutter-top">
-            <Text>Farbe:</Text>
+          <View styleName="md-gutter-top md-gutter-bottom">
+            <Text styleName="sm-gutter-bottom">Farbe:</Text>
 
             {createSelectColor({
               colors: COLORS,
@@ -220,10 +203,6 @@ class PoopAdd extends PureComponent<Props, State> {
               handleChangeColor: this.handleChangeColor,
             })}
           </View>
-
-          <Divider styleName="section-header lg-gutter-top">
-            <Caption>Sonstige Merkmale</Caption>
-          </Divider>
 
           <View styleName="md-gutter-top">
             {createSelectHasBlood({
@@ -248,13 +227,13 @@ class PoopAdd extends PureComponent<Props, State> {
           </View>
 
           <Button
-            styleName="full-width lg-gutter-top"
+            styleName="secondary lg-gutter-top xl-gutter-bottom"
             onPress={() => this.handleClose()}
           >
             <Text>Speichern</Text>
           </Button>
         </StandardView>
-      </Screen>
+      </View>
     );
   }
 }

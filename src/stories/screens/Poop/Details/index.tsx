@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import {
-  Screen,
+  View,
   Heading,
   Title,
   Subtitle,
@@ -158,7 +158,7 @@ class PoopDetails extends PureComponent<Props, State> {
     const date = new Date(poop.date);
 
     return (
-      <Screen>
+      <View>
         <NavigationBar
           leftComponent={<Icon name="back" onPress={this.onGoingBack} />}
           rightComponent={
@@ -184,7 +184,7 @@ class PoopDetails extends PureComponent<Props, State> {
           <Text>{this.createColor()}</Text>
           {this.createSecondaryInformations()}
         </StandardView>
-      </Screen>
+      </View>
     );
   }
 }

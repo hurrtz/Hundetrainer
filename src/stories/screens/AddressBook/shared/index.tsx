@@ -46,6 +46,8 @@ interface ISelectName {
 
 export const createSelectName = ({ name, handleNameChange }: ISelectName) => (
   <TextInput
+    style={{ borderColor: '#888', borderWidth: 1, borderStyle: 'solid' }}
+    placeholder="Name"
     value={name}
     onChangeText={(value: string) => handleNameChange({ name: value })}
   />
@@ -61,6 +63,7 @@ export const createSelectType = ({ type, handleTypeChange }: ISelectType) => (
     titleProperty="title"
     valueProperty="value"
     styleName="horizontal"
+    style={{ selectedOption: { height: 100 } }}
   />
 );
 
@@ -70,6 +73,7 @@ export const createSelectAddress = ({
 }: ISelectAddress) => (
   <View>
     <TextInput
+      style={{ borderColor: '#888', borderWidth: 1, borderStyle: 'solid' }}
       value={street}
       placeholder="Straße:"
       onChangeText={(value: string) => handleAddressChange({ street: value })}
@@ -80,7 +84,12 @@ export const createSelectAddress = ({
         value={zip}
         placeholder="Postleitzahl:"
         onChangeText={(value: string) => handleAddressChange({ zip: value })}
-        style={{ minWidth: 100 }}
+        style={{
+          borderColor: '#888',
+          borderWidth: 1,
+          borderStyle: 'solid',
+          minWidth: 100,
+        }}
       />
 
       <TextInput
@@ -88,6 +97,9 @@ export const createSelectAddress = ({
         placeholder="Stadt/Ort:"
         onChangeText={(value: string) => handleAddressChange({ city: value })}
         style={{
+          borderColor: '#888',
+          borderWidth: 1,
+          borderStyle: 'solid',
           marginLeft: 10,
           flexBasis: '100%',
           flexGrow: 1,
@@ -97,6 +109,7 @@ export const createSelectAddress = ({
     </View>
 
     <TextInput
+      style={{ borderColor: '#888', borderWidth: 1, borderStyle: 'solid' }}
       value={country}
       placeholder="Land:"
       onChangeText={(value: string) => handleAddressChange({ country: value })}
@@ -114,6 +127,9 @@ export const createSelectContact = ({
       <Icon name="call" />
       <TextInput
         style={{
+          borderColor: '#888',
+          borderWidth: 1,
+          borderStyle: 'solid',
           marginLeft: 10,
           flexBasis: '100%',
           flexGrow: 1,
@@ -131,6 +147,9 @@ export const createSelectContact = ({
       <Icon name="social-wall" />
       <TextInput
         style={{
+          borderColor: '#888',
+          borderWidth: 1,
+          borderStyle: 'solid',
           marginLeft: 10,
           flexBasis: '100%',
           flexGrow: 1,
@@ -146,6 +165,9 @@ export const createSelectContact = ({
       <Icon name="email" />
       <TextInput
         style={{
+          borderColor: '#888',
+          borderWidth: 1,
+          borderStyle: 'solid',
           marginLeft: 10,
           flexBasis: '100%',
           flexGrow: 1,
@@ -161,6 +183,9 @@ export const createSelectContact = ({
       <Icon name="web" />
       <TextInput
         style={{
+          borderColor: '#888',
+          borderWidth: 1,
+          borderStyle: 'solid',
           marginLeft: 10,
           flexBasis: '100%',
           flexGrow: 1,
@@ -182,6 +207,7 @@ export const createSelectAdditionalInformation = ({
 }: ISelectAdditionalInformation) => (
   <Screen>
     <TextInput
+      style={{ borderColor: '#888', borderWidth: 1, borderStyle: 'solid' }}
       multiline
       numberOfLines={5}
       placeholder="Sonstige Informationen"

@@ -81,6 +81,7 @@ export const createSelectQuality = ({
     titleProperty="title"
     valueProperty="value"
     styleName="horizontal"
+    style={{ selectedOption: { height: 100 } }}
   />
 );
 
@@ -96,6 +97,7 @@ export const createSelectConsistency = ({
     titleProperty="title"
     valueProperty="value"
     styleName="horizontal"
+    style={{ selectedOption: { height: 100 } }}
   />
 );
 
@@ -111,6 +113,7 @@ export const createSelectColor = ({
     titleProperty="title"
     valueProperty="value"
     styleName="horizontal"
+    style={{ selectedOption: { height: 100 } }}
   />
 );
 
@@ -200,6 +203,7 @@ export const createSelectAdditionalInformation = ({
       placeholder="Sonstige Informationen"
       defaultValue={additionalInformation}
       onChangeText={(text: string) => handleAdditionalInformationChange(text)}
+      style={{ borderColor: '#888', borderWidth: 1, borderStyle: 'solid' }}
     />
   </Screen>
 );

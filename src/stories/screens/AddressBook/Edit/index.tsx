@@ -1,14 +1,5 @@
 import React, { PureComponent } from 'react';
-import {
-  Screen,
-  NavigationBar,
-  Icon,
-  Divider,
-  Caption,
-  View,
-  Text,
-  Button,
-} from '@shoutem/ui';
+import { NavigationBar, Icon, View, Text, Button } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
 import {
@@ -133,23 +124,16 @@ class AddressBookEdit extends PureComponent<Props, State> {
     const { name, type, contact, address, additionalInformation } = this.state;
 
     return (
-      <Screen>
+      <View>
         <NavigationBar
           leftComponent={
             <Icon name="back" onPress={() => navigation.goBack()} />
           }
-          rightComponent={
-            <Icon name="error" onPress={navigation.getParam('onDelete')} />
-          }
-          title="Bearbeiten"
+          title="neue Adresse"
           styleName="inline"
         />
 
         <StandardView noPaddingTop>
-          <Divider styleName="section-header">
-            <Caption>Titel</Caption>
-          </Divider>
-
           <View styleName="md-gutter-top">
             {createSelectName({
               name,
@@ -157,20 +141,13 @@ class AddressBookEdit extends PureComponent<Props, State> {
             })}
           </View>
 
-          <Divider styleName="section-header lg-gutter-top">
-            <Caption>Typ</Caption>
-          </Divider>
-
           <View styleName="md-gutter-top">
+            <Text styleName="sm-gutter-bottom">Typ:</Text>
             {createSelectType({
               type: ADDRESS_TYPES.find(({ value }) => value === type),
               handleTypeChange: this.handleTypeChange,
             })}
           </View>
-
-          <Divider styleName="section-header lg-gutter-top">
-            <Caption>Adresse</Caption>
-          </Divider>
 
           <View styleName="md-gutter-top">
             {createSelectAddress({
@@ -178,10 +155,6 @@ class AddressBookEdit extends PureComponent<Props, State> {
               handleAddressChange: this.handleAddressChange,
             })}
           </View>
-
-          <Divider styleName="section-header lg-gutter-top">
-            <Caption>Kontakt</Caption>
-          </Divider>
 
           <View styleName="md-gutter-top">
             {createSelectContact({
@@ -199,13 +172,13 @@ class AddressBookEdit extends PureComponent<Props, State> {
           </View>
 
           <Button
-            styleName="full-width lg-gutter-top"
+            styleName="secondary lg-gutter-top xl-gutter-bottom"
             onPress={() => this.handleClose()}
           >
             <Text>Speichern</Text>
           </Button>
         </StandardView>
-      </Screen>
+      </View>
     );
   }
 }

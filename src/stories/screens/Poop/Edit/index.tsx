@@ -1,14 +1,5 @@
 import React, { PureComponent } from 'react';
-import {
-  View,
-  Screen,
-  Button,
-  Text,
-  NavigationBar,
-  Icon,
-  Divider,
-  Caption,
-} from '@shoutem/ui';
+import { View, Button, Text, NavigationBar, Icon } from '@shoutem/ui';
 
 import { COLORS, CONSISTENCIES, QUALITIES } from 'container/Poop/constants';
 import {
@@ -159,24 +150,20 @@ class PoopEdit extends PureComponent<Props, State> {
     } = this.state;
 
     return (
-      <Screen>
+      <View>
         <NavigationBar
           leftComponent={
             <Icon name="back" onPress={() => navigation.goBack()} />
           }
           rightComponent={
-            <Icon name="error" onPress={navigation.getParam('onDelete')} />
+            <Icon name="close" onPress={navigation.getParam('onDelete')} />
           }
           title="Bearbeiten"
           styleName="inline"
         />
 
         <StandardView noPaddingTop>
-          <Divider styleName="section-header">
-            <Caption>Zeitpunkt</Caption>
-          </Divider>
-
-          <View styleName="md-gutter-top">
+          <View>
             {createSelectDate({
               date,
               handleChangeDate: this.handleChangeDate,
@@ -188,12 +175,8 @@ class PoopEdit extends PureComponent<Props, State> {
             })}
           </View>
 
-          <Divider styleName="section-header lg-gutter-top">
-            <Caption>Eigenschaften</Caption>
-          </Divider>
-
-          <View styleName="horizontal v-center md-gutter-top">
-            <Text>Qualität:</Text>
+          <View styleName="md-gutter-top">
+            <Text styleName="sm-gutter-bottom">Qualität:</Text>
 
             {createSelectQuality({
               qualities: QUALITIES,
@@ -202,8 +185,8 @@ class PoopEdit extends PureComponent<Props, State> {
             })}
           </View>
 
-          <View styleName="horizontal v-center md-gutter-top">
-            <Text>Konsistenz:</Text>
+          <View styleName="md-gutter-top">
+            <Text styleName="sm-gutter-bottom">Konsistenz:</Text>
 
             {createSelectConsistency({
               consistencies: CONSISTENCIES,
@@ -214,8 +197,8 @@ class PoopEdit extends PureComponent<Props, State> {
             })}
           </View>
 
-          <View styleName="horizontal v-center md-gutter-top">
-            <Text>Farbe:</Text>
+          <View styleName="md-gutter-top md-gutter-bottom">
+            <Text styleName="sm-gutter-bottom">Farbe:</Text>
 
             {createSelectColor({
               colors: COLORS,
@@ -223,10 +206,6 @@ class PoopEdit extends PureComponent<Props, State> {
               handleChangeColor: this.handleChangeColor,
             })}
           </View>
-
-          <Divider styleName="section-header lg-gutter-top">
-            <Caption>Sonstige Merkmale</Caption>
-          </Divider>
 
           <View styleName="md-gutter-top">
             {createSelectHasBlood({
@@ -251,13 +230,13 @@ class PoopEdit extends PureComponent<Props, State> {
           </View>
 
           <Button
-            styleName="full-width lg-gutter-top"
+            styleName="secondary lg-gutter-top xl-gutter-bottom"
             onPress={() => this.handleClose()}
           >
             <Text>Speichern</Text>
           </Button>
         </StandardView>
-      </Screen>
+      </View>
     );
   }
 }

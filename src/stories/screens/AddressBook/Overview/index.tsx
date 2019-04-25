@@ -98,7 +98,7 @@ class AddressBookDetails extends PureComponent<Props, State> {
           title="Adressen"
           styleName="inline"
         />
-        <StandardView>{this.createAddressesList()}</StandardView>
+        <StandardView noPaddingTop>{this.createAddressesList()}</StandardView>
       </Screen>
     );
   }

@@ -1,14 +1,5 @@
 import React, { PureComponent } from 'react';
-import {
-  Screen,
-  NavigationBar,
-  Icon,
-  Divider,
-  Button,
-  Text,
-  Caption,
-  View,
-} from '@shoutem/ui';
+import { View, NavigationBar, Icon, Button, Text } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
 import {
@@ -135,7 +126,7 @@ class AddressBookAdd extends PureComponent<Props, State> {
     const { name, type, contact, address, additionalInformation } = this.state;
 
     return (
-      <Screen>
+      <View>
         <NavigationBar
           leftComponent={
             <Icon name="back" onPress={() => navigation.goBack()} />
@@ -145,10 +136,6 @@ class AddressBookAdd extends PureComponent<Props, State> {
         />
 
         <StandardView noPaddingTop>
-          <Divider styleName="section-header">
-            <Caption>Titel</Caption>
-          </Divider>
-
           <View styleName="md-gutter-top">
             {createSelectName({
               name,
@@ -156,20 +143,13 @@ class AddressBookAdd extends PureComponent<Props, State> {
             })}
           </View>
 
-          <Divider styleName="section-header lg-gutter-top">
-            <Caption>Typ</Caption>
-          </Divider>
-
           <View styleName="md-gutter-top">
+            <Text styleName="sm-gutter-bottom">Typ:</Text>
             {createSelectType({
               type: ADDRESS_TYPES.find(({ value }) => value === type),
               handleTypeChange: this.handleTypeChange,
             })}
           </View>
-
-          <Divider styleName="section-header lg-gutter-top">
-            <Caption>Adresse</Caption>
-          </Divider>
 
           <View styleName="md-gutter-top">
             {createSelectAddress({
@@ -177,10 +157,6 @@ class AddressBookAdd extends PureComponent<Props, State> {
               handleAddressChange: this.handleAddressChange,
             })}
           </View>
-
-          <Divider styleName="section-header lg-gutter-top">
-            <Caption>Kontakt</Caption>
-          </Divider>
 
           <View styleName="md-gutter-top">
             {createSelectContact({
@@ -198,13 +174,13 @@ class AddressBookAdd extends PureComponent<Props, State> {
           </View>
 
           <Button
-            styleName="full-width lg-gutter-top"
+            styleName="secondary lg-gutter-top xl-gutter-bottom"
             onPress={() => this.handleClose()}
           >
             <Text>Speichern</Text>
           </Button>
         </StandardView>
-      </Screen>
+      </View>
     );
   }
 }

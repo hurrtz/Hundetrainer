@@ -1,14 +1,5 @@
 import React, { PureComponent } from 'react';
-import {
-  Screen,
-  NavigationBar,
-  Icon,
-  Title,
-  Subtitle,
-  Text,
-  Divider,
-  Caption,
-} from '@shoutem/ui';
+import { View, NavigationBar, Icon, Title, Subtitle, Text } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
 import { TNavigation } from 'apptypes/base';
@@ -47,7 +38,7 @@ class AddressBookDetails extends PureComponent<Props, State> {
     const { navigation, address, onEditAddress } = this.props;
 
     return (
-      <Screen>
+      <View>
         <NavigationBar
           leftComponent={<Icon name="back" onPress={this.onGoingBack} />}
           rightComponent={
@@ -68,11 +59,7 @@ class AddressBookDetails extends PureComponent<Props, State> {
             {ADDRESS_TYPES.find(({ value }) => value === address.type).title}
           </Subtitle>
 
-          <Divider styleName="section-header">
-            <Caption>Adresse:</Caption>
-          </Divider>
-
-          <Text styleName="md-gutter-top">
+          <Text styleName="lg-gutter-top">
             Straße: {address.address.street}
           </Text>
           <Text styleName="md-gutter-top">
@@ -81,11 +68,7 @@ class AddressBookDetails extends PureComponent<Props, State> {
           <Text styleName="md-gutter-top">Stadt: {address.address.city}</Text>
           <Text styleName="md-gutter-top">Land: {address.address.country}</Text>
 
-          <Divider styleName="section-header">
-            <Caption>Kontakt:</Caption>
-          </Divider>
-
-          <Text styleName="md-gutter-top">
+          <Text styleName="lg-gutter-top">
             Telefon: {address.contact.telephone}
           </Text>
           <Text styleName="md-gutter-top">Mobil: {address.contact.mobile}</Text>
@@ -94,7 +77,7 @@ class AddressBookDetails extends PureComponent<Props, State> {
             Homepage: {address.contact.homepage}
           </Text>
         </StandardView>
-      </Screen>
+      </View>
     );
   }
 }
