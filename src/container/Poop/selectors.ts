@@ -1,8 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { RootState } from 'apptypes/base';
-
-const selectPoopState = (state: RootState) => state.Poop;
+const selectPoopState = (state: AppState) => state.Poop;
 
 const itemsSelector = createSelector(
   selectPoopState,

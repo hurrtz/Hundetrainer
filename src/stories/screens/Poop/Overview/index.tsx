@@ -1,13 +1,12 @@
 import React, { PureComponent, Fragment } from 'react';
 import { NavigationBar, Title, Text, Icon, Screen, View } from '@shoutem/ui';
 
-import { IPoop } from 'apptypes/poop';
-import { TNavigation } from 'apptypes/base';
+import { IPoop } from 'container/Poop/types';
 import { StandardView } from 'ui/Layout';
 import PoopList from './PoopList';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   poops: { [date: string]: IPoop[] };
   onShowDetails: Function;
   onEditPoop: Function;

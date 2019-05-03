@@ -9,13 +9,14 @@ import {
   createSelectContact,
   createSelectAdditionalInformation,
 } from '../shared';
-import { TNavigation } from 'apptypes/base';
-import { IAddressBookEntry } from 'apptypes/addressBook';
+import {
+  IAddressBookEntry,
+  ADDRESS_TYPES as TYPES,
+} from 'container/AddressBook/types';
 import { ADDRESS_TYPES } from 'container/AddressBook/constants';
-import { ADDRESS_TYPES as TYPES } from 'apptypes/addressBook';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   onSave: Function;
   address: IAddressBookEntry;
   onEditAddress: Function;

@@ -4,7 +4,7 @@ import EntypoIconComponent from 'react-native-vector-icons/Entypo';
 import MaterialIconComponent from 'react-native-vector-icons/MaterialIcons';
 import { View, Subtitle } from '@shoutem/ui';
 
-import { IPoop, QUALITY } from 'apptypes/poop';
+import { IPoop } from 'container/Poop/types';
 
 interface Props {
   poop: IPoop;
@@ -22,11 +22,11 @@ class PoopDetails extends PureComponent<Props, State> {
       );
     }
 
-    if (quality === QUALITY.GOOD) {
+    if (quality === 'GOOD') {
       return <IconComponent name="thumb-up" size={20} color="green" />;
     }
 
-    if (quality === QUALITY.MEDIUM) {
+    if (quality === 'MEDIUM') {
       return <IconComponent name="thumbs-up-down" size={20} color="orange" />;
     }
 

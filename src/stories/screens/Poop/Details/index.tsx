@@ -9,12 +9,11 @@ import {
   Icon,
 } from '@shoutem/ui';
 
-import { TNavigation } from 'apptypes/base';
-import { IPoop, QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
+import { IPoop } from 'container/Poop/types';
 import { StandardView } from 'ui/Layout';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   poop: IPoop;
   onDetailsPoop: Function;
   onEditPoop: Function;
@@ -57,10 +56,10 @@ class PoopDetails extends PureComponent<Props, State> {
     const { poop } = this.props;
 
     switch (poop.quality) {
-      case QUALITY.BAD:
+      case 'BAD':
         return <Text>schlecht</Text>;
 
-      case QUALITY.MEDIUM:
+      case 'MEDIUM':
         return <Text>mäßig</Text>;
 
       default:
@@ -72,13 +71,13 @@ class PoopDetails extends PureComponent<Props, State> {
     const { poop } = this.props;
 
     switch (poop.consistency) {
-      case CONSISTENCY.LIQUID:
+      case 'LIQUID':
         return <Text>flüssig</Text>;
 
-      case CONSISTENCY.SOFT:
+      case 'SOFT':
         return <Text>weich</Text>;
 
-      case CONSISTENCY.HARD:
+      case 'HARD':
         return <Text>hart</Text>;
 
       default:
@@ -90,16 +89,16 @@ class PoopDetails extends PureComponent<Props, State> {
     const { poop } = this.props;
 
     switch (poop.color) {
-      case COLOR.LIGHT:
+      case 'LIGHT':
         return <Text>hell</Text>;
 
-      case COLOR.OTHER:
+      case 'OTHER':
         return <Text>sonstige Farbe</Text>;
 
-      case COLOR.DARK:
+      case 'DARK':
         return <Text>dunkel</Text>;
 
-      case COLOR.BLACK:
+      case 'BLACK':
         return <Text>schwarz</Text>;
 
       default:

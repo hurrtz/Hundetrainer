@@ -3,13 +3,12 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import PoopOverview from 'stories/screens/Poop/Overview';
-import { IPoop } from 'apptypes/poop';
-import { TNavigation } from 'apptypes/base';
+import { IPoop } from 'container/Poop/types';
 import { itemsGroupedAndSortedByDateSelector } from '../selectors';
 import { setPoopToDetails, setPoopToEdit } from '../actions';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   poops: { [date: string]: IPoop[] };
   setPoopToDetails: Function;
   setPoopToEdit: Function;

@@ -1,4 +1,4 @@
-import { IPoop } from 'apptypes/poop';
+import { IPoop } from 'container/Poop/types';
 
 const NS = 'POOPS';
 

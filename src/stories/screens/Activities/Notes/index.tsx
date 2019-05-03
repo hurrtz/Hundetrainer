@@ -2,10 +2,9 @@ import React, { PureComponent } from 'react';
 import { Screen, NavigationBar, Icon, Title } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
-import { TNavigation } from 'apptypes/base';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
 }
 
 interface State {}

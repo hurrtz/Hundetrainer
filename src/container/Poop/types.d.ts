@@ -1,23 +1,8 @@
-export enum QUALITY {
-  GOOD,
-  MEDIUM,
-  BAD,
-}
+export type QUALITY = 'GOOD' | 'MEDIUM' | 'BAD';
 
-export enum COLOR {
-  LIGHT,
-  MEDIUM,
-  DARK,
-  BLACK,
-  OTHER,
-}
+export type COLOR = 'LIGHT' | 'MEDIUM' | 'DARK' | 'BLACK' | 'OTHER';
 
-export enum CONSISTENCY {
-  LIQUID,
-  SOFT,
-  NORMAL,
-  HARD,
-}
+export type CONSISTENCY = 'LIQUID' | 'SOFT' | 'NORMAL' | 'HARD';
 
 export interface IPoop {
   id: string;

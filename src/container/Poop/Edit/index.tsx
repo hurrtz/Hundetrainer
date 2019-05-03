@@ -3,14 +3,13 @@ import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { TNavigation } from 'apptypes/base';
-import { IPoop } from 'apptypes/poop';
+import { IPoop } from 'container/Poop/types';
 import PoopEdit from 'stories/screens/Poop/Edit';
 import { currentEditItemSelector } from '../selectors';
 import { removePoop, updatePoop, setPoopToEdit } from '../actions';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   poop: IPoop;
   removePoop: Function;
   updatePoop: Function;

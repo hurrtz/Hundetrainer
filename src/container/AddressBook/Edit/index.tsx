@@ -3,14 +3,13 @@ import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { TNavigation } from 'apptypes/base';
-import { IAddressBookEntry } from 'apptypes/addressBook';
+import { IAddressBookEntry } from 'container/AddressBook/types';
 import AddressBookEdit from 'stories/screens/AddressBook/Edit';
 import { currentEditItemSelector } from '../selectors';
 import { removeAddress, updateAddress, setAddressToEdit } from '../actions';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   address: IAddressBookEntry;
   removeAddress: Function;
   updateAddress: Function;

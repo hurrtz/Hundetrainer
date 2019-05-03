@@ -2,14 +2,13 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { TNavigation } from 'apptypes/base';
-import { IAddressBookEntry } from 'apptypes/addressBook';
+import { IAddressBookEntry } from 'container/AddressBook/types';
 import AddressBookOverview from 'stories/screens/AddressBook/Overview';
 import { itemsSelector } from '../selectors';
 import { setAddressToDetails, setAddressToEdit } from '../actions';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   addresses: IAddressBookEntry[];
   removeAddress: Function;
   setAddressToDetails: Function;

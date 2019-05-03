@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 import uuidv4 from 'uuid/v4';
 
-import { IAddressBookEntry } from 'apptypes/addressBook';
+import { IAddressBookEntry } from 'container/AddressBook/types';
 import {
   ADD_ADDRESS,
   UPDATE_ADDRESS,

@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { TNavigation } from 'apptypes/base';
 import Calendar from 'stories/screens/Calendar';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
 }
 
 interface State {}

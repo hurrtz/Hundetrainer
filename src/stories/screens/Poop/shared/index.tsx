@@ -9,7 +9,7 @@ import {
 } from '@shoutem/ui';
 import DatePicker from 'react-native-datepicker';
 
-import { QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
+import { QUALITY, CONSISTENCY, COLOR } from 'container/Poop/types';
 
 type TQuality = {
   title: string;

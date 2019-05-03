@@ -1,8 +1,6 @@
 import { createSelector } from 'reselect';
 
-import { RootState } from 'apptypes/base';
-
-const selectAddressBookState = (state: RootState) => state.AddressBook;
+const selectAddressBookState = (state: AppState) => state.AddressBook;
 
 const itemsSelector = createSelector(
   selectAddressBookState,

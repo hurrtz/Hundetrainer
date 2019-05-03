@@ -1,11 +1,10 @@
 import React, { PureComponent } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { TNavigation } from 'apptypes/base';
 import Food from 'stories/screens/Food';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
 }
 
 interface State {}

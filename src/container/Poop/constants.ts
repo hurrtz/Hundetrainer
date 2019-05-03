@@ -1,58 +1,73 @@
-import { COLOR, CONSISTENCY, QUALITY } from 'apptypes/poop';
+import { COLOR, CONSISTENCY, QUALITY } from 'container/Poop/types';
 
-export const COLORS = [
+type COLORS = {
+  title: string;
+  value: COLOR;
+}[];
+
+export const COLORS: COLORS = [
   {
     title: 'hell',
-    value: COLOR.LIGHT,
+    value: 'LIGHT',
   },
   {
     title: 'normal',
-    value: COLOR.MEDIUM,
+    value: 'MEDIUM',
   },
   {
     title: 'dunkel',
-    value: COLOR.DARK,
+    value: 'DARK',
   },
   {
     title: 'schwarz',
-    value: COLOR.BLACK,
+    value: 'BLACK',
   },
   {
     title: 'andere Farbe',
-    value: COLOR.OTHER,
+    value: 'OTHER',
   },
 ];
 
-export const CONSISTENCIES = [
+type CONSISTENCIES = {
+  title: string;
+  value: CONSISTENCY;
+}[];
+
+export const CONSISTENCIES: CONSISTENCIES = [
   {
     title: 'flüssig',
-    value: CONSISTENCY.LIQUID,
+    value: 'LIQUID',
   },
   {
     title: 'weich',
-    value: CONSISTENCY.SOFT,
+    value: 'SOFT',
   },
   {
     title: 'normal',
-    value: CONSISTENCY.NORMAL,
+    value: 'NORMAL',
   },
   {
     title: 'hart',
-    value: CONSISTENCY.HARD,
+    value: 'HARD',
   },
 ];
 
-export const QUALITIES = [
+type QUALITIES = {
+  title: string;
+  value: QUALITY;
+}[];
+
+export const QUALITIES: QUALITIES = [
   {
     title: 'gut',
-    value: QUALITY.GOOD,
+    value: 'GOOD',
   },
   {
     title: 'mäßig',
-    value: QUALITY.MEDIUM,
+    value: 'MEDIUM',
   },
   {
     title: 'schlecht',
-    value: QUALITY.BAD,
+    value: 'BAD',
   },
 ];

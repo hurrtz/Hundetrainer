@@ -12,12 +12,11 @@ import {
 } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
-import { TNavigation } from 'apptypes/base';
-import { IAddressBookEntry } from 'apptypes/addressBook';
+import { IAddressBookEntry } from 'container/AddressBook/types';
 import { ADDRESS_TYPES } from 'container/AddressBook/constants';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   addresses: IAddressBookEntry[];
   onShowDetails: Function;
   onEditPoop: Function;

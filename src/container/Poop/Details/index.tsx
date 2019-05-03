@@ -2,14 +2,13 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { TNavigation } from 'apptypes/base';
-import { IPoop } from 'apptypes/poop';
+import { IPoop } from 'container/Poop/types';
 import { currentDetailItemSelector } from 'container/Poop/selectors';
 import PoopDetails from 'stories/screens/Poop/Details';
 import { setPoopToDetails, setPoopToEdit } from '../actions';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   poop: IPoop;
   setPoopToDetails: Function;
   setPoopToEdit: Function;

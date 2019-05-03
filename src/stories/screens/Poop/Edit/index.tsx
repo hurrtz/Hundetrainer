@@ -12,12 +12,11 @@ import {
   createSelectIsConspicuous,
   createSelectAdditionalInformation,
 } from '../shared';
-import { TNavigation } from 'apptypes/base';
-import { IPoop, QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
+import { IPoop, QUALITY, CONSISTENCY, COLOR } from 'container/Poop/types';
 import { StandardView } from 'ui/Layout';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   poop: IPoop;
   onSave: Function;
   onEditPoop: Function;

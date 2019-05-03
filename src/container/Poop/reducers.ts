@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 import uuidv4 from 'uuid/v4';
 
-import { IPoop } from 'apptypes/poop';
+import { IPoop } from 'container/Poop/types';
 import {
   ADD_POOP,
   UPDATE_POOP,

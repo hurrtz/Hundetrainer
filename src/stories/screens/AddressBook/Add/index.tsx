@@ -10,18 +10,17 @@ import {
   createSelectAdditionalInformation,
 } from '../shared';
 
-import { TNavigation } from 'apptypes/base';
 import { ADDRESS_TYPES } from 'container/AddressBook/constants';
-import { ADDRESS_TYPES as TYPES } from 'apptypes/addressBook';
+import ADDRESS_BOOK from 'container/AddressBook/types';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   onSave: Function;
 }
 
 interface State {
   name: string;
-  type: TYPES;
+  type: ADDRESS_BOOK.ADDRESS_TYPES;
   address: {
     street: string;
     zip: string;

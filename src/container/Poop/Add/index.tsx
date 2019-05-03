@@ -2,12 +2,11 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import PoopAdd from 'stories/screens/Poop/Add';
-import { IPoop } from 'apptypes/poop';
-import { TNavigation } from 'apptypes/base';
+import { IPoop } from 'container/Poop/types';
 import { addPoop } from '../actions';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   addPoop: Function;
 }
 

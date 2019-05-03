@@ -15,11 +15,10 @@ import {
 // @ts-ignore
 import { version } from '../../../../package.json';
 
-import { TNavigation } from 'apptypes/base';
 import BoGamePicture from 'assets/images/bo/game.png';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
 }
 
 interface State {}

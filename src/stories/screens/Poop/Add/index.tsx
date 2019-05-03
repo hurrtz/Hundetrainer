@@ -2,8 +2,7 @@ import React, { PureComponent } from 'react';
 import { View, Text, Button, NavigationBar, Icon } from '@shoutem/ui';
 
 import { COLORS, CONSISTENCIES, QUALITIES } from 'container/Poop/constants';
-import { TNavigation } from 'apptypes/base';
-import { QUALITY, CONSISTENCY, COLOR } from 'apptypes/poop';
+import { QUALITY, CONSISTENCY, COLOR } from 'container/Poop/types';
 import { StandardView } from 'ui/Layout';
 
 import {
@@ -18,7 +17,7 @@ import {
 } from '../shared';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   onSave: Function;
 }
 
@@ -42,9 +41,9 @@ class PoopAdd extends PureComponent<Props, State> {
     this.state = {
       date: now,
       time: now,
-      quality: QUALITY.GOOD,
-      consistency: CONSISTENCY.NORMAL,
-      color: COLOR.MEDIUM,
+      quality: 'GOOD',
+      consistency: 'NORMAL',
+      color: 'MEDIUM',
       hasBlood: false,
       isConspicuous: false,
       additionalInformation: '',

@@ -1,4 +1,4 @@
-import { IAddressBookEntry } from 'apptypes/addressBook';
+import { IAddressBookEntry } from 'container/AddressBook/types';
 
 const NS = 'AddressBook';
 

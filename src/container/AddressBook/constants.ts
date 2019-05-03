@@ -1,36 +1,41 @@
-import { ADDRESS_TYPES as TYPES } from 'apptypes/addressBook';
+import { ADDRESS_TYPES as TYPES } from 'container/AddressBook/types';
 
-export const ADDRESS_TYPES = [
+type ADDRESS_TYPES = {
+  title: string;
+  value: TYPES;
+}[];
+
+export const ADDRESS_TYPES: ADDRESS_TYPES = [
   {
     title: 'Ernährung',
-    value: TYPES.DIET,
+    value: 'DIET',
   },
   {
     title: 'Gesundheit',
-    value: TYPES.HEALTH,
+    value: 'HEALTH',
   },
   {
     title: 'Training',
-    value: TYPES.TRAINING,
+    value: 'TRAINING',
   },
   {
     title: 'Auslauf',
-    value: TYPES.EXCERCISE,
+    value: 'EXCERCISE',
   },
   {
     title: 'Hundeauslaufgebiet',
-    value: TYPES.DOG_PARK,
+    value: 'DOG_PARK',
   },
   {
     title: 'Hundebetreuung',
-    value: TYPES.DOG_SITTING,
+    value: 'DOG_SITTING',
   },
   {
     title: 'Hunde-Pension',
-    value: TYPES.DOG_PENSION,
+    value: 'DOG_PENSION',
   },
   {
     title: 'sonstige',
-    value: TYPES.OTHER,
+    value: 'OTHER',
   },
 ];

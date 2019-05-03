@@ -3,10 +3,8 @@ import ActionButton from 'react-native-action-button';
 import { StyleSheet } from 'react-native';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { TNavigation } from 'apptypes/base';
-
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
 }
 
 interface State {}

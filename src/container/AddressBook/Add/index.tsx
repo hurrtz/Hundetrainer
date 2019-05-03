@@ -2,13 +2,12 @@ import React, { PureComponent } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
-import { TNavigation } from 'apptypes/base';
-import { IAddressBookEntry } from 'apptypes/addressBook';
+import { IAddressBookEntry } from 'container/AddressBook/types';
 import AddressBookAdd from 'stories/screens/AddressBook/Add';
 import { addAddress } from '../actions';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   addAddress: Function;
 }
 

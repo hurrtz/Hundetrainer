@@ -1,10 +1,9 @@
 import React, { PureComponent } from 'react';
 
-import { TNavigation } from 'apptypes/base';
 import Training from 'stories/screens/Activities/Training';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
 }
 
 interface State {}

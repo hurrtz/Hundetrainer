@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { TNavigation } from 'apptypes/base';
-import { IAddressBookEntry } from 'apptypes/addressBook';
+import { IAddressBookEntry } from 'container/AddressBook/types';
 import { currentDetailItemSelector } from 'container/AddressBook/selectors';
 import AddressBookDetails from 'stories/screens/AddressBook/Details';
 import { setAddressToDetails, setAddressToEdit } from '../actions';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   address: IAddressBookEntry;
   setAddressToDetails: Function;
   setAddressToEdit: Function;

@@ -2,12 +2,11 @@ import React, { PureComponent } from 'react';
 import { View, NavigationBar, Icon, Title, Subtitle, Text } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
-import { TNavigation } from 'apptypes/base';
-import { IAddressBookEntry } from 'apptypes/addressBook';
+import { IAddressBookEntry } from 'container/AddressBook/types';
 import { ADDRESS_TYPES } from 'container/AddressBook/constants';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   address: IAddressBookEntry;
   onDetailsAddress: Function;
   onEditAddress: Function;

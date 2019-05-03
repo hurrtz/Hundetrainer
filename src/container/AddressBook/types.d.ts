@@ -1,13 +1,12 @@
-export enum ADDRESS_TYPES {
-  DIET,
-  HEALTH,
-  DOG_PARK,
-  TRAINING,
-  EXCERCISE,
-  DOG_SITTING,
-  DOG_PENSION,
-  OTHER,
-}
+export type ADDRESS_TYPES =
+  | 'DIET'
+  | 'HEALTH'
+  | 'DOG_PARK'
+  | 'TRAINING'
+  | 'EXCERCISE'
+  | 'DOG_SITTING'
+  | 'DOG_PENSION'
+  | 'OTHER';
 
 export interface IAddress {
   street: string;

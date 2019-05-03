@@ -1,12 +1,11 @@
 import React, { PureComponent } from 'react';
 import { Card, Subtitle, TouchableOpacity } from '@shoutem/ui';
 
-import { IPoop } from 'apptypes/poop';
-import { TNavigation } from 'apptypes/base';
+import { IPoop } from 'container/Poop/types';
 import PoopDetails from './PoopDetails';
 
 interface Props {
-  navigation: TNavigation;
+  navigation: Navigation;
   poops: IPoop[];
   onShowDetails: Function;
   onEditPoop: Function;
