@@ -17,9 +17,9 @@
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "types": ["react", "react-native", "jest"],
+    "typeRoots": ["src/types.d.ts"],
     "baseUrl": "src",
     "paths": {
-      "apptypes/*": ["apptypes/*"],
       "assets/*": ["assets/*"],
       "boot/*": ["boot/*"],
       "container/*": ["container/*"],
