@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, { ReactElement, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -15,25 +15,19 @@ interface Props {
   setAddressToEdit: Function;
 }
 
-class AddressBookOverviewContainer extends PureComponent<Props> {
-  render(): ReactElement {
-    const {
-      navigation,
-      addresses,
-      setAddressToDetails: onShowDetails,
-      setAddressToEdit: onEditPoop,
-    } = this.props;
-
-    return (
-      <AddressBookOverview
-        addresses={addresses}
-        navigation={navigation}
-        onShowDetails={onShowDetails}
-        onEditPoop={onEditPoop}
-      />
-    );
-  }
-}
+const AddressBookOverviewContainer: FunctionComponent<Props> = ({
+  navigation,
+  addresses,
+  setAddressToDetails: onShowDetails,
+  setAddressToEdit: onEditPoop,
+}: Props): ReactElement => (
+  <AddressBookOverview
+    addresses={addresses}
+    navigation={navigation}
+    onShowDetails={onShowDetails}
+    onEditPoop={onEditPoop}
+  />
+);
 
 const mapStateToProps = createStructuredSelector({
   addresses: itemsSelector,

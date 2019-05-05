@@ -1,4 +1,9 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, {
+  ReactElement,
+  FunctionComponent,
+  useEffect,
+  useState,
+} from 'react';
 import { NavigationBar, Icon, View, Text, Button } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
@@ -13,7 +18,7 @@ import {
   AddressBookEntry,
   ADDRESS_TYPES as TYPES,
 } from 'container/AddressBook/types';
-import { ADDRESS_TYPE, ADDRESS_TYPES } from 'container/AddressBook/constants';
+import { AddressType, ADDRESS_TYPES } from 'container/AddressBook/constants';
 
 interface Props {
   navigation: Navigation;
@@ -40,81 +45,61 @@ interface State {
   additionalInformation: string;
 }
 
-class AddressBookEdit extends PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
+const AddressBookEdit: FunctionComponent<Props> = ({
+  address,
+  onEditAddress,
+  onSave,
+}: Props): ReactElement => {
+  const [name, setName] = useState(address.name);
+  const [type, setType] = useState(address.type);
+  const [address, setAddress] = useState(address.address);
+  const [contact, setContact] = useState(address.contact);
+  const [additionalInformation, setAdditionalInformation] = useState(
+    address.additionalInformation,
+  );
 
-    this.state = {
-      name: props.address.name,
-      type: props.address.type,
-      address: props.address.address,
-      contact: props.address.contact,
-      additionalInformation: props.address.additionalInformation,
-    };
+  useEffect(
+    (): Function => {
+      return (): void => {
+        onEditAddress({ id: undefined });
+      };
+    },
+  );
 
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleTypeChange = this.handleTypeChange.bind(this);
-    this.handleAddressChange = this.handleAddressChange.bind(this);
-    this.handleContactChange = this.handleContactChange.bind(this);
-    this.handleAdditionalInformationChange = this.handleAdditionalInformationChange.bind(
-      this,
-    );
-  }
+  const handleNameChange = ({ name: value }): void => setName(value);
 
-  componentWillUnmount(): void {
-    const { onEditAddress } = this.props;
+  const handleTypeChange = ({ type: value }): void => {
+    setType(value);
+  };
 
-    onEditAddress({ id: undefined });
-  }
+  const handleAddressChange = ({ street, zip, city, country }): void => {
+    setAddress({
+      street: street === undefined ? address.street : street,
+      zip: zip === undefined ? address.zip : zip,
+      city: city === undefined ? address.city : city,
+      country: country === undefined ? address.country : country,
+    });
+  };
 
-  handleNameChange({ name }): void {
-    this.setState((prevState: State): State => ({ ...prevState, name }));
-  }
+  const handleContactChange = ({
+    telephone,
+    mobile,
+    email,
+    homepage,
+  }): void => {
+    setContact({
+      telephone: telephone === undefined ? contact.telephone : telephone,
+      mobile: mobile === undefined ? contact.mobile : mobile,
+      email: email === undefined ? contact.email : email,
+      homepage: homepage === undefined ? contact.homepage : homepage,
+    });
+  };
 
-  handleTypeChange({ type }): void {
-    this.setState((prevState: State): State => ({ ...prevState, type }));
-  }
+  const handleAdditionalInformationChange = ({ text: value }): void => {
+    setAdditionalInformation(value);
+  };
 
-  handleAddressChange({ street, zip, city, country }): void {
-    this.setState(
-      (prevState: State): State => ({
-        ...prevState,
-        address: {
-          street: street === undefined ? prevState.address.street : street,
-          zip: zip === undefined ? prevState.address.zip : zip,
-          city: city === undefined ? prevState.address.city : city,
-          country: country === undefined ? prevState.address.country : country,
-        },
-      }),
-    );
-  }
-
-  handleContactChange({ telephone, mobile, email, homepage }): void {
-    this.setState(
-      (prevState: State): State => ({
-        ...prevState,
-        contact: {
-          telephone:
-            telephone === undefined ? prevState.contact.telephone : telephone,
-          mobile: mobile === undefined ? prevState.contact.mobile : mobile,
-          email: email === undefined ? prevState.contact.email : email,
-          homepage:
-            homepage === undefined ? prevState.contact.homepage : homepage,
-        },
-      }),
-    );
-  }
-
-  handleAdditionalInformationChange({ text: additionalInformation }): void {
-    this.setState(
-      (prevState: State): State => ({ ...prevState, additionalInformation }),
-    );
-  }
-
-  handleClose(): void {
-    const { onSave } = this.props;
-    const { name, type, address, contact, additionalInformation } = this.state;
-
+  const handleClose = (): void => {
     if (onSave) {
       onSave({
         name,
@@ -124,72 +109,66 @@ class AddressBookEdit extends PureComponent<Props, State> {
         additionalInformation,
       });
     }
-  }
+  };
 
-  render(): ReactElement {
-    const { navigation } = this.props;
-    const { name, type, contact, address, additionalInformation } = this.state;
+  return (
+    <View>
+      <NavigationBar
+        leftComponent={
+          <Icon name="back" onPress={(): boolean => navigation.goBack()} />
+        }
+        title="neue Adresse"
+        styleName="inline"
+      />
 
-    return (
-      <View>
-        <NavigationBar
-          leftComponent={
-            <Icon name="back" onPress={(): boolean => navigation.goBack()} />
-          }
-          title="neue Adresse"
-          styleName="inline"
-        />
+      <StandardView noPaddingTop>
+        <View styleName="md-gutter-top">
+          {createSelectName({
+            name,
+            handleNameChange,
+          })}
+        </View>
 
-        <StandardView noPaddingTop>
-          <View styleName="md-gutter-top">
-            {createSelectName({
-              name,
-              handleNameChange: this.handleNameChange,
-            })}
-          </View>
+        <View styleName="md-gutter-top">
+          <Text styleName="sm-gutter-bottom">Typ:</Text>
+          {createSelectType({
+            type: ADDRESS_TYPES.find(
+              ({ value }: AddressType): boolean => value === type,
+            ),
+            handleTypeChange,
+          })}
+        </View>
 
-          <View styleName="md-gutter-top">
-            <Text styleName="sm-gutter-bottom">Typ:</Text>
-            {createSelectType({
-              type: ADDRESS_TYPES.find(
-                ({ value }: ADDRESS_TYPE): boolean => value === type,
-              ),
-              handleTypeChange: this.handleTypeChange,
-            })}
-          </View>
+        <View styleName="md-gutter-top">
+          {createSelectAddress({
+            address,
+            handleAddressChange,
+          })}
+        </View>
 
-          <View styleName="md-gutter-top">
-            {createSelectAddress({
-              address,
-              handleAddressChange: this.handleAddressChange,
-            })}
-          </View>
+        <View styleName="md-gutter-top">
+          {createSelectContact({
+            contact,
+            handleContactChange,
+          })}
+        </View>
 
-          <View styleName="md-gutter-top">
-            {createSelectContact({
-              contact,
-              handleContactChange: this.handleContactChange,
-            })}
-          </View>
+        <View styleName="lg-gutter-top">
+          {createSelectAdditionalInformation({
+            additionalInformation,
+            handleAdditionalInformationChange,
+          })}
+        </View>
 
-          <View styleName="lg-gutter-top">
-            {createSelectAdditionalInformation({
-              additionalInformation,
-              handleAdditionalInformationChange: this
-                .handleAdditionalInformationChange,
-            })}
-          </View>
-
-          <Button
-            styleName="secondary lg-gutter-top xl-gutter-bottom"
-            onPress={(): void => this.handleClose()}
-          >
-            <Text>Speichern</Text>
-          </Button>
-        </StandardView>
-      </View>
-    );
-  }
-}
+        <Button
+          styleName="secondary lg-gutter-top xl-gutter-bottom"
+          onPress={(): void => handleClose()}
+        >
+          <Text>Speichern</Text>
+        </Button>
+      </StandardView>
+    </View>
+  );
+};
 
 export default AddressBookEdit;

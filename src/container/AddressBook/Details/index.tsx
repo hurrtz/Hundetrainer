@@ -1,7 +1,8 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
+import { NavigationScreenComponent } from 'react-navigation';
 
 import { AddressBookEntry } from 'container/AddressBook/types';
 import { currentDetailItemSelector } from 'container/AddressBook/selectors';
@@ -15,34 +16,24 @@ interface Props {
   setAddressToEdit: Function;
 }
 
-class AddressBookDetailsContainer extends PureComponent<Props> {
-  static navigationOptions = {
-    drawerIcon: (): ReactElement => <IconComponent name="notebook" size={25} />,
-  };
+const AddressBookDetailsContainer: NavigationScreenComponent<{}, {}, Props> = ({
+  navigation,
+  address,
+  setAddressToDetails: onDetailsAddress,
+  setAddressToEdit: onEditAddress,
+}: Props): ReactElement =>
+  address && (
+    <AddressBookDetails
+      navigation={navigation}
+      address={address}
+      onDetailsAddress={onDetailsAddress}
+      onEditAddress={onEditAddress}
+    />
+  );
 
-  render(): ReactElement {
-    const {
-      navigation,
-      address,
-      setAddressToDetails: onDetailsAddress,
-      setAddressToEdit: onEditAddress,
-    } = this.props;
-
-    if (!address) {
-      // tslint:disable-next-line no-null-keyword
-      return null;
-    }
-
-    return (
-      <AddressBookDetails
-        navigation={navigation}
-        address={address}
-        onDetailsAddress={onDetailsAddress}
-        onEditAddress={onEditAddress}
-      />
-    );
-  }
-}
+AddressBookDetailsContainer.navigationOptions = {
+  drawerIcon: (): ReactElement => <IconComponent name="notebook" size={25} />,
+};
 
 const mapStateToProps = createStructuredSelector({
   address: currentDetailItemSelector,

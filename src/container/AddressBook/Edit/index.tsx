@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, { ReactElement, FunctionComponent, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -16,28 +16,24 @@ interface Props {
   setAddressToEdit: Function;
 }
 
-class AddressBookEditContainer extends PureComponent<Props> {
-  constructor(props: Props) {
-    super(props);
+const AddressBookEditContainer: FunctionComponent<Props> = ({
+  navigation,
+  address,
+  setAddressToEdit: onEditAddress,
+  removeAddress: remove,
+}: Props): ReactElement => {
+  const onDelete = (): void => {
+    remove(address);
 
-    this.onDeleteConfirmation = this.onDeleteConfirmation.bind(this);
-    this.onHandleSave = this.onHandleSave.bind(this);
-  }
+    navigation.popToTop();
+  };
 
-  componentDidMount(): void {
-    const { navigation } = this.props;
-
-    navigation.setParams({
-      onDelete: this.onDeleteConfirmation,
-    });
-  }
-
-  onDeleteConfirmation(): void {
+  const onDeleteConfirmation = (): void => {
     Alert.alert(
       'Löschen',
       'Soll diese Adresse wirklich gelöscht werden?',
       [
-        { text: 'Ja', onPress: (): void => this.onDelete() },
+        { text: 'Ja', onPress: (): void => onDelete() },
         {
           text: 'Abbrechen',
           style: 'cancel',
@@ -45,44 +41,34 @@ class AddressBookEditContainer extends PureComponent<Props> {
       ],
       { cancelable: false },
     );
-  }
+  };
 
-  onHandleSave(address: AddressBookEntry): void {
-    const {
-      address: currentAddress,
-      updateAddress: update,
-      navigation,
-    } = this.props;
-
-    update({
-      currentAddress,
-      newAddress: address,
+  const onHandleSave = (newAddress: AddressBookEntry): void => {
+    updateAddress({
+      currentAddress: address,
+      newAddress,
     });
 
     navigation.goBack();
-  }
+  };
 
-  onDelete(): void {
-    const { address, navigation, removeAddress: remove } = this.props;
+  useEffect(
+    (): void => {
+      navigation.setParams({
+        onDelete: onDeleteConfirmation,
+      });
+    },
+  );
 
-    remove(address);
-
-    navigation.popToTop();
-  }
-
-  render(): ReactElement {
-    const { navigation, address, setAddressToEdit: onEditAddress } = this.props;
-
-    return (
-      <AddressBookEdit
-        address={address}
-        navigation={navigation}
-        onSave={this.onHandleSave}
-        onEditAddress={onEditAddress}
-      />
-    );
-  }
-}
+  return (
+    <AddressBookEdit
+      address={address}
+      navigation={navigation}
+      onSave={onHandleSave}
+      onEditAddress={onEditAddress}
+    />
+  );
+};
 
 const mapStateToProps = createStructuredSelector({
   address: currentEditItemSelector,

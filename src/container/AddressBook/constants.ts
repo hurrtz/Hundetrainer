@@ -1,11 +1,11 @@
 import { ADDRESS_TYPES as TYPES } from 'container/AddressBook/types';
 
-export type ADDRESS_TYPE = {
+export interface AddressType {
   title: string;
   value: TYPES;
-};
+}
 
-export const ADDRESS_TYPES: ADDRESS_TYPE[] = [
+export const ADDRESS_TYPES: AddressType[] = [
   {
     title: 'Ernährung',
     value: 'DIET',

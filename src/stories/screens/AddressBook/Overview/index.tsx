@@ -1,4 +1,9 @@
-import React, { PureComponent, Fragment, ReactElement, ReactNode } from 'react';
+import React, {
+  Fragment,
+  ReactElement,
+  ReactNode,
+  FunctionComponent,
+} from 'react';
 import {
   Screen,
   NavigationBar,
@@ -13,7 +18,7 @@ import {
 
 import { StandardView } from 'ui/Layout';
 import { AddressBookEntry } from 'container/AddressBook/types';
-import { ADDRESS_TYPE, ADDRESS_TYPES } from 'container/AddressBook/constants';
+import { AddressType, ADDRESS_TYPES } from 'container/AddressBook/constants';
 
 interface Props {
   navigation: Navigation;
@@ -22,44 +27,36 @@ interface Props {
   onEditPoop: Function;
 }
 
-class AddressBookDetails extends PureComponent<Props> {
-  constructor(props: Props) {
-    super(props);
+const AddressBookDetails: FunctionComponent<Props> = ({
+  navigation,
+  onShowDetails,
+  addresses,
+}: Props): ReactElement => {
+  const createDefault = (): ReactElement => (
+    <Fragment>
+      <Title>Keine Daten vorhanden</Title>
+      <Text styleName="md-gutter-top">
+        Bitte hinterlegen Sie Adressen, um einen Überblick über alle relevanten
+        Orte zu schaffen, die Ihren Hund betreffen.
+      </Text>
+    </Fragment>
+  );
 
-    this.onShowDetails = this.onShowDetails.bind(this);
-  }
-
-  createDefault(): ReactElement {
-    return (
-      <Fragment>
-        <Title>Keine Daten vorhanden</Title>
-        <Text styleName="md-gutter-top">
-          Bitte hinterlegen Sie Adressen, um einen Überblick über alle
-          relevanten Orte zu schaffen, die Ihren Hund betreffen.
-        </Text>
-      </Fragment>
-    );
-  }
-
-  onShowDetails({ id }: { id: string }): void {
-    const { navigation, onShowDetails } = this.props;
-
+  const onShowDetails = ({ id }: { id: string }): void => {
     onShowDetails({ id });
     navigation.push('AddressBookDetails');
-  }
+  };
 
-  createAddressesList(): ReactNode {
-    const { addresses } = this.props;
-
+  const createAddressesList = (): ReactNode => {
     if (addresses.length === 0) {
-      return this.createDefault();
+      return createDefault();
     }
 
     return addresses.map(
       (address: AddressBookEntry): ReactElement => (
         <TouchableOpacity
           key={address.id}
-          onPress={(): void => this.onShowDetails({ id: address.id })}
+          onPress={(): void => onShowDetails({ id: address.id })}
         >
           <View styleName="md-gutter-top">
             <Card
@@ -72,8 +69,7 @@ class AddressBookDetails extends PureComponent<Props> {
               <Text>
                 {
                   ADDRESS_TYPES.find(
-                    ({ value }: ADDRESS_TYPE): boolean =>
-                      value === address.type,
+                    ({ value }: AddressType): boolean => value === address.type,
                   ).title
                 }
               </Text>
@@ -82,33 +78,29 @@ class AddressBookDetails extends PureComponent<Props> {
         </TouchableOpacity>
       ),
     );
-  }
+  };
 
-  render(): ReactElement {
-    const { navigation } = this.props;
-
-    return (
-      <Screen>
-        <NavigationBar
-          leftComponent={
-            <Icon
-              name="sidebar"
-              onPress={(): boolean => navigation.toggleDrawer()}
-            />
-          }
-          rightComponent={
-            <Icon
-              name="plus-button"
-              onPress={(): boolean => navigation.push('AddressBookAdd')}
-            />
-          }
-          title="Adressen"
-          styleName="inline"
-        />
-        <StandardView noPaddingTop>{this.createAddressesList()}</StandardView>
-      </Screen>
-    );
-  }
-}
+  return (
+    <Screen>
+      <NavigationBar
+        leftComponent={
+          <Icon
+            name="sidebar"
+            onPress={(): boolean => navigation.toggleDrawer()}
+          />
+        }
+        rightComponent={
+          <Icon
+            name="plus-button"
+            onPress={(): boolean => navigation.push('AddressBookAdd')}
+          />
+        }
+        title="Adressen"
+        styleName="inline"
+      />
+      <StandardView noPaddingTop>{createAddressesList()}</StandardView>
+    </Screen>
+  );
+};
 
 export default AddressBookDetails;
