@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, { ReactElement, FunctionComponent } from 'react';
 
 import Training from 'stories/screens/Activities/Training';
 
@@ -6,12 +6,8 @@ interface Props {
   navigation: Navigation;
 }
 
-class TrainingContainer extends PureComponent<Props> {
-  render(): ReactElement {
-    const { navigation } = this.props;
-
-    return <Training navigation={navigation} />;
-  }
-}
+const TrainingContainer: FunctionComponent<Props> = ({
+  navigation,
+}: Props): ReactElement => <Training navigation={navigation} />;
 
 export default TrainingContainer;

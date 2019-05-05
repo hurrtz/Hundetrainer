@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, { ReactElement, FunctionComponent } from 'react';
 
 import Places from 'stories/screens/Activities/Places';
 
@@ -6,12 +6,8 @@ interface Props {
   navigation: Navigation;
 }
 
-class PlacesContainer extends PureComponent<Props> {
-  render(): ReactElement {
-    const { navigation } = this.props;
-
-    return <Places navigation={navigation} />;
-  }
-}
+const PlacesContainer: FunctionComponent<Props> = ({
+  navigation,
+}: Props): ReactElement => <Places navigation={navigation} />;
 
 export default PlacesContainer;
