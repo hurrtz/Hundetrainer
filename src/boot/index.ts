@@ -1,5 +1,3 @@
 import app from './setup';
 
-export default function() {
-  return app;
-}
+export default (): any => app;

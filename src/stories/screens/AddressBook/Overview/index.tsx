@@ -29,7 +29,7 @@ interface Props {
 
 const AddressBookDetails: FunctionComponent<Props> = ({
   navigation,
-  onShowDetails,
+  onShowDetails: showDetails,
   addresses,
 }: Props): ReactElement => {
   const createDefault = (): ReactElement => (
@@ -43,7 +43,7 @@ const AddressBookDetails: FunctionComponent<Props> = ({
   );
 
   const onShowDetails = ({ id }: { id: string }): void => {
-    onShowDetails({ id });
+    showDetails({ id });
     navigation.push('AddressBookDetails');
   };
 

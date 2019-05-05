@@ -16,7 +16,7 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export default function configureStore(onCompletion: () => void): any {
+export default function configureStore(onCompletion: () => void): {} {
   const sagaMiddleware = createSagaMiddleware();
   const middlewares = [thunkMiddleware, sagaMiddleware];
   const middlewareEnhancer = applyMiddleware(...middlewares);

@@ -1,4 +1,9 @@
-import React, { ReactElement, FunctionComponent, useEffect } from 'react';
+import React, {
+  ReactElement,
+  FunctionComponent,
+  useEffect,
+  EffectCallback,
+} from 'react';
 import { View, NavigationBar, Icon, Title, Subtitle, Text } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
@@ -19,10 +24,8 @@ const AddressBookDetails: FunctionComponent<Props> = ({
   onDetailsAddress,
 }: Props): ReactElement => {
   useEffect(
-    (): Function => {
-      return (): void => {
-        onDetailsAddress({ id: undefined });
-      };
+    (): EffectCallback => (): void => {
+      onDetailsAddress({ id: undefined });
     },
   );
 

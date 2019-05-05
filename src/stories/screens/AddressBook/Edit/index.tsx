@@ -3,6 +3,7 @@ import React, {
   FunctionComponent,
   useEffect,
   useState,
+  EffectCallback,
 } from 'react';
 import { NavigationBar, Icon, View, Text, Button } from '@shoutem/ui';
 
@@ -14,10 +15,7 @@ import {
   createSelectContact,
   createSelectAdditionalInformation,
 } from '../shared';
-import {
-  AddressBookEntry,
-  ADDRESS_TYPES as TYPES,
-} from 'container/AddressBook/types';
+import { AddressBookEntry } from 'container/AddressBook/types';
 import { AddressType, ADDRESS_TYPES } from 'container/AddressBook/constants';
 
 interface Props {
@@ -27,42 +25,23 @@ interface Props {
   onEditAddress: Function;
 }
 
-interface State {
-  name: string;
-  type: TYPES;
-  address: {
-    street: string;
-    zip: string;
-    city: string;
-    country: string;
-  };
-  contact: {
-    telephone: string;
-    mobile: string;
-    email: string;
-    homepage: string;
-  };
-  additionalInformation: string;
-}
-
 const AddressBookEdit: FunctionComponent<Props> = ({
-  address,
+  navigation,
+  address: propAddress,
   onEditAddress,
   onSave,
 }: Props): ReactElement => {
-  const [name, setName] = useState(address.name);
-  const [type, setType] = useState(address.type);
-  const [address, setAddress] = useState(address.address);
-  const [contact, setContact] = useState(address.contact);
+  const [name, setName] = useState(propAddress.name);
+  const [type, setType] = useState(propAddress.type);
+  const [address, setAddress] = useState(propAddress.address);
+  const [contact, setContact] = useState(propAddress.contact);
   const [additionalInformation, setAdditionalInformation] = useState(
-    address.additionalInformation,
+    propAddress.additionalInformation,
   );
 
   useEffect(
-    (): Function => {
-      return (): void => {
-        onEditAddress({ id: undefined });
-      };
+    (): EffectCallback => (): void => {
+      onEditAddress({ id: undefined });
     },
   );
 
