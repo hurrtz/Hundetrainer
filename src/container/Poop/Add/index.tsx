@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 
 import PoopAdd from 'stories/screens/Poop/Add';
-import { IPoop } from 'container/Poop/types';
+import { Poop } from 'container/Poop/types';
 import { addPoop } from '../actions';
 
 interface Props {
@@ -10,16 +10,14 @@ interface Props {
   addPoop: Function;
 }
 
-interface State {}
-
-class PoopAddContainer extends PureComponent<Props, State> {
+class PoopAddContainer extends PureComponent<Props> {
   constructor(props: Props) {
     super(props);
 
     this.onHandleSave = this.onHandleSave.bind(this);
   }
 
-  onHandleSave(poop: IPoop) {
+  onHandleSave(poop: Poop): void {
     const { addPoop: save, navigation } = this.props;
 
     save(poop);
@@ -27,7 +25,7 @@ class PoopAddContainer extends PureComponent<Props, State> {
     navigation.goBack();
   }
 
-  render() {
+  render(): ReactElement {
     const { navigation } = this.props;
 
     return <PoopAdd navigation={navigation} onSave={this.onHandleSave} />;

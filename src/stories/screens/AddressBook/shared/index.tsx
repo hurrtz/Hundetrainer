@@ -1,15 +1,15 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { View, Screen, TextInput, DropDownMenu, Icon } from '@shoutem/ui';
 
 import { ADDRESS_TYPES } from 'container/AddressBook/constants';
 import { ADDRESS_TYPES as TYPES } from 'container/AddressBook/types';
 
-interface ISelectAdditionalInformation {
+interface SelectAdditionalInformation {
   additionalInformation: string;
   handleAdditionalInformationChange: Function;
 }
 
-interface ISelectContact {
+interface SelectContact {
   contact: {
     telephone: string;
     mobile: string;
@@ -19,7 +19,7 @@ interface ISelectContact {
   handleContactChange: Function;
 }
 
-interface ISelectAddress {
+interface SelectAddress {
   address: {
     street: string;
     zip: string;
@@ -29,35 +29,41 @@ interface ISelectAddress {
   handleAddressChange: Function;
 }
 
-type TType = {
+interface Type {
   title: string;
   value: TYPES;
-};
+}
 
-interface ISelectType {
-  type: TType;
+interface SelectType {
+  type: Type;
   handleTypeChange: Function;
 }
 
-interface ISelectName {
+interface SelectName {
   name: string;
   handleNameChange: Function;
 }
 
-export const createSelectName = ({ name, handleNameChange }: ISelectName) => (
+export const createSelectName = ({
+  name,
+  handleNameChange,
+}: SelectName): ReactElement => (
   <TextInput
     style={{ borderColor: '#888', borderWidth: 1, borderStyle: 'solid' }}
     placeholder="Name"
     value={name}
-    onChangeText={(value: string) => handleNameChange({ name: value })}
+    onChangeText={(value: string): void => handleNameChange({ name: value })}
   />
 );
 
-export const createSelectType = ({ type, handleTypeChange }: ISelectType) => (
+export const createSelectType = ({
+  type,
+  handleTypeChange,
+}: SelectType): ReactElement => (
   <DropDownMenu
     options={ADDRESS_TYPES}
     selectedOption={type}
-    onOptionSelected={(option: TType) =>
+    onOptionSelected={(option: Type): void =>
       handleTypeChange({ type: option.value })
     }
     titleProperty="title"
@@ -70,20 +76,24 @@ export const createSelectType = ({ type, handleTypeChange }: ISelectType) => (
 export const createSelectAddress = ({
   address: { street, zip, city, country },
   handleAddressChange,
-}: ISelectAddress) => (
+}: SelectAddress): ReactElement => (
   <View>
     <TextInput
       style={{ borderColor: '#888', borderWidth: 1, borderStyle: 'solid' }}
       value={street}
       placeholder="Straße:"
-      onChangeText={(value: string) => handleAddressChange({ street: value })}
+      onChangeText={(value: string): void =>
+        handleAddressChange({ street: value })
+      }
     />
 
     <View styleName="horizontal space-between md-gutter-top">
       <TextInput
         value={zip}
         placeholder="Postleitzahl:"
-        onChangeText={(value: string) => handleAddressChange({ zip: value })}
+        onChangeText={(value: string): void =>
+          handleAddressChange({ zip: value })
+        }
         style={{
           borderColor: '#888',
           borderWidth: 1,
@@ -95,7 +105,9 @@ export const createSelectAddress = ({
       <TextInput
         value={city}
         placeholder="Stadt/Ort:"
-        onChangeText={(value: string) => handleAddressChange({ city: value })}
+        onChangeText={(value: string): void =>
+          handleAddressChange({ city: value })
+        }
         style={{
           borderColor: '#888',
           borderWidth: 1,
@@ -112,7 +124,9 @@ export const createSelectAddress = ({
       style={{ borderColor: '#888', borderWidth: 1, borderStyle: 'solid' }}
       value={country}
       placeholder="Land:"
-      onChangeText={(value: string) => handleAddressChange({ country: value })}
+      onChangeText={(value: string): void =>
+        handleAddressChange({ country: value })
+      }
       styleName="md-gutter-top"
     />
   </View>
@@ -121,7 +135,7 @@ export const createSelectAddress = ({
 export const createSelectContact = ({
   contact: { telephone, mobile, email, homepage },
   handleContactChange,
-}: ISelectContact) => (
+}: SelectContact): ReactElement => (
   <View>
     <View styleName="horizontal v-center">
       <Icon name="call" />
@@ -137,7 +151,7 @@ export const createSelectContact = ({
         }}
         value={telephone}
         placeholder="Telefon:"
-        onChangeText={(value: string) =>
+        onChangeText={(value: string): void =>
           handleContactChange({ telephone: value })
         }
       />
@@ -157,7 +171,9 @@ export const createSelectContact = ({
         }}
         value={mobile}
         placeholder="Mobil:"
-        onChangeText={(value: string) => handleContactChange({ mobile: value })}
+        onChangeText={(value: string): void =>
+          handleContactChange({ mobile: value })
+        }
       />
     </View>
 
@@ -175,7 +191,9 @@ export const createSelectContact = ({
         }}
         value={email}
         placeholder="E-Mail:"
-        onChangeText={(value: string) => handleContactChange({ email: value })}
+        onChangeText={(value: string): void =>
+          handleContactChange({ email: value })
+        }
       />
     </View>
 
@@ -193,7 +211,7 @@ export const createSelectContact = ({
         }}
         value={homepage}
         placeholder="Homepage:"
-        onChangeText={(value: string) =>
+        onChangeText={(value: string): void =>
           handleContactChange({ homepage: value })
         }
       />
@@ -204,7 +222,7 @@ export const createSelectContact = ({
 export const createSelectAdditionalInformation = ({
   additionalInformation,
   handleAdditionalInformationChange,
-}: ISelectAdditionalInformation) => (
+}: SelectAdditionalInformation): ReactElement => (
   <Screen>
     <TextInput
       style={{ borderColor: '#888', borderWidth: 1, borderStyle: 'solid' }}
@@ -212,7 +230,7 @@ export const createSelectAdditionalInformation = ({
       numberOfLines={5}
       placeholder="Sonstige Informationen"
       defaultValue={additionalInformation}
-      onChangeText={(text: string) =>
+      onChangeText={(text: string): void =>
         handleAdditionalInformationChange({ text })
       }
     />

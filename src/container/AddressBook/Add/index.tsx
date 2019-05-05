@@ -1,8 +1,8 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 
-import { IAddressBookEntry } from 'container/AddressBook/types';
+import { AddressBookEntry } from 'container/AddressBook/types';
 import AddressBookAdd from 'stories/screens/AddressBook/Add';
 import { addAddress } from '../actions';
 
@@ -11,11 +11,9 @@ interface Props {
   addAddress: Function;
 }
 
-interface State {}
-
-class AddressBookAddContainer extends PureComponent<Props, State> {
+class AddressBookAddContainer extends PureComponent<Props> {
   static navigationOptions = {
-    drawerIcon: () => <IconComponent name="notebook" size={25} />,
+    drawerIcon: (): ReactElement => <IconComponent name="notebook" size={25} />,
   };
 
   constructor(props: Props) {
@@ -24,7 +22,7 @@ class AddressBookAddContainer extends PureComponent<Props, State> {
     this.onHandleSave = this.onHandleSave.bind(this);
   }
 
-  onHandleSave(address: IAddressBookEntry) {
+  onHandleSave(address: AddressBookEntry): void {
     const { addAddress: save, navigation } = this.props;
 
     save(address);
@@ -32,7 +30,7 @@ class AddressBookAddContainer extends PureComponent<Props, State> {
     navigation.goBack();
   }
 
-  render() {
+  render(): ReactElement {
     const { navigation } = this.props;
 
     return (

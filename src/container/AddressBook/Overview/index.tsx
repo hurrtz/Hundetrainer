@@ -1,24 +1,22 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { IAddressBookEntry } from 'container/AddressBook/types';
+import { AddressBookEntry } from 'container/AddressBook/types';
 import AddressBookOverview from 'stories/screens/AddressBook/Overview';
 import { itemsSelector } from '../selectors';
 import { setAddressToDetails, setAddressToEdit } from '../actions';
 
 interface Props {
   navigation: Navigation;
-  addresses: IAddressBookEntry[];
+  addresses: AddressBookEntry[];
   removeAddress: Function;
   setAddressToDetails: Function;
   setAddressToEdit: Function;
 }
 
-interface State {}
-
-class AddressBookOverviewContainer extends PureComponent<Props, State> {
-  render() {
+class AddressBookOverviewContainer extends PureComponent<Props> {
+  render(): ReactElement {
     const {
       navigation,
       addresses,

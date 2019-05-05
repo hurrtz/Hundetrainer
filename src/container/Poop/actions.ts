@@ -1,4 +1,5 @@
-import { IPoop } from 'container/Poop/types';
+import { AnyAction } from 'redux';
+import { Poop } from 'container/Poop/types';
 
 const NS = 'POOPS';
 
@@ -8,19 +9,19 @@ export const REMOVE_POOP = `${NS}: Removing poop`;
 export const SET_POOP_TO_DETAILS = `${NS}: Setting poop for detail view`;
 export const SET_POOP_TO_EDIT = `${NS}: Setting poop for editing`;
 
-interface IUpdatePoops {
-  currentPoop: IPoop;
-  newPoop: IPoop;
+interface UpdatePoops {
+  currentPoop: Poop;
+  newPoop: Poop;
 }
 
-export function addPoop(poop: IPoop) {
+export function addPoop(poop: Poop): AnyAction {
   return {
     type: ADD_POOP,
     poop,
   };
 }
 
-export function updatePoop({ currentPoop, newPoop }: IUpdatePoops) {
+export function updatePoop({ currentPoop, newPoop }: UpdatePoops): AnyAction {
   return {
     type: UPDATE_POOP,
     currentPoop,
@@ -28,21 +29,21 @@ export function updatePoop({ currentPoop, newPoop }: IUpdatePoops) {
   };
 }
 
-export function removePoop(poop: IPoop) {
+export function removePoop(poop: Poop): AnyAction {
   return {
     type: REMOVE_POOP,
     poop,
   };
 }
 
-export function setPoopToDetails({ id }: { id: string }) {
+export function setPoopToDetails({ id }: { id: string }): AnyAction {
   return {
     type: SET_POOP_TO_DETAILS,
     id,
   };
 }
 
-export function setPoopToEdit({ id }: { id: string }) {
+export function setPoopToEdit({ id }: { id: string }): AnyAction {
   return {
     type: SET_POOP_TO_EDIT,
     id,

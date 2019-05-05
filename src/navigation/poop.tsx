@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { createStackNavigator } from 'react-navigation';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -21,7 +21,9 @@ const PoopNavigator = createStackNavigator(
 );
 
 PoopNavigator.navigationOptions = {
-  drawerIcon: () => <IconComponent name="emoticon-poop" size={25} />,
+  drawerIcon: (): ReactElement => (
+    <IconComponent name="emoticon-poop" size={25} />
+  ),
 };
 
 export default PoopNavigator;

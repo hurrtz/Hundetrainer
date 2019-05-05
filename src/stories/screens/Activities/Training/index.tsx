@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Screen, NavigationBar, Icon, Title } from '@shoutem/ui';
 
@@ -8,22 +8,25 @@ interface Props {
   navigation: Navigation;
 }
 
-interface State {}
-
-class Training extends PureComponent<Props, State> {
+class Training extends PureComponent<Props> {
   static navigationOptions = {
     drawerLabel: 'trophy',
-    drawerIcon: () => <IconComponent name="view-dashboard" size={25} />,
+    drawerIcon: (): ReactElement => (
+      <IconComponent name="view-dashboard" size={25} />
+    ),
   };
 
-  render() {
+  render(): ReactElement {
     const { navigation } = this.props;
 
     return (
       <Screen>
         <NavigationBar
           leftComponent={
-            <Icon name="sidebar" onPress={() => navigation.toggleDrawer()} />
+            <Icon
+              name="sidebar"
+              onPress={(): boolean => navigation.toggleDrawer()}
+            />
           }
           title="Übungen"
           styleName="inline"

@@ -1,19 +1,17 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import EntypoIconComponent from 'react-native-vector-icons/Entypo';
 import MaterialIconComponent from 'react-native-vector-icons/MaterialIcons';
 import { View, Subtitle } from '@shoutem/ui';
 
-import { IPoop } from 'container/Poop/types';
+import { Poop } from 'container/Poop/types';
 
 interface Props {
-  poop: IPoop;
+  poop: Poop;
 }
 
-interface State {}
-
-class PoopDetails extends PureComponent<Props, State> {
-  createEmoticon(poop: IPoop) {
+class PoopDetails extends PureComponent<Props> {
+  createEmoticon(poop: Poop): ReactElement {
     const { quality, isConspicuous } = poop;
 
     if (isConspicuous) {
@@ -33,7 +31,7 @@ class PoopDetails extends PureComponent<Props, State> {
     return <IconComponent name="thumb-down" size={20} color="red" />;
   }
 
-  createHasBloodIcon(hasBlood: boolean) {
+  createHasBloodIcon(hasBlood: boolean): ReactElement {
     if (hasBlood) {
       return <EntypoIconComponent name="drop" size={20} color="red" />;
     }
@@ -41,7 +39,7 @@ class PoopDetails extends PureComponent<Props, State> {
     return undefined;
   }
 
-  createIconAdditionalInformations() {
+  createIconAdditionalInformations(): ReactElement {
     const { poop } = this.props;
 
     if (poop.additionalInformation) {
@@ -55,7 +53,7 @@ class PoopDetails extends PureComponent<Props, State> {
     return value < 10 ? `0${value}` : String(value);
   }
 
-  formatTime(_date: string) {
+  formatTime(_date: string): string {
     const date = new Date(_date);
 
     return `${this.getTwoDigitNumber(date.getHours())}:${this.getTwoDigitNumber(
@@ -63,7 +61,7 @@ class PoopDetails extends PureComponent<Props, State> {
     )} Uhr`;
   }
 
-  render() {
+  render(): ReactElement {
     const { poop } = this.props;
 
     return (

@@ -1,4 +1,5 @@
-import { IAddressBookEntry } from 'container/AddressBook/types';
+import { AnyAction } from 'redux';
+import { AddressBookEntry } from 'container/AddressBook/types';
 
 const NS = 'AddressBook';
 
@@ -8,19 +9,22 @@ export const REMOVE_ADDRESS = `${NS}: Removing address`;
 export const SET_ADDRESS_TO_DETAILS = `${NS}: Setting address for detail view`;
 export const SET_ADDRESS_TO_EDIT = `${NS}: Setting Address for editing`;
 
-interface IUpdateAddress {
-  currentAddress: IAddressBookEntry;
-  newAddress: IAddressBookEntry;
+interface UpdateAddress {
+  currentAddress: AddressBookEntry;
+  newAddress: AddressBookEntry;
 }
 
-export function addAddress(address: IAddressBookEntry) {
+export function addAddress(address: AddressBookEntry): AnyAction {
   return {
     type: ADD_ADDRESS,
     address,
   };
 }
 
-export function updateAddress({ currentAddress, newAddress }: IUpdateAddress) {
+export function updateAddress({
+  currentAddress,
+  newAddress,
+}: UpdateAddress): AnyAction {
   return {
     type: UPDATE_ADDRESS,
     currentAddress,
@@ -28,21 +32,21 @@ export function updateAddress({ currentAddress, newAddress }: IUpdateAddress) {
   };
 }
 
-export function removeAddress(address: IAddressBookEntry) {
+export function removeAddress(address: AddressBookEntry): AnyAction {
   return {
     type: REMOVE_ADDRESS,
     address,
   };
 }
 
-export function setAddressToDetails({ id }: { id: string }) {
+export function setAddressToDetails({ id }: { id: string }): AnyAction {
   return {
     type: SET_ADDRESS_TO_DETAILS,
     id,
   };
 }
 
-export function setAddressToEdit({ id }: { id: string }) {
+export function setAddressToEdit({ id }: { id: string }): AnyAction {
   return {
     type: SET_ADDRESS_TO_EDIT,
     id,

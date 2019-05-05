@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent, Fragment, ReactElement } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Dashboard from 'stories/screens/Dashboard';
@@ -8,14 +8,14 @@ interface Props {
   navigation: Navigation;
 }
 
-interface State {}
-
-class DashboardContainer extends PureComponent<Props, State> {
+class DashboardContainer extends PureComponent<Props> {
   static navigationOptions = {
-    drawerIcon: () => <IconComponent name="view-dashboard" size={25} />,
+    drawerIcon: (): ReactElement => (
+      <IconComponent name="view-dashboard" size={25} />
+    ),
   };
 
-  render() {
+  render(): ReactElement {
     const { navigation } = this.props;
 
     return (

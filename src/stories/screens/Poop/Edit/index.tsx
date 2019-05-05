@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { View, Button, Text, NavigationBar, Icon } from '@shoutem/ui';
 
 import { COLORS, CONSISTENCIES, QUALITIES } from 'container/Poop/constants';
@@ -12,12 +12,12 @@ import {
   createSelectIsConspicuous,
   createSelectAdditionalInformation,
 } from '../shared';
-import { IPoop, QUALITY, CONSISTENCY, COLOR } from 'container/Poop/types';
+import { Poop, QUALITY, CONSISTENCY, COLOR } from 'container/Poop/types';
 import { StandardView } from 'ui/Layout';
 
 interface Props {
   navigation: Navigation;
-  poop: IPoop;
+  poop: Poop;
   onSave: Function;
   onEditPoop: Function;
 }
@@ -55,13 +55,13 @@ class PoopEdit extends PureComponent<Props, State> {
     );
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     const { onEditPoop } = this.props;
 
     onEditPoop({ id: undefined });
   }
 
-  handleClose() {
+  handleClose(): void {
     const { onSave } = this.props;
     const {
       date,
@@ -95,46 +95,46 @@ class PoopEdit extends PureComponent<Props, State> {
     }
   }
 
-  handleChangeDate(date: Date) {
-    this.setState(prevState => ({ ...prevState, date }));
+  handleChangeDate(date: State['date']): void {
+    this.setState((prevState: State): State => ({ ...prevState, date }));
   }
 
-  handleChangeTime(time: Date) {
-    this.setState(prevState => ({ ...prevState, time }));
+  handleChangeTime(time: State['time']): void {
+    this.setState((prevState: State): State => ({ ...prevState, time }));
   }
 
-  handleChangeQuality({ value: quality }: { value: QUALITY }) {
-    this.setState(prevState => ({ ...prevState, quality }));
+  handleChangeQuality({ value: quality }: { value: State['quality'] }): void {
+    this.setState((prevState: State): State => ({ ...prevState, quality }));
   }
 
-  handleChangeConsistency({ value: consistency }: { value: CONSISTENCY }) {
-    this.setState(prevState => ({ ...prevState, consistency }));
+  handleChangeConsistency({ value: consistency }: { value: State['consistency'] }): void {
+    this.setState((prevState: State): State => ({ ...prevState, consistency }));
   }
 
-  handleChangeColor({ value: color }: { value: COLOR }) {
-    this.setState(prevState => ({ ...prevState, color }));
+  handleChangeColor({ value: color }: { value: State['color'] }): void {
+    this.setState((prevState: State): State => ({ ...prevState, color }));
   }
 
-  handleChangeHasBlood(hasBlood: boolean) {
-    this.setState(prevState => ({
+  handleChangeHasBlood(hasBlood: State['hasBlood']): void {
+    this.setState((prevState: State): State => ({
       ...prevState,
       hasBlood,
       isConspicuous: prevState.isConspicuous || hasBlood,
     }));
   }
 
-  handleChangeIsConspicuous(isConspicuous: boolean) {
-    this.setState(prevState => ({
+  handleChangeIsConspicuous(isConspicuous: State['isConspicuous']): void {
+    this.setState((prevState: State): State => ({
       ...prevState,
       isConspicuous: prevState.hasBlood || isConspicuous,
     }));
   }
 
-  handleAdditionalInformationChange(text: string) {
-    this.setState(prevState => ({ ...prevState, additionalInformation: text }));
+  handleAdditionalInformationChange(text: State['additionalInformation']): void {
+    this.setState((prevState: State): State => ({ ...prevState, additionalInformation: text }));
   }
 
-  render() {
+  render(): ReactElement {
     const { navigation } = this.props;
 
     const {
@@ -152,7 +152,7 @@ class PoopEdit extends PureComponent<Props, State> {
       <View>
         <NavigationBar
           leftComponent={
-            <Icon name="back" onPress={() => navigation.goBack()} />
+            <Icon name="back" onPress={(): boolean => navigation.goBack()} />
           }
           rightComponent={
             <Icon name="close" onPress={navigation.getParam('onDelete')} />
@@ -179,7 +179,7 @@ class PoopEdit extends PureComponent<Props, State> {
 
             {createSelectQuality({
               qualities: QUALITIES,
-              qualitySelected: QUALITIES.find(({ value }) => value === quality),
+              qualitySelected: QUALITIES.find(({ value }): boolean => value === quality),
               handleChangeQuality: this.handleChangeQuality,
             })}
           </View>
@@ -190,7 +190,7 @@ class PoopEdit extends PureComponent<Props, State> {
             {createSelectConsistency({
               consistencies: CONSISTENCIES,
               consistencySelected: CONSISTENCIES.find(
-                ({ value }) => value === consistency,
+                ({ value }): boolean => value === consistency,
               ),
               handleChangeConsistency: this.handleChangeConsistency,
             })}
@@ -201,7 +201,7 @@ class PoopEdit extends PureComponent<Props, State> {
 
             {createSelectColor({
               colors: COLORS,
-              colorSelected: COLORS.find(({ value }) => value === color),
+              colorSelected: COLORS.find(({ value }): boolean => value === color),
               handleChangeColor: this.handleChangeColor,
             })}
           </View>
@@ -230,7 +230,7 @@ class PoopEdit extends PureComponent<Props, State> {
 
           <Button
             styleName="secondary lg-gutter-top xl-gutter-bottom"
-            onPress={() => this.handleClose()}
+            onPress={(): void => this.handleClose()}
           >
             <Text>Speichern</Text>
           </Button>

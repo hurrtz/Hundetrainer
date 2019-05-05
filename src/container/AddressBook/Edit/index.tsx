@@ -1,24 +1,22 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { IAddressBookEntry } from 'container/AddressBook/types';
+import { AddressBookEntry } from 'container/AddressBook/types';
 import AddressBookEdit from 'stories/screens/AddressBook/Edit';
 import { currentEditItemSelector } from '../selectors';
 import { removeAddress, updateAddress, setAddressToEdit } from '../actions';
 
 interface Props {
   navigation: Navigation;
-  address: IAddressBookEntry;
+  address: AddressBookEntry;
   removeAddress: Function;
   updateAddress: Function;
   setAddressToEdit: Function;
 }
 
-interface State {}
-
-class AddressBookEditContainer extends PureComponent<Props, State> {
+class AddressBookEditContainer extends PureComponent<Props> {
   constructor(props: Props) {
     super(props);
 
@@ -26,7 +24,7 @@ class AddressBookEditContainer extends PureComponent<Props, State> {
     this.onHandleSave = this.onHandleSave.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const { navigation } = this.props;
 
     navigation.setParams({
@@ -34,12 +32,12 @@ class AddressBookEditContainer extends PureComponent<Props, State> {
     });
   }
 
-  onDeleteConfirmation() {
+  onDeleteConfirmation(): void {
     Alert.alert(
       'Löschen',
       'Soll diese Adresse wirklich gelöscht werden?',
       [
-        { text: 'Ja', onPress: () => this.onDelete() },
+        { text: 'Ja', onPress: (): void => this.onDelete() },
         {
           text: 'Abbrechen',
           style: 'cancel',
@@ -49,7 +47,7 @@ class AddressBookEditContainer extends PureComponent<Props, State> {
     );
   }
 
-  onHandleSave(address: IAddressBookEntry) {
+  onHandleSave(address: AddressBookEntry): void {
     const {
       address: currentAddress,
       updateAddress: update,
@@ -64,7 +62,7 @@ class AddressBookEditContainer extends PureComponent<Props, State> {
     navigation.goBack();
   }
 
-  onDelete() {
+  onDelete(): void {
     const { address, navigation, removeAddress: remove } = this.props;
 
     remove(address);
@@ -72,7 +70,7 @@ class AddressBookEditContainer extends PureComponent<Props, State> {
     navigation.popToTop();
   }
 
-  render() {
+  render(): ReactElement {
     const { navigation, address, setAddressToEdit: onEditAddress } = this.props;
 
     return (

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { NavigationBar, Icon, View, Text, Button } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
@@ -10,15 +10,15 @@ import {
   createSelectAdditionalInformation,
 } from '../shared';
 import {
-  IAddressBookEntry,
+  AddressBookEntry,
   ADDRESS_TYPES as TYPES,
 } from 'container/AddressBook/types';
-import { ADDRESS_TYPES } from 'container/AddressBook/constants';
+import { ADDRESS_TYPE, ADDRESS_TYPES } from 'container/AddressBook/constants';
 
 interface Props {
   navigation: Navigation;
   onSave: Function;
-  address: IAddressBookEntry;
+  address: AddressBookEntry;
   onEditAddress: Function;
 }
 
@@ -61,51 +61,57 @@ class AddressBookEdit extends PureComponent<Props, State> {
     );
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     const { onEditAddress } = this.props;
 
     onEditAddress({ id: undefined });
   }
 
-  handleNameChange({ name }) {
-    this.setState(prevState => ({ ...prevState, name }));
+  handleNameChange({ name }): void {
+    this.setState((prevState: State): State => ({ ...prevState, name }));
   }
 
-  handleTypeChange({ type }) {
-    this.setState(prevState => ({ ...prevState, type }));
+  handleTypeChange({ type }): void {
+    this.setState((prevState: State): State => ({ ...prevState, type }));
   }
 
-  handleAddressChange({ street, zip, city, country }) {
-    this.setState(prevState => ({
-      ...prevState,
-      address: {
-        street: street === undefined ? prevState.address.street : street,
-        zip: zip === undefined ? prevState.address.zip : zip,
-        city: city === undefined ? prevState.address.city : city,
-        country: country === undefined ? prevState.address.country : country,
-      },
-    }));
+  handleAddressChange({ street, zip, city, country }): void {
+    this.setState(
+      (prevState: State): State => ({
+        ...prevState,
+        address: {
+          street: street === undefined ? prevState.address.street : street,
+          zip: zip === undefined ? prevState.address.zip : zip,
+          city: city === undefined ? prevState.address.city : city,
+          country: country === undefined ? prevState.address.country : country,
+        },
+      }),
+    );
   }
 
-  handleContactChange({ telephone, mobile, email, homepage }) {
-    this.setState(prevState => ({
-      ...prevState,
-      contact: {
-        telephone:
-          telephone === undefined ? prevState.contact.telephone : telephone,
-        mobile: mobile === undefined ? prevState.contact.mobile : mobile,
-        email: email === undefined ? prevState.contact.email : email,
-        homepage:
-          homepage === undefined ? prevState.contact.homepage : homepage,
-      },
-    }));
+  handleContactChange({ telephone, mobile, email, homepage }): void {
+    this.setState(
+      (prevState: State): State => ({
+        ...prevState,
+        contact: {
+          telephone:
+            telephone === undefined ? prevState.contact.telephone : telephone,
+          mobile: mobile === undefined ? prevState.contact.mobile : mobile,
+          email: email === undefined ? prevState.contact.email : email,
+          homepage:
+            homepage === undefined ? prevState.contact.homepage : homepage,
+        },
+      }),
+    );
   }
 
-  handleAdditionalInformationChange({ text: additionalInformation }) {
-    this.setState(prevState => ({ ...prevState, additionalInformation }));
+  handleAdditionalInformationChange({ text: additionalInformation }): void {
+    this.setState(
+      (prevState: State): State => ({ ...prevState, additionalInformation }),
+    );
   }
 
-  handleClose() {
+  handleClose(): void {
     const { onSave } = this.props;
     const { name, type, address, contact, additionalInformation } = this.state;
 
@@ -120,7 +126,7 @@ class AddressBookEdit extends PureComponent<Props, State> {
     }
   }
 
-  render() {
+  render(): ReactElement {
     const { navigation } = this.props;
     const { name, type, contact, address, additionalInformation } = this.state;
 
@@ -128,7 +134,7 @@ class AddressBookEdit extends PureComponent<Props, State> {
       <View>
         <NavigationBar
           leftComponent={
-            <Icon name="back" onPress={() => navigation.goBack()} />
+            <Icon name="back" onPress={(): boolean => navigation.goBack()} />
           }
           title="neue Adresse"
           styleName="inline"
@@ -145,7 +151,9 @@ class AddressBookEdit extends PureComponent<Props, State> {
           <View styleName="md-gutter-top">
             <Text styleName="sm-gutter-bottom">Typ:</Text>
             {createSelectType({
-              type: ADDRESS_TYPES.find(({ value }) => value === type),
+              type: ADDRESS_TYPES.find(
+                ({ value }: ADDRESS_TYPE): boolean => value === type,
+              ),
               handleTypeChange: this.handleTypeChange,
             })}
           </View>
@@ -174,7 +182,7 @@ class AddressBookEdit extends PureComponent<Props, State> {
 
           <Button
             styleName="secondary lg-gutter-top xl-gutter-bottom"
-            onPress={() => this.handleClose()}
+            onPress={(): void => this.handleClose()}
           >
             <Text>Speichern</Text>
           </Button>

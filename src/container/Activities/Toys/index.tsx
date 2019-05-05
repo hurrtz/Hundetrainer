@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 
 import Toys from 'stories/screens/Activities/Toys';
 
@@ -6,10 +6,8 @@ interface Props {
   navigation: Navigation;
 }
 
-interface State {}
-
-class ToysContainer extends PureComponent<Props, State> {
-  render() {
+class ToysContainer extends PureComponent<Props> {
+  render(): ReactElement {
     const { navigation } = this.props;
 
     return <Toys navigation={navigation} />;

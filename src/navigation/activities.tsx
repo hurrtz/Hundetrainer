@@ -1,5 +1,8 @@
-import React from 'react';
-import { createBottomTabNavigator } from 'react-navigation';
+import React, { ReactElement } from 'react';
+import {
+  createBottomTabNavigator,
+  NavigationBottomTabScreenOptions,
+} from 'react-navigation';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Training from 'container/Activities/Training';
@@ -16,8 +19,10 @@ const ActivitiesNavigator = createBottomTabNavigator(
   },
   {
     initialRouteName: 'Training',
-    defaultNavigationOptions: ({ navigation }) => ({
-      title: (() => {
+    defaultNavigationOptions: ({
+      navigation,
+    }): NavigationBottomTabScreenOptions => ({
+      title: ((): string => {
         const { routeName } = navigation.state;
 
         switch (routeName) {
@@ -37,7 +42,7 @@ const ActivitiesNavigator = createBottomTabNavigator(
             return routeName;
         }
       })(),
-      tabBarIcon: ({ tintColor }) => {
+      tabBarIcon: ({ tintColor }: { tintColor: string }): ReactElement => {
         const { routeName } = navigation.state;
 
         let iconName: string;
@@ -73,7 +78,7 @@ const ActivitiesNavigator = createBottomTabNavigator(
 );
 
 ActivitiesNavigator.navigationOptions = {
-  drawerIcon: () => <IconComponent name="trophy" size={25} />,
+  drawerIcon: (): ReactElement => <IconComponent name="trophy" size={25} />,
 };
 
 export default ActivitiesNavigator;

@@ -1,24 +1,22 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { IPoop } from 'container/Poop/types';
+import { Poop } from 'container/Poop/types';
 import PoopEdit from 'stories/screens/Poop/Edit';
 import { currentEditItemSelector } from '../selectors';
 import { removePoop, updatePoop, setPoopToEdit } from '../actions';
 
 interface Props {
   navigation: Navigation;
-  poop: IPoop;
+  poop: Poop;
   removePoop: Function;
   updatePoop: Function;
   setPoopToEdit: Function;
 }
 
-interface State {}
-
-class PoopEditContainer extends PureComponent<Props, State> {
+class PoopEditContainer extends PureComponent<Props> {
   constructor(props: Props) {
     super(props);
 
@@ -26,7 +24,7 @@ class PoopEditContainer extends PureComponent<Props, State> {
     this.onHandleSave = this.onHandleSave.bind(this);
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     const { navigation } = this.props;
 
     navigation.setParams({
@@ -34,12 +32,12 @@ class PoopEditContainer extends PureComponent<Props, State> {
     });
   }
 
-  onDeleteConfirmation() {
+  onDeleteConfirmation(): void {
     Alert.alert(
       'Löschen',
       'Soll dieser Stuhlgang wirklich gelöscht werden?',
       [
-        { text: 'Ja', onPress: () => this.onDelete() },
+        { text: 'Ja', onPress: (): void => this.onDelete() },
         {
           text: 'Abbrechen',
           style: 'cancel',
@@ -49,7 +47,7 @@ class PoopEditContainer extends PureComponent<Props, State> {
     );
   }
 
-  onHandleSave(poop: IPoop) {
+  onHandleSave(poop: Poop): void {
     const { poop: currentPoop, updatePoop: update, navigation } = this.props;
 
     update({ currentPoop, newPoop: poop });
@@ -57,7 +55,7 @@ class PoopEditContainer extends PureComponent<Props, State> {
     navigation.goBack();
   }
 
-  onDelete() {
+  onDelete(): void {
     const { poop, navigation, removePoop: remove } = this.props;
 
     remove(poop);
@@ -65,7 +63,7 @@ class PoopEditContainer extends PureComponent<Props, State> {
     navigation.popToTop();
   }
 
-  render() {
+  render(): ReactElement {
     const { navigation, poop, setPoopToEdit: onEditPoop } = this.props;
 
     return (

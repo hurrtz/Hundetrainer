@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
 import Calendar from 'stories/screens/Calendar';
@@ -7,14 +7,12 @@ interface Props {
   navigation: Navigation;
 }
 
-interface State {}
-
-class CalendarContainer extends PureComponent<Props, State> {
+class CalendarContainer extends PureComponent<Props> {
   static navigationOptions = {
-    drawerIcon: () => <IconComponent name="calendar" size={25} />,
+    drawerIcon: (): ReactElement => <IconComponent name="calendar" size={25} />,
   };
 
-  render() {
+  render(): ReactElement {
     const { navigation } = this.props;
 
     return <Calendar navigation={navigation} />;

@@ -8,26 +8,26 @@ export type ADDRESS_TYPES =
   | 'DOG_PENSION'
   | 'OTHER';
 
-export interface IAddress {
+export interface Address {
   street: string;
   zip: string;
   city: string;
   country: string;
 }
 
-export interface IContact {
+export interface Contact {
   telephone: string;
   mobile: string;
   email: string;
   homepage: string;
 }
 
-export interface IAddressBookEntry {
+export interface AddressBookEntry {
   id: string;
   name: string;
   type: ADDRESS_TYPES;
   picture?: string;
-  address: IAddress;
-  contact: IContact;
+  address: Address;
+  contact: Contact;
   additionalInformation: string;
 }

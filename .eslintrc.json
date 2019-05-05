@@ -1,5 +1,23 @@
 {
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "extends": ["plugin:@typescript-eslint/recommended"]
+  "plugins": ["@typescript-eslint/tslint"],
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended"
+  ],
+  "parserOptions": {
+    "project": "tsconfig.json"
+  },
+  "rules": {
+    "@typescript-eslint/tslint/config": [
+      "warn",
+      {
+        "lintFile": "./tslint.json"
+      }
+    ],
+    "@typescript-eslint/explicit-member-accessibility": "no-public",
+    "indent": "off",
+    "@typescript-eslint/indent": ["error", 2],
+    "react/display-name": "off"
+  }
 }

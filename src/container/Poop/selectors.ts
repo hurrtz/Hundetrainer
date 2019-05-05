@@ -1,77 +1,84 @@
-import { createSelector } from 'reselect';
+import { createSelector, Selector } from 'reselect';
+import { Poop } from 'container/Poop/types';
 
-const selectPoopState = (state: AppState) => state.Poop;
+const selectPoopState = (state: AppState): AppState['Poop'] => state.Poop;
 
 const itemsSelector = createSelector(
   selectPoopState,
-  state => state.items || [],
+  (state): Poop[] => state.items || [],
 );
 
 const currentDetailSelector = createSelector(
   selectPoopState,
-  state => state.currentDetailsPoop,
+  (state): AppState['Poop']['currentDetailsPoop'] => state.currentDetailsPoop,
 );
 
 const currentEditSelector = createSelector(
   selectPoopState,
-  state => state.currentEditPoop,
+  (state): AppState['Poop']['currentEditPoop'] => state.currentEditPoop,
 );
 
-const itemByIdSelector = (id: string) =>
+const itemByIdSelector = (id: string): Selector<AppState, Poop> =>
   createSelector(
     itemsSelector,
-    items => items.filter(item => item.id === id),
+    (items): Poop => (items.filter((item): boolean => item.id === id) || [])[0],
   );
 
 const currentDetailItemSelector = createSelector(
   [itemsSelector, currentDetailSelector],
-  (items, detailId) => items.filter(item => item.id === detailId)[0],
+  (items, detailId): Poop =>
+    items.filter((item): boolean => item.id === detailId)[0],
 );
 
 const currentEditItemSelector = createSelector(
   [itemsSelector, currentEditSelector],
-  (items, editId) => items.filter(item => item.id === editId)[0],
+  (items, editId): Poop =>
+    items.filter((item): boolean => item.id === editId)[0],
 );
 
 const itemsSortedByDateSelector = createSelector(
   itemsSelector,
-  items =>
-    [...items].sort((itemA, itemB) => {
-      if (itemA.date > itemB.date) {
-        return -1;
-      }
+  (items): Poop[] =>
+    [...items].sort(
+      (itemA: Poop, itemB: Poop): number => {
+        if (itemA.date > itemB.date) {
+          return -1;
+        }
 
-      if (itemB.date > itemA.date) {
-        return 1;
-      }
+        if (itemB.date > itemA.date) {
+          return 1;
+        }
 
-      return 0;
-    }),
+        return 0;
+      },
+    ),
 );
 
 const itemsGroupedAndSortedByDateSelector = createSelector(
   itemsSortedByDateSelector,
-  itemsSortedByDate => {
+  (itemsSortedByDate): { [date: string]: Poop[] } => {
     const poopsByDateMap = {};
 
-    itemsSortedByDate.forEach(poop => {
-      const poopDate = new Date(poop.date);
-      const dateKey = new Date(
-        poopDate.getFullYear(),
-        poopDate.getMonth(),
-        poopDate.getDate(),
-        0,
-        0,
-        0,
-        0,
-      ).toISOString();
+    itemsSortedByDate.forEach(
+      (poop): void => {
+        const poopDate = new Date(poop.date);
+        const dateKey = new Date(
+          poopDate.getFullYear(),
+          poopDate.getMonth(),
+          poopDate.getDate(),
+          0,
+          0,
+          0,
+          0,
+        ).toISOString();
 
-      if (!poopsByDateMap[dateKey]) {
-        poopsByDateMap[dateKey] = [];
-      }
+        if (!poopsByDateMap[dateKey]) {
+          poopsByDateMap[dateKey] = [];
+        }
 
-      poopsByDateMap[dateKey].push(poop);
-    });
+        poopsByDateMap[dateKey].push(poop);
+      },
+    );
 
     return poopsByDateMap;
   },

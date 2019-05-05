@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement, ReactNode } from 'react';
 import {
   View,
   Heading,
@@ -9,32 +9,30 @@ import {
   Icon,
 } from '@shoutem/ui';
 
-import { IPoop } from 'container/Poop/types';
+import { Poop } from 'container/Poop/types';
 import { StandardView } from 'ui/Layout';
 
 interface Props {
   navigation: Navigation;
-  poop: IPoop;
+  poop: Poop;
   onDetailsPoop: Function;
   onEditPoop: Function;
 }
 
-interface State {}
-
-class PoopDetails extends PureComponent<Props, State> {
+class PoopDetails extends PureComponent<Props> {
   constructor(props: Props) {
     super(props);
 
     this.onGoingBack = this.onGoingBack.bind(this);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     const { onDetailsPoop } = this.props;
 
     onDetailsPoop({ id: undefined });
   }
 
-  formatDate(date: Date) {
+  formatDate(date: Date): string {
     const enforceTwoDigits = (value: number): string =>
       value < 10 ? `0${value}` : String(value);
 
@@ -43,7 +41,7 @@ class PoopDetails extends PureComponent<Props, State> {
     )}.${date.getFullYear()}`;
   }
 
-  formatTime(date: Date) {
+  formatTime(date: Date): string {
     const enforceTwoDigits = (value: number): string =>
       value < 10 ? `0${value}` : String(value);
 
@@ -52,7 +50,7 @@ class PoopDetails extends PureComponent<Props, State> {
     )} Uhr`;
   }
 
-  createQuality() {
+  createQuality(): ReactElement {
     const { poop } = this.props;
 
     switch (poop.quality) {
@@ -67,7 +65,7 @@ class PoopDetails extends PureComponent<Props, State> {
     }
   }
 
-  createConsistency() {
+  createConsistency(): ReactElement {
     const { poop } = this.props;
 
     switch (poop.consistency) {
@@ -85,7 +83,7 @@ class PoopDetails extends PureComponent<Props, State> {
     }
   }
 
-  createColor() {
+  createColor(): ReactElement {
     const { poop } = this.props;
 
     switch (poop.color) {
@@ -106,7 +104,7 @@ class PoopDetails extends PureComponent<Props, State> {
     }
   }
 
-  createSecondaryInformations() {
+  createSecondaryInformations(): ReactNode {
     const { poop } = this.props;
     const out = [];
 
@@ -145,13 +143,13 @@ class PoopDetails extends PureComponent<Props, State> {
     return out;
   }
 
-  onGoingBack() {
+  onGoingBack(): void {
     const { navigation } = this.props;
 
     navigation.goBack();
   }
 
-  render() {
+  render(): ReactElement {
     const { navigation, poop, onEditPoop } = this.props;
 
     const date = new Date(poop.date);
@@ -163,7 +161,7 @@ class PoopDetails extends PureComponent<Props, State> {
           rightComponent={
             <Icon
               name="edit"
-              onPress={() => {
+              onPress={(): void => {
                 onEditPoop({ id: poop.id });
                 navigation.navigate('PoopEdit');
               }}

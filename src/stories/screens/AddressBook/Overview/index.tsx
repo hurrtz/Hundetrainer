@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent, Fragment, ReactElement, ReactNode } from 'react';
 import {
   Screen,
   NavigationBar,
@@ -12,26 +12,24 @@ import {
 } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
-import { IAddressBookEntry } from 'container/AddressBook/types';
-import { ADDRESS_TYPES } from 'container/AddressBook/constants';
+import { AddressBookEntry } from 'container/AddressBook/types';
+import { ADDRESS_TYPE, ADDRESS_TYPES } from 'container/AddressBook/constants';
 
 interface Props {
   navigation: Navigation;
-  addresses: IAddressBookEntry[];
+  addresses: AddressBookEntry[];
   onShowDetails: Function;
   onEditPoop: Function;
 }
 
-interface State {}
-
-class AddressBookDetails extends PureComponent<Props, State> {
+class AddressBookDetails extends PureComponent<Props> {
   constructor(props: Props) {
     super(props);
 
     this.onShowDetails = this.onShowDetails.bind(this);
   }
 
-  createDefault() {
+  createDefault(): ReactElement {
     return (
       <Fragment>
         <Title>Keine Daten vorhanden</Title>
@@ -43,55 +41,65 @@ class AddressBookDetails extends PureComponent<Props, State> {
     );
   }
 
-  onShowDetails({ id }: { id: String }) {
+  onShowDetails({ id }: { id: string }): void {
     const { navigation, onShowDetails } = this.props;
 
     onShowDetails({ id });
     navigation.push('AddressBookDetails');
   }
 
-  createAddressesList() {
+  createAddressesList(): ReactNode {
     const { addresses } = this.props;
 
     if (addresses.length === 0) {
       return this.createDefault();
     }
 
-    return addresses.map((address: IAddressBookEntry) => (
-      <TouchableOpacity
-        key={address.id}
-        onPress={() => this.onShowDetails({ id: address.id })}
-      >
-        <View styleName="md-gutter-top">
-          <Card
-            style={{
-              width: '100%',
-              padding: 10,
-            }}
-          >
-            <Subtitle>{address.name}</Subtitle>
-            <Text>
-              {ADDRESS_TYPES.find(({ value }) => value === address.type).title}
-            </Text>
-          </Card>
-        </View>
-      </TouchableOpacity>
-    ));
+    return addresses.map(
+      (address: AddressBookEntry): ReactElement => (
+        <TouchableOpacity
+          key={address.id}
+          onPress={(): void => this.onShowDetails({ id: address.id })}
+        >
+          <View styleName="md-gutter-top">
+            <Card
+              style={{
+                width: '100%',
+                padding: 10,
+              }}
+            >
+              <Subtitle>{address.name}</Subtitle>
+              <Text>
+                {
+                  ADDRESS_TYPES.find(
+                    ({ value }: ADDRESS_TYPE): boolean =>
+                      value === address.type,
+                  ).title
+                }
+              </Text>
+            </Card>
+          </View>
+        </TouchableOpacity>
+      ),
+    );
   }
 
-  render() {
+  render(): ReactElement {
     const { navigation } = this.props;
 
     return (
       <Screen>
         <NavigationBar
           leftComponent={
-            <Icon name="sidebar" onPress={() => navigation.toggleDrawer()} />
+            <Icon
+              name="sidebar"
+              onPress={(): boolean => navigation.toggleDrawer()}
+            />
           }
           rightComponent={
             <Icon
               name="plus-button"
-              onPress={() => navigation.push('AddressBookAdd')}
+              onPress={(): boolean => navigation.push('AddressBookAdd')}
             />
           }
           title="Adressen"

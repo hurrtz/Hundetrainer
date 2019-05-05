@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 import uuidv4 from 'uuid/v4';
 
-import { IPoop } from 'container/Poop/types';
+import { Poop } from 'container/Poop/types';
 import {
   ADD_POOP,
   UPDATE_POOP,
@@ -11,7 +11,7 @@ import {
 } from './actions';
 
 export interface State {
-  items: IPoop[];
+  items: Poop[];
   currentDetailsPoop: string | undefined;
   currentEditPoop: string | undefined;
   isLoading: boolean;
@@ -24,7 +24,7 @@ const initialState: State = {
   isLoading: true,
 };
 
-function setPoop({ state, poop }: { state: State; poop: IPoop }) {
+function setPoop({ state, poop }: { state: State; poop: Poop }): State {
   return { ...state, items: [...state.items, { ...poop, id: uuidv4() }] };
 }
 
@@ -34,13 +34,13 @@ function updatePoop({
   newPoop,
 }: {
   state: State;
-  currentPoop: IPoop;
-  newPoop: IPoop;
-}) {
+  currentPoop: Poop;
+  newPoop: Poop;
+}): State {
   return {
     ...state,
     items: [
-      ...state.items.map((poop: IPoop) =>
+      ...state.items.map((poop: Poop) =>
         poop.id === currentPoop.id ? { ...newPoop, id: currentPoop.id } : poop,
       ),
     ],
@@ -52,15 +52,15 @@ function removePoop({
   poop: poopToDelete,
 }: {
   state: State;
-  poop: IPoop;
-}) {
+  poop: Poop;
+}): State {
   return {
     ...state,
     items: [...state.items.filter(poop => poop.id !== poopToDelete.id)],
   };
 }
 
-function setPoopToDetails({ state, id }: { state: State; id: string }) {
+function setPoopToDetails({ state, id }: { state: State; id: string }): State {
   return {
     ...state,
     currentDetailsPoop:
@@ -68,7 +68,7 @@ function setPoopToDetails({ state, id }: { state: State; id: string }) {
   };
 }
 
-function setPoopToEdit({ state, id }: { state: State; id: string }) {
+function setPoopToEdit({ state, id }: { state: State; id: string }): State {
   return {
     ...state,
     currentEditPoop: typeof id === 'string' && id.length > 0 ? id : undefined,

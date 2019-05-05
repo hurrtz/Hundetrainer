@@ -4,7 +4,7 @@ export type COLOR = 'LIGHT' | 'MEDIUM' | 'DARK' | 'BLACK' | 'OTHER';
 
 export type CONSISTENCY = 'LIQUID' | 'SOFT' | 'NORMAL' | 'HARD';
 
-export interface IPoop {
+export interface Poop {
   id: string;
   date: string;
   quality: QUALITY;

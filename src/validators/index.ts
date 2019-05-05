@@ -1,21 +1,21 @@
-const maxLength = max => value =>
+const maxLength = (max: number) => (value: string): string =>
   value && value.length > max ? `Must be ${max} characters or less` : undefined;
 
-const minLength = min => value =>
+const minLength = (min: number) => (value: string) =>
   value && value.length < min ? `Must be ${min} characters or more` : undefined;
 
-export const required = value => (value ? undefined : 'Required');
+export const required = (value: string) => (value ? undefined : 'Required');
 
 export const maxLength15 = maxLength(15);
 
 export const minLength8 = minLength(8);
 
-export const email = value =>
+export const email = (value: string) =>
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
     ? 'Invalid email address'
     : undefined;
 
-export const alphaNumeric = value =>
+export const alphaNumeric = (value: string) =>
   value && /[^a-zA-Z0-9 ]/i.test(value)
     ? 'Only alphanumeric characters'
     : undefined;

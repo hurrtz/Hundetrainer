@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { Dimensions } from 'react-native';
 import {
   Title,
@@ -21,10 +21,8 @@ interface Props {
   navigation: Navigation;
 }
 
-interface State {}
-
-class Dashboard extends PureComponent<Props, State> {
-  render() {
+class Dashboard extends PureComponent<Props> {
+  render(): ReactElement {
     const { navigation } = this.props;
     const { height } = Dimensions.get('window');
 
@@ -32,7 +30,10 @@ class Dashboard extends PureComponent<Props, State> {
       <Screen>
         <NavigationBar
           leftComponent={
-            <Icon onPress={() => navigation.toggleDrawer()} name="sidebar" />
+            <Icon
+              onPress={(): void => navigation.toggleDrawer()}
+              name="sidebar"
+            />
           }
           title="Dashboard"
           styleName="inline"

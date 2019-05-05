@@ -1,19 +1,17 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { Card, Subtitle, TouchableOpacity } from '@shoutem/ui';
 
-import { IPoop } from 'container/Poop/types';
+import { Poop } from 'container/Poop/types';
 import PoopDetails from './PoopDetails';
 
 interface Props {
   navigation: Navigation;
-  poops: IPoop[];
+  poops: Poop[];
   onShowDetails: Function;
   onEditPoop: Function;
 }
 
-interface State {}
-
-class PoopList extends PureComponent<Props, State> {
+class PoopList extends PureComponent<Props> {
   constructor(props: Props) {
     super(props);
 
@@ -24,7 +22,7 @@ class PoopList extends PureComponent<Props, State> {
     return value < 10 ? `0${value}` : String(value);
   }
 
-  formatDate(_date: string) {
+  formatDate(_date: string): string {
     const date = new Date(_date);
 
     return `${this.getTwoDigitNumber(date.getDate())}.${this.getTwoDigitNumber(
@@ -32,14 +30,14 @@ class PoopList extends PureComponent<Props, State> {
     )}.${date.getFullYear()}`;
   }
 
-  onShowDetails({ id }: { id: String }) {
+  onShowDetails({ id }: { id: string }): void {
     const { navigation, onShowDetails } = this.props;
 
     onShowDetails({ id });
     navigation.push('PoopDetails');
   }
 
-  render() {
+  render(): ReactElement {
     const { poops } = this.props;
 
     return (
@@ -51,14 +49,16 @@ class PoopList extends PureComponent<Props, State> {
       >
         <Subtitle>{this.formatDate(poops[0].date)}</Subtitle>
 
-        {poops.map(poop => (
-          <TouchableOpacity
-            key={`entry-${poop.date}`}
-            onPress={() => this.onShowDetails({ id: poop.id })}
-          >
-            <PoopDetails poop={poop} />
-          </TouchableOpacity>
-        ))}
+        {poops.map(
+          (poop): ReactElement => (
+            <TouchableOpacity
+              key={`entry-${poop.date}`}
+              onPress={(): void => this.onShowDetails({ id: poop.id })}
+            >
+              <PoopDetails poop={poop} />
+            </TouchableOpacity>
+          ),
+        )}
       </Card>
     );
   }

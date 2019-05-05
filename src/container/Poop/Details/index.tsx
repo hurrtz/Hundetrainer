@@ -1,23 +1,21 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { IPoop } from 'container/Poop/types';
+import { Poop } from 'container/Poop/types';
 import { currentDetailItemSelector } from 'container/Poop/selectors';
 import PoopDetails from 'stories/screens/Poop/Details';
 import { setPoopToDetails, setPoopToEdit } from '../actions';
 
 interface Props {
   navigation: Navigation;
-  poop: IPoop;
+  poop: Poop;
   setPoopToDetails: Function;
   setPoopToEdit: Function;
 }
 
-interface State {}
-
-class PoopDetailsContainer extends PureComponent<Props, State> {
-  render() {
+class PoopDetailsContainer extends PureComponent<Props> {
+  render(): ReactElement {
     const {
       navigation,
       poop,

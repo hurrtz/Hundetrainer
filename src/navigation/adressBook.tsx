@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { createStackNavigator } from 'react-navigation';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -21,7 +21,7 @@ const AddressBookNavigator = createStackNavigator(
 );
 
 AddressBookNavigator.navigationOptions = {
-  drawerIcon: () => <IconComponent name="notebook" size={25} />,
+  drawerIcon: (): ReactElement => <IconComponent name="notebook" size={25} />,
 };
 
 export default AddressBookNavigator;

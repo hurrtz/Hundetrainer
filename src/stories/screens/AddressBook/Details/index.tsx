@@ -1,39 +1,37 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { View, NavigationBar, Icon, Title, Subtitle, Text } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
-import { IAddressBookEntry } from 'container/AddressBook/types';
-import { ADDRESS_TYPES } from 'container/AddressBook/constants';
+import { AddressBookEntry } from 'container/AddressBook/types';
+import { ADDRESS_TYPE, ADDRESS_TYPES } from 'container/AddressBook/constants';
 
 interface Props {
   navigation: Navigation;
-  address: IAddressBookEntry;
+  address: AddressBookEntry;
   onDetailsAddress: Function;
   onEditAddress: Function;
 }
 
-interface State {}
-
-class AddressBookDetails extends PureComponent<Props, State> {
+class AddressBookDetails extends PureComponent<Props> {
   constructor(props: Props) {
     super(props);
 
     this.onGoingBack = this.onGoingBack.bind(this);
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(): void {
     const { onDetailsAddress } = this.props;
 
     onDetailsAddress({ id: undefined });
   }
 
-  onGoingBack() {
+  onGoingBack(): void {
     const { navigation } = this.props;
 
     navigation.goBack();
   }
 
-  render() {
+  render(): ReactElement {
     const { navigation, address, onEditAddress } = this.props;
 
     return (
@@ -43,7 +41,7 @@ class AddressBookDetails extends PureComponent<Props, State> {
           rightComponent={
             <Icon
               name="edit"
-              onPress={() => {
+              onPress={(): void => {
                 onEditAddress({ id: address.id });
                 navigation.navigate('AddressBookEdit');
               }}
@@ -55,7 +53,11 @@ class AddressBookDetails extends PureComponent<Props, State> {
         <StandardView>
           <Title>{address.name}</Title>
           <Subtitle>
-            {ADDRESS_TYPES.find(({ value }) => value === address.type).title}
+            {
+              ADDRESS_TYPES.find(
+                ({ value }: ADDRESS_TYPE): boolean => value === address.type,
+              ).title
+            }
           </Subtitle>
 
           <Text styleName="lg-gutter-top">

@@ -1,7 +1,7 @@
 import { AnyAction } from 'redux';
 import uuidv4 from 'uuid/v4';
 
-import { IAddressBookEntry } from 'container/AddressBook/types';
+import { AddressBookEntry } from 'container/AddressBook/types';
 import {
   ADD_ADDRESS,
   UPDATE_ADDRESS,
@@ -11,7 +11,7 @@ import {
 } from './actions';
 
 export interface State {
-  addresses: IAddressBookEntry[];
+  addresses: AddressBookEntry[];
   currentDetailsAddress: string | undefined;
   currentEditAddress: string | undefined;
   isLoading: boolean;
@@ -24,7 +24,7 @@ const initialState: State = {
   isLoading: true,
 };
 
-function setAddress(state: State, address: IAddressBookEntry) {
+function setAddress(state: State, address: AddressBookEntry): State {
   return {
     ...state,
     addresses: [...state.addresses, { ...address, id: uuidv4() }],
@@ -33,31 +33,41 @@ function setAddress(state: State, address: IAddressBookEntry) {
 
 function updateAddress(
   state: State,
-  currentAddress: IAddressBookEntry,
-  newAddress: IAddressBookEntry,
-) {
+  currentAddress: AddressBookEntry,
+  newAddress: AddressBookEntry,
+): State {
   return {
     ...state,
     addresses: [
-      ...state.addresses.map((address: IAddressBookEntry) =>
-        address.id === currentAddress.id
-          ? { ...newAddress, id: currentAddress.id }
-          : address,
+      ...state.addresses.map(
+        (address: AddressBookEntry): AddressBookEntry =>
+          address.id === currentAddress.id
+            ? { ...newAddress, id: currentAddress.id }
+            : address,
       ),
     ],
   };
 }
 
-function removeAddress(state: State, addressToDelete: IAddressBookEntry) {
+function removeAddress(state: State, addressToDelete: AddressBookEntry): State {
   return {
     ...state,
     addresses: [
-      ...state.addresses.filter(address => address.id !== addressToDelete.id),
+      ...state.addresses.filter(
+        (address: AddressBookEntry): boolean =>
+          address.id !== addressToDelete.id,
+      ),
     ],
   };
 }
 
-function setAddressToDetails({ state, id }: { state: State; id: string }) {
+function setAddressToDetails({
+  state,
+  id,
+}: {
+  state: State;
+  id: string;
+}): State {
   return {
     ...state,
     currentDetailsAddress:
@@ -65,7 +75,7 @@ function setAddressToDetails({ state, id }: { state: State; id: string }) {
   };
 }
 
-function setAddressToEdit({ state, id }: { state: State; id: string }) {
+function setAddressToEdit({ state, id }: { state: State; id: string }): State {
   return {
     ...state,
     currentEditAddress:

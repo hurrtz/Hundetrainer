@@ -1,21 +1,19 @@
-import React, { PureComponent, Fragment } from 'react';
+import React, { PureComponent, Fragment, ReactElement, ReactNode } from 'react';
 import { NavigationBar, Title, Text, Icon, Screen, View } from '@shoutem/ui';
 
-import { IPoop } from 'container/Poop/types';
+import { Poop } from 'container/Poop/types';
 import { StandardView } from 'ui/Layout';
 import PoopList from './PoopList';
 
 interface Props {
   navigation: Navigation;
-  poops: { [date: string]: IPoop[] };
+  poops: { [date: string]: Poop[] };
   onShowDetails: Function;
   onEditPoop: Function;
 }
 
-interface State {}
-
-class PoopOverview extends PureComponent<Props, State> {
-  createDefault() {
+class PoopOverview extends PureComponent<Props> {
+  createDefault(): ReactElement {
     return (
       <Fragment>
         <Title>Keine Daten vorhanden</Title>
@@ -27,7 +25,7 @@ class PoopOverview extends PureComponent<Props, State> {
     );
   }
 
-  createPoopLists() {
+  createPoopLists(): ReactNode {
     const { poops, navigation, onShowDetails, onEditPoop } = this.props;
     const dates = Object.keys(poops);
 
@@ -35,43 +33,50 @@ class PoopOverview extends PureComponent<Props, State> {
       return this.createDefault();
     }
 
-    const datesSorted = [...dates].sort((dateA, dateB) => {
-      if (dateA > dateB) {
-        return -1;
-      }
+    const datesSorted = [...dates].sort(
+      (dateA, dateB): number => {
+        if (dateA > dateB) {
+          return -1;
+        }
 
-      if (dateB > dateA) {
-        return 1;
-      }
+        if (dateB > dateA) {
+          return 1;
+        }
 
-      return 0;
-    });
+        return 0;
+      },
+    );
 
-    return datesSorted.map(date => (
-      <View key={date} styleName="md-gutter-top">
-        <PoopList
-          poops={poops[date]}
-          navigation={navigation}
-          onShowDetails={onShowDetails}
-          onEditPoop={onEditPoop}
-        />
-      </View>
-    ));
+    return datesSorted.map(
+      (date): ReactElement => (
+        <View key={date} styleName="md-gutter-top">
+          <PoopList
+            poops={poops[date]}
+            navigation={navigation}
+            onShowDetails={onShowDetails}
+            onEditPoop={onEditPoop}
+          />
+        </View>
+      ),
+    );
   }
 
-  render() {
+  render(): ReactElement {
     const { navigation } = this.props;
 
     return (
       <Screen>
         <NavigationBar
           leftComponent={
-            <Icon name="sidebar" onPress={() => navigation.toggleDrawer()} />
+            <Icon
+              name="sidebar"
+              onPress={(): void => navigation.toggleDrawer()}
+            />
           }
           rightComponent={
             <Icon
               name="plus-button"
-              onPress={() => navigation.push('PoopAdd')}
+              onPress={(): boolean => navigation.push('PoopAdd')}
             />
           }
           title="Stuhlgang"

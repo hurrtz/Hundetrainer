@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   Screen,
   Text,
@@ -11,60 +11,60 @@ import DatePicker from 'react-native-datepicker';
 
 import { QUALITY, CONSISTENCY, COLOR } from 'container/Poop/types';
 
-type TQuality = {
+interface Quality {
   title: string;
   value: QUALITY;
-};
+}
 
-interface ISelectQuality {
-  qualities: TQuality[];
-  qualitySelected: TQuality;
+interface SelectQuality {
+  qualities: Quality[];
+  qualitySelected: Quality;
   handleChangeQuality: Function;
 }
 
-type TConsistency = {
+interface Consistency {
   title: string;
   value: CONSISTENCY;
-};
+}
 
-interface ISelectConsistency {
-  consistencies: TConsistency[];
-  consistencySelected: TConsistency;
+interface SelectConsistency {
+  consistencies: Consistency[];
+  consistencySelected: Consistency;
   handleChangeConsistency: Function;
 }
 
-type TColor = {
+interface Color {
   title: string;
   value: COLOR;
-};
+}
 
-interface ISelectColor {
-  colors: TColor[];
-  colorSelected: TColor;
+interface SelectColor {
+  colors: Color[];
+  colorSelected: Color;
   handleChangeColor: Function;
 }
 
-interface ISelectHasBlood {
+interface SelectHasBlood {
   hasBlood: boolean;
   handleChangeHasBlood: Function;
 }
 
-interface ISelectIsConspicuous {
+interface SelectIsConspicuous {
   isConspicuous: boolean;
   handleChangeIsConspicuous: Function;
 }
 
-interface ISelectDate {
+interface SelectDate {
   date: Date;
   handleChangeDate: Function;
 }
 
-interface ISelectTime {
+interface SelectTime {
   time: Date;
   handleChangeTime: Function;
 }
 
-interface ISelectAdditionalInformation {
+interface SelectAdditionalInformation {
   additionalInformation: string;
   handleAdditionalInformationChange: Function;
 }
@@ -73,11 +73,11 @@ export const createSelectQuality = ({
   qualities,
   qualitySelected,
   handleChangeQuality,
-}: ISelectQuality) => (
+}: SelectQuality): ReactElement => (
   <DropDownMenu
     options={qualities}
     selectedOption={qualitySelected}
-    onOptionSelected={option => handleChangeQuality(option)}
+    onOptionSelected={(option: Quality): void => handleChangeQuality(option)}
     titleProperty="title"
     valueProperty="value"
     styleName="horizontal"
@@ -89,11 +89,13 @@ export const createSelectConsistency = ({
   consistencies,
   consistencySelected,
   handleChangeConsistency,
-}: ISelectConsistency) => (
+}: SelectConsistency): ReactElement => (
   <DropDownMenu
     options={consistencies}
     selectedOption={consistencySelected}
-    onOptionSelected={option => handleChangeConsistency(option)}
+    onOptionSelected={(option: Consistency): void =>
+      handleChangeConsistency(option)
+    }
     titleProperty="title"
     valueProperty="value"
     styleName="horizontal"
@@ -105,11 +107,11 @@ export const createSelectColor = ({
   colors,
   colorSelected,
   handleChangeColor,
-}: ISelectColor) => (
+}: SelectColor): ReactElement => (
   <DropDownMenu
     options={colors}
     selectedOption={colorSelected}
-    onOptionSelected={option => handleChangeColor(option)}
+    onOptionSelected={(option: Color): void => handleChangeColor(option)}
     titleProperty="title"
     valueProperty="value"
     styleName="horizontal"
@@ -120,11 +122,11 @@ export const createSelectColor = ({
 export const createSelectHasBlood = ({
   hasBlood,
   handleChangeHasBlood,
-}: ISelectHasBlood) => (
+}: SelectHasBlood): ReactElement => (
   <View styleName="content horizontal v-center">
     <Switch
       value={hasBlood}
-      onValueChange={(value: boolean) => handleChangeHasBlood(value)}
+      onValueChange={(value: boolean): void => handleChangeHasBlood(value)}
     />
     <Text style={{ marginLeft: 10 }}>Blut im Stuhl</Text>
   </View>
@@ -133,17 +135,20 @@ export const createSelectHasBlood = ({
 export const createSelectIsConspicuous = ({
   isConspicuous,
   handleChangeIsConspicuous,
-}: ISelectIsConspicuous) => (
+}: SelectIsConspicuous): ReactElement => (
   <View styleName="content horizontal v-center">
     <Switch
       value={isConspicuous}
-      onValueChange={(value: boolean) => handleChangeIsConspicuous(value)}
+      onValueChange={(value: boolean): void => handleChangeIsConspicuous(value)}
     />
     <Text style={{ marginLeft: 10 }}>Stuhl ist auffällig</Text>
   </View>
 );
 
-export const createSelectDate = ({ date, handleChangeDate }: ISelectDate) => (
+export const createSelectDate = ({
+  date,
+  handleChangeDate,
+}: SelectDate): ReactElement => (
   <View styleName="content horizontal v-center">
     <Text>Tag:</Text>
     <DatePicker
@@ -152,7 +157,7 @@ export const createSelectDate = ({ date, handleChangeDate }: ISelectDate) => (
       confirmBtnText="OK"
       cancelBtnText="Abbrechen"
       date={date}
-      onDateChange={(_dateString, changedDate: Date) =>
+      onDateChange={(_dateString, changedDate: Date): void =>
         handleChangeDate(changedDate)
       }
       showIcon={false}
@@ -167,7 +172,10 @@ export const createSelectDate = ({ date, handleChangeDate }: ISelectDate) => (
   </View>
 );
 
-export const createSelectTime = ({ time, handleChangeTime }: ISelectTime) => (
+export const createSelectTime = ({
+  time,
+  handleChangeTime,
+}: SelectTime): ReactElement => (
   <View styleName="content horizontal v-center">
     <Text>Uhrzeit:</Text>
     <DatePicker
@@ -176,7 +184,7 @@ export const createSelectTime = ({ time, handleChangeTime }: ISelectTime) => (
       confirmBtnText="OK"
       cancelBtnText="Abbrechen"
       date={time}
-      onDateChange={(_dateString, changedDate: Date) =>
+      onDateChange={(_dateString, changedDate: Date): void =>
         handleChangeTime(changedDate)
       }
       showIcon={false}
@@ -195,14 +203,16 @@ export const createSelectTime = ({ time, handleChangeTime }: ISelectTime) => (
 export const createSelectAdditionalInformation = ({
   additionalInformation,
   handleAdditionalInformationChange,
-}: ISelectAdditionalInformation) => (
+}: SelectAdditionalInformation): ReactElement => (
   <Screen>
     <TextInput
       multiline
       numberOfLines={5}
       placeholder="Sonstige Informationen"
       defaultValue={additionalInformation}
-      onChangeText={(text: string) => handleAdditionalInformationChange(text)}
+      onChangeText={(text: string): void =>
+        handleAdditionalInformationChange(text)
+      }
       style={{ borderColor: '#888', borderWidth: 1, borderStyle: 'solid' }}
     />
   </Screen>

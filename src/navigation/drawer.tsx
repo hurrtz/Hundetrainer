@@ -1,4 +1,7 @@
-import { createDrawerNavigator } from 'react-navigation';
+import {
+  createDrawerNavigator,
+  NavigationDrawerScreenOptions,
+} from 'react-navigation';
 
 import ActivitiesNavigator from 'navigation/activities';
 import PoopNavigator from 'navigation/poop';
@@ -43,8 +46,10 @@ const DrawerNavigator = createDrawerNavigator(
   },
   {
     initialRouteName: 'Dashboard',
-    defaultNavigationOptions: ({ navigation }) => ({
-      title: (() => {
+    defaultNavigationOptions: ({
+      navigation,
+    }): NavigationDrawerScreenOptions => ({
+      title: ((): string => {
         const { routeName } = navigation.state;
 
         switch (routeName) {

@@ -1,28 +1,26 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import { IAddressBookEntry } from 'container/AddressBook/types';
+import { AddressBookEntry } from 'container/AddressBook/types';
 import { currentDetailItemSelector } from 'container/AddressBook/selectors';
 import AddressBookDetails from 'stories/screens/AddressBook/Details';
 import { setAddressToDetails, setAddressToEdit } from '../actions';
 
 interface Props {
   navigation: Navigation;
-  address: IAddressBookEntry;
+  address: AddressBookEntry;
   setAddressToDetails: Function;
   setAddressToEdit: Function;
 }
 
-interface State {}
-
-class AddressBookDetailsContainer extends PureComponent<Props, State> {
+class AddressBookDetailsContainer extends PureComponent<Props> {
   static navigationOptions = {
-    drawerIcon: () => <IconComponent name="notebook" size={25} />,
+    drawerIcon: (): ReactElement => <IconComponent name="notebook" size={25} />,
   };
 
-  render() {
+  render(): ReactElement {
     const {
       navigation,
       address,

@@ -1,23 +1,21 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import PoopOverview from 'stories/screens/Poop/Overview';
-import { IPoop } from 'container/Poop/types';
+import { Poop } from 'container/Poop/types';
 import { itemsGroupedAndSortedByDateSelector } from '../selectors';
 import { setPoopToDetails, setPoopToEdit } from '../actions';
 
 interface Props {
   navigation: Navigation;
-  poops: { [date: string]: IPoop[] };
+  poops: { [date: string]: Poop[] };
   setPoopToDetails: Function;
   setPoopToEdit: Function;
 }
 
-interface State {}
-
-class PoopOverviewContainer extends PureComponent<Props, State> {
-  render() {
+class PoopOverviewContainer extends PureComponent<Props> {
+  render(): ReactElement {
     const {
       navigation,
       poops,

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, ReactElement } from 'react';
 import { Screen, NavigationBar, Icon, Title } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
@@ -7,17 +7,18 @@ interface Props {
   navigation: Navigation;
 }
 
-interface State {}
-
-class Notes extends PureComponent<Props, State> {
-  render() {
+class Notes extends PureComponent<Props> {
+  render(): ReactElement {
     const { navigation } = this.props;
 
     return (
       <Screen>
         <NavigationBar
           leftComponent={
-            <Icon name="sidebar" onPress={() => navigation.toggleDrawer()} />
+            <Icon
+              name="sidebar"
+              onPress={(): boolean => navigation.toggleDrawer()}
+            />
           }
           title="Hinweise"
           styleName="inline"
