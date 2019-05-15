@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, { ReactElement, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 
 import PoopAdd from 'stories/screens/Poop/Add';
@@ -10,27 +10,17 @@ interface Props {
   addPoop: Function;
 }
 
-class PoopAddContainer extends PureComponent<Props> {
-  constructor(props: Props) {
-    super(props);
-
-    this.onHandleSave = this.onHandleSave.bind(this);
-  }
-
-  onHandleSave(poop: Poop): void {
-    const { addPoop: save, navigation } = this.props;
-
+const PoopAddContainer: FunctionComponent<Props> = ({
+  navigation,
+  addPoop: save,
+}: Props): ReactElement => {
+  const onHandleSave = (poop: Poop): void => {
     save(poop);
-
     navigation.goBack();
-  }
+  };
 
-  render(): ReactElement {
-    const { navigation } = this.props;
-
-    return <PoopAdd navigation={navigation} onSave={this.onHandleSave} />;
-  }
-}
+  return <PoopAdd navigation={navigation} onSave={onHandleSave} />;
+};
 
 const mapDispatchToProps = { addPoop };
 

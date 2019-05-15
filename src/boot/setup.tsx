@@ -7,8 +7,8 @@ import App from '../App';
 
 interface State {
   storeConfiguration: {
-    store: any;
-    persistor: any;
+    store: any; // eslint-disable-line @typescript-eslint/no-explicit-any
+    persistor: any; // eslint-disable-line @typescript-eslint/no-explicit-any
   };
   isLoading: boolean;
 }
@@ -18,7 +18,10 @@ const Setup: FunctionComponent<{}> = (): ReactElement => {
   const [storeConfiguration] = useState(
     configureStore((): void => setIsLoading(false)),
   );
-  const { store, persistor } = storeConfiguration as State['storeConfiguration'];
+  const {
+    store,
+    persistor,
+  } = storeConfiguration as State['storeConfiguration'];
 
   return (
     <StoreProvider store={store}>

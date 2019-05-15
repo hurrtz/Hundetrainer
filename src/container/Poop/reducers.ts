@@ -40,8 +40,11 @@ function updatePoop({
   return {
     ...state,
     items: [
-      ...state.items.map((poop: Poop) =>
-        poop.id === currentPoop.id ? { ...newPoop, id: currentPoop.id } : poop,
+      ...state.items.map(
+        (poop: Poop): Poop =>
+          poop.id === currentPoop.id
+            ? { ...newPoop, id: currentPoop.id }
+            : poop,
       ),
     ],
   };
@@ -56,7 +59,9 @@ function removePoop({
 }): State {
   return {
     ...state,
-    items: [...state.items.filter(poop => poop.id !== poopToDelete.id)],
+    items: [
+      ...state.items.filter((poop): boolean => poop.id !== poopToDelete.id),
+    ],
   };
 }
 

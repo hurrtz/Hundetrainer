@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, { ReactElement, FunctionComponent, useState } from 'react';
 import { View, Text, Button, NavigationBar, Icon } from '@shoutem/ui';
 
 import { COLORS, CONSISTENCIES, QUALITIES } from 'container/Poop/constants';
@@ -32,48 +32,22 @@ interface State {
   additionalInformation: string;
 }
 
-class PoopAdd extends PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
+const PoopAdd: FunctionComponent<Props> = ({
+  navigation,
+  onSave,
+}: Props): ReactElement => {
+  const now = new Date();
 
-    const now = new Date();
+  const [date, setDate] = useState(now);
+  const [time, setTime] = useState(now);
+  const [quality, setQuality] = useState('GOOD');
+  const [consistency, setConsistency] = useState('NORMAL');
+  const [color, setColor] = useState('MEDIUM');
+  const [hasBlood, setHasBlood] = useState(false);
+  const [isConspicuous, setIsConspicuous] = useState(false);
+  const [additionalInformation, setAdditionalInformation] = useState('');
 
-    this.state = {
-      date: now,
-      time: now,
-      quality: 'GOOD',
-      consistency: 'NORMAL',
-      color: 'MEDIUM',
-      hasBlood: false,
-      isConspicuous: false,
-      additionalInformation: '',
-    };
-
-    this.handleChangeDate = this.handleChangeDate.bind(this);
-    this.handleChangeTime = this.handleChangeTime.bind(this);
-    this.handleChangeQuality = this.handleChangeQuality.bind(this);
-    this.handleChangeConsistency = this.handleChangeConsistency.bind(this);
-    this.handleChangeColor = this.handleChangeColor.bind(this);
-    this.handleChangeHasBlood = this.handleChangeHasBlood.bind(this);
-    this.handleChangeIsConspicuous = this.handleChangeIsConspicuous.bind(this);
-    this.handleAdditionalInformationChange = this.handleAdditionalInformationChange.bind(
-      this,
-    );
-  }
-
-  handleClose(): void {
-    const { onSave } = this.props;
-    const {
-      date,
-      time,
-      quality,
-      consistency,
-      color,
-      hasBlood,
-      isConspicuous,
-      additionalInformation,
-    } = this.state;
-
+  const handleClose = (): void => {
     if (onSave) {
       onSave({
         date: new Date(
@@ -93,165 +67,123 @@ class PoopAdd extends PureComponent<Props, State> {
         additionalInformation,
       });
     }
-  }
+  };
 
-  handleChangeDate(date: State['date']): void {
-    this.setState((prevState: State): State => ({ ...prevState, date }));
-  }
+  const handleChangeDate = (value: State['date']): void => setDate(value);
 
-  handleChangeTime(time: State['time']): void {
-    this.setState((prevState: State): State => ({ ...prevState, time }));
-  }
+  const handleChangeTime = (value: State['time']): void => setTime(value);
 
-  handleChangeQuality({ value: quality }: { value: State['quality'] }): void {
-    this.setState((prevState: State): State => ({ ...prevState, quality }));
-  }
+  const handleChangeQuality = ({ value }: { value: State['quality'] }): void =>
+    setQuality(value);
 
-  handleChangeConsistency({
-    value: consistency,
+  const handleChangeConsistency = ({
+    value,
   }: {
     value: State['consistency'];
-  }): void {
-    this.setState((prevState: State): State => ({ ...prevState, consistency }));
-  }
+  }): void => setConsistency(value);
 
-  handleChangeColor({ value: color }: { value: State['color'] }): void {
-    this.setState((prevState: State): State => ({ ...prevState, color }));
-  }
+  const handleChangeColor = ({ value }: { value: State['color'] }): void =>
+    setColor(value);
 
-  handleChangeHasBlood(hasBlood: State['hasBlood']): void {
-    this.setState(
-      (prevState: State): State => ({
-        ...prevState,
-        hasBlood,
-        isConspicuous: prevState.isConspicuous || hasBlood,
-      }),
-    );
-  }
+  const handleChangeHasBlood = (value: State['hasBlood']): void => {
+    setHasBlood(value);
+    setIsConspicuous(isConspicuous || value);
+  };
 
-  handleChangeIsConspicuous(isConspicuous: State['isConspicuous']): void {
-    this.setState(
-      (prevState: State): State => ({
-        ...prevState,
-        isConspicuous: prevState.hasBlood || isConspicuous,
-      }),
-    );
-  }
+  const handleChangeIsConspicuous = (value: State['isConspicuous']): void =>
+    setIsConspicuous(hasBlood || value);
 
-  handleAdditionalInformationChange(text: State['additionalInformation']): void {
-    this.setState(
-      (prevState: State): State => ({
-        ...prevState,
-        additionalInformation: text,
-      }),
-    );
-  }
+  const handleAdditionalInformationChange = (
+    value: State['additionalInformation'],
+  ): void => setAdditionalInformation(value);
 
-  render(): ReactElement {
-    const { navigation } = this.props;
+  return (
+    <View>
+      <NavigationBar
+        leftComponent={
+          <Icon name="back" onPress={(): boolean => navigation.goBack()} />
+        }
+        title="Stuhlgang hinzufügen"
+        styleName="inline"
+      />
 
-    const {
-      date,
-      time,
-      quality,
-      consistency,
-      color,
-      hasBlood,
-      isConspicuous,
-      additionalInformation,
-    } = this.state;
+      <StandardView noPaddingTop>
+        <View>
+          {createSelectDate({
+            date,
+            handleChangeDate,
+          })}
 
-    return (
-      <View>
-        <NavigationBar
-          leftComponent={
-            <Icon name="back" onPress={(): boolean => navigation.goBack()} />
-          }
-          title="Stuhlgang hinzufügen"
-          styleName="inline"
-        />
+          {createSelectTime({
+            time,
+            handleChangeTime,
+          })}
+        </View>
 
-        <StandardView noPaddingTop>
-          <View>
-            {createSelectDate({
-              date,
-              handleChangeDate: this.handleChangeDate,
-            })}
+        <View styleName="md-gutter-top">
+          <Text styleName="sm-gutter-bottom">Qualität:</Text>
 
-            {createSelectTime({
-              time,
-              handleChangeTime: this.handleChangeTime,
-            })}
-          </View>
+          {createSelectQuality({
+            qualities: QUALITIES,
+            qualitySelected: QUALITIES.find(
+              ({ value }): boolean => value === quality,
+            ),
+            handleChangeQuality,
+          })}
+        </View>
 
-          <View styleName="md-gutter-top">
-            <Text styleName="sm-gutter-bottom">Qualität:</Text>
+        <View styleName="md-gutter-top">
+          <Text styleName="sm-gutter-bottom">Konsistenz:</Text>
 
-            {createSelectQuality({
-              qualities: QUALITIES,
-              qualitySelected: QUALITIES.find(
-                ({ value }): boolean => value === quality,
-              ),
-              handleChangeQuality: this.handleChangeQuality,
-            })}
-          </View>
+          {createSelectConsistency({
+            consistencies: CONSISTENCIES,
+            consistencySelected: CONSISTENCIES.find(
+              ({ value }): boolean => value === consistency,
+            ),
+            handleChangeConsistency,
+          })}
+        </View>
 
-          <View styleName="md-gutter-top">
-            <Text styleName="sm-gutter-bottom">Konsistenz:</Text>
+        <View styleName="md-gutter-top md-gutter-bottom">
+          <Text styleName="sm-gutter-bottom">Farbe:</Text>
 
-            {createSelectConsistency({
-              consistencies: CONSISTENCIES,
-              consistencySelected: CONSISTENCIES.find(
-                ({ value }): boolean => value === consistency,
-              ),
-              handleChangeConsistency: this.handleChangeConsistency,
-            })}
-          </View>
+          {createSelectColor({
+            colors: COLORS,
+            colorSelected: COLORS.find(({ value }): boolean => value === color),
+            handleChangeColor,
+          })}
+        </View>
 
-          <View styleName="md-gutter-top md-gutter-bottom">
-            <Text styleName="sm-gutter-bottom">Farbe:</Text>
+        <View styleName="md-gutter-top">
+          {createSelectHasBlood({
+            hasBlood,
+            handleChangeHasBlood,
+          })}
+        </View>
 
-            {createSelectColor({
-              colors: COLORS,
-              colorSelected: COLORS.find(
-                ({ value }): boolean => value === color,
-              ),
-              handleChangeColor: this.handleChangeColor,
-            })}
-          </View>
+        <View styleName="md-gutter-top">
+          {createSelectIsConspicuous({
+            isConspicuous,
+            handleChangeIsConspicuous,
+          })}
+        </View>
 
-          <View styleName="md-gutter-top">
-            {createSelectHasBlood({
-              hasBlood,
-              handleChangeHasBlood: this.handleChangeHasBlood,
-            })}
-          </View>
+        <View styleName="lg-gutter-top">
+          {createSelectAdditionalInformation({
+            additionalInformation,
+            handleAdditionalInformationChange,
+          })}
+        </View>
 
-          <View styleName="md-gutter-top">
-            {createSelectIsConspicuous({
-              isConspicuous,
-              handleChangeIsConspicuous: this.handleChangeIsConspicuous,
-            })}
-          </View>
-
-          <View styleName="lg-gutter-top">
-            {createSelectAdditionalInformation({
-              additionalInformation,
-              handleAdditionalInformationChange: this
-                .handleAdditionalInformationChange,
-            })}
-          </View>
-
-          <Button
-            styleName="secondary lg-gutter-top xl-gutter-bottom"
-            onPress={(): void => this.handleClose()}
-          >
-            <Text>Speichern</Text>
-          </Button>
-        </StandardView>
-      </View>
-    );
-  }
-}
+        <Button
+          styleName="secondary lg-gutter-top xl-gutter-bottom"
+          onPress={(): void => handleClose()}
+        >
+          <Text>Speichern</Text>
+        </Button>
+      </StandardView>
+    </View>
+  );
+};
 
 export default PoopAdd;

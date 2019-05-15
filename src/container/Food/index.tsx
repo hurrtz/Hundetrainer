@@ -1,5 +1,6 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
+import { NavigationScreenComponent } from 'react-navigation';
 
 import Food from 'stories/screens/Food';
 
@@ -7,16 +8,12 @@ interface Props {
   navigation: Navigation;
 }
 
-class FoodContainer extends PureComponent<Props> {
-  static navigationOptions = {
-    drawerIcon: (): ReactElement => <IconComponent name="bone" size={25} />,
-  };
+const FoodContainer: NavigationScreenComponent<{}, {}, Props> = ({
+  navigation,
+}: Props): ReactElement => <Food navigation={navigation} />;
 
-  render(): ReactElement {
-    const { navigation } = this.props;
-
-    return <Food navigation={navigation} />;
-  }
-}
+FoodContainer.navigationOptions = {
+  drawerIcon: (): ReactElement => <IconComponent name="bone" size={25} />,
+};
 
 export default FoodContainer;

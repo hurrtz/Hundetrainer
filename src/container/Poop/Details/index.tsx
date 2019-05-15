@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, { ReactElement, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -14,30 +14,26 @@ interface Props {
   setPoopToEdit: Function;
 }
 
-class PoopDetailsContainer extends PureComponent<Props> {
-  render(): ReactElement {
-    const {
-      navigation,
-      poop,
-      setPoopToDetails: onDetailsPoop,
-      setPoopToEdit: onEditPoop,
-    } = this.props;
-
-    if (!poop) {
-      // tslint:disable-next-line no-null-keyword
-      return null;
-    }
-
-    return (
-      <PoopDetails
-        navigation={navigation}
-        poop={poop}
-        onDetailsPoop={onDetailsPoop}
-        onEditPoop={onEditPoop}
-      />
-    );
+const PoopDetailsContainer: FunctionComponent<Props> = ({
+  navigation,
+  poop,
+  setPoopToDetails: onDetailsPoop,
+  setPoopToEdit: onEditPoop,
+}: Props): ReactElement => {
+  if (!poop) {
+    // tslint:disable-next-line no-null-keyword
+    return null;
   }
-}
+
+  return (
+    <PoopDetails
+      navigation={navigation}
+      poop={poop}
+      onDetailsPoop={onDetailsPoop}
+      onEditPoop={onEditPoop}
+    />
+  );
+};
 
 const mapStateToProps = createStructuredSelector({
   poop: currentDetailItemSelector,

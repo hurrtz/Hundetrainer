@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, { ReactElement, FunctionComponent } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
 import EntypoIconComponent from 'react-native-vector-icons/Entypo';
 import MaterialIconComponent from 'react-native-vector-icons/MaterialIcons';
@@ -10,8 +10,10 @@ interface Props {
   poop: Poop;
 }
 
-class PoopDetails extends PureComponent<Props> {
-  createEmoticon(poop: Poop): ReactElement {
+const PoopDetails: FunctionComponent<Props> = ({
+  poop,
+}: Props): ReactElement => {
+  const createEmoticon = (): ReactElement => {
     const { quality, isConspicuous } = poop;
 
     if (isConspicuous) {
@@ -29,56 +31,51 @@ class PoopDetails extends PureComponent<Props> {
     }
 
     return <IconComponent name="thumb-down" size={20} color="red" />;
-  }
+  };
 
-  createHasBloodIcon(hasBlood: boolean): ReactElement {
+  const createHasBloodIcon = (): ReactElement => {
+    const { hasBlood } = poop;
+
     if (hasBlood) {
       return <EntypoIconComponent name="drop" size={20} color="red" />;
     }
 
     return undefined;
-  }
+  };
 
-  createIconAdditionalInformations(): ReactElement {
-    const { poop } = this.props;
+  const createIconAdditionalInformations = (): ReactElement => {
+    const { additionalInformation } = poop;
 
-    if (poop.additionalInformation) {
+    if (additionalInformation) {
       return <IconComponent name="note" size={20} />;
     }
 
     return undefined;
-  }
+  };
 
-  getTwoDigitNumber(value: number): string {
-    return value < 10 ? `0${value}` : String(value);
-  }
+  const getTwoDigitNumber = (value: number): string =>
+    value < 10 ? `0${value}` : String(value);
 
-  formatTime(_date: string): string {
-    const date = new Date(_date);
+  const formatTime = (): string => {
+    const date = new Date(poop.date);
 
-    return `${this.getTwoDigitNumber(date.getHours())}:${this.getTwoDigitNumber(
+    return `${getTwoDigitNumber(date.getHours())}:${getTwoDigitNumber(
       date.getMinutes(),
     )} Uhr`;
-  }
+  };
 
-  render(): ReactElement {
-    const { poop } = this.props;
-
-    return (
-      <View styleName="space-between horizontal" style={{ width: '100%' }}>
-        <View styleName="horizontal">
-          {this.createEmoticon(poop)}
-          <Subtitle style={{ marginLeft: 10 }}>
-            {this.formatTime(poop.date)}
-          </Subtitle>
-        </View>
-        <View styleName="horizontal">
-          {this.createIconAdditionalInformations()}
-          {this.createHasBloodIcon(poop.hasBlood)}
-        </View>
+  return (
+    <View styleName="space-between horizontal" style={{ width: '100%' }}>
+      <View styleName="horizontal">
+        {createEmoticon()}
+        <Subtitle style={{ marginLeft: 10 }}>{formatTime()}</Subtitle>
       </View>
-    );
-  }
-}
+      <View styleName="horizontal">
+        {createIconAdditionalInformations()}
+        {createHasBloodIcon()}
+      </View>
+    </View>
+  );
+};
 
 export default PoopDetails;

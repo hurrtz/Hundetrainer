@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, { ReactElement, FunctionComponent, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -16,28 +16,31 @@ interface Props {
   setPoopToEdit: Function;
 }
 
-class PoopEditContainer extends PureComponent<Props> {
-  constructor(props: Props) {
-    super(props);
+const PoopEditContainer: FunctionComponent<Props> = ({
+  navigation,
+  poop,
+  removePoop: remove,
+  updatePoop: update,
+  setPoopToEdit: edit,
+}: Props): ReactElement => {
+  const onHandleSave = (newPoop: Poop): void => {
+    update({ currentPoop: poop, newPoop });
 
-    this.onDeleteConfirmation = this.onDeleteConfirmation.bind(this);
-    this.onHandleSave = this.onHandleSave.bind(this);
-  }
+    navigation.goBack();
+  };
 
-  componentDidMount(): void {
-    const { navigation } = this.props;
+  const onDelete = (): void => {
+    remove(poop);
 
-    navigation.setParams({
-      onDelete: this.onDeleteConfirmation,
-    });
-  }
+    navigation.popToTop();
+  };
 
-  onDeleteConfirmation(): void {
+  const onDeleteConfirmation = (): void => {
     Alert.alert(
       'Löschen',
       'Soll dieser Stuhlgang wirklich gelöscht werden?',
       [
-        { text: 'Ja', onPress: (): void => this.onDelete() },
+        { text: 'Ja', onPress: (): void => onDelete() },
         {
           text: 'Abbrechen',
           style: 'cancel',
@@ -45,37 +48,25 @@ class PoopEditContainer extends PureComponent<Props> {
       ],
       { cancelable: false },
     );
-  }
+  };
 
-  onHandleSave(poop: Poop): void {
-    const { poop: currentPoop, updatePoop: update, navigation } = this.props;
+  useEffect(
+    (): void => {
+      navigation.setParams({
+        onDelete: onDeleteConfirmation,
+      });
+    },
+  );
 
-    update({ currentPoop, newPoop: poop });
-
-    navigation.goBack();
-  }
-
-  onDelete(): void {
-    const { poop, navigation, removePoop: remove } = this.props;
-
-    remove(poop);
-
-    navigation.popToTop();
-  }
-
-  render(): ReactElement {
-    const { navigation, poop, setPoopToEdit: onEditPoop } = this.props;
-
-    return (
-      <PoopEdit
-        navigation={navigation}
-        poop={poop}
-        onSave={this.onHandleSave}
-        onEditPoop={onEditPoop}
-      />
-    );
-  }
-}
+  return (
+    <PoopEdit
+      navigation={navigation}
+      poop={poop}
+      onSave={onHandleSave}
+      onEditPoop={edit}
+    />
+  );
+};
 
 const mapStateToProps = createStructuredSelector({
   poop: currentEditItemSelector,

@@ -1,4 +1,9 @@
-import React, { PureComponent, Fragment, ReactElement, ReactNode } from 'react';
+import React, {
+  Fragment,
+  ReactElement,
+  ReactNode,
+  FunctionComponent,
+} from 'react';
 import { NavigationBar, Title, Text, Icon, Screen, View } from '@shoutem/ui';
 
 import { Poop } from 'container/Poop/types';
@@ -9,28 +14,28 @@ interface Props {
   navigation: Navigation;
   poops: { [date: string]: Poop[] };
   onShowDetails: Function;
-  onEditPoop: Function;
 }
 
-class PoopOverview extends PureComponent<Props> {
-  createDefault(): ReactElement {
-    return (
-      <Fragment>
-        <Title>Keine Daten vorhanden</Title>
-        <Text styleName="md-gutter-top">
-          Bitte hinterlegen Sie Stuhlgänge, um einen Überblick über einen
-          wichtigen Aspekt der Gesundheit Ihres Hundes zu erhalten.
-        </Text>
-      </Fragment>
-    );
-  }
+const PoopOverview: FunctionComponent<Props> = ({
+  navigation,
+  poops,
+  onShowDetails,
+}: Props): ReactElement => {
+  const createDefault = (): ReactElement => (
+    <Fragment>
+      <Title>Keine Daten vorhanden</Title>
+      <Text styleName="md-gutter-top">
+        Bitte hinterlegen Sie Stuhlgänge, um einen Überblick über einen
+        wichtigen Aspekt der Gesundheit Ihres Hundes zu erhalten.
+      </Text>
+    </Fragment>
+  );
 
-  createPoopLists(): ReactNode {
-    const { poops, navigation, onShowDetails, onEditPoop } = this.props;
+  const createPoopLists = (): ReactNode => {
     const dates = Object.keys(poops);
 
     if (dates.length === 0) {
-      return this.createDefault();
+      return createDefault();
     }
 
     const datesSorted = [...dates].sort(
@@ -54,38 +59,33 @@ class PoopOverview extends PureComponent<Props> {
             poops={poops[date]}
             navigation={navigation}
             onShowDetails={onShowDetails}
-            onEditPoop={onEditPoop}
           />
         </View>
       ),
     );
-  }
+  };
 
-  render(): ReactElement {
-    const { navigation } = this.props;
-
-    return (
-      <Screen>
-        <NavigationBar
-          leftComponent={
-            <Icon
-              name="sidebar"
-              onPress={(): void => navigation.toggleDrawer()}
-            />
-          }
-          rightComponent={
-            <Icon
-              name="plus-button"
-              onPress={(): boolean => navigation.push('PoopAdd')}
-            />
-          }
-          title="Stuhlgang"
-          styleName="inline"
-        />
-        <StandardView noPaddingTop>{this.createPoopLists()}</StandardView>
-      </Screen>
-    );
-  }
-}
+  return (
+    <Screen>
+      <NavigationBar
+        leftComponent={
+          <Icon
+            name="sidebar"
+            onPress={(): void => navigation.toggleDrawer()}
+          />
+        }
+        rightComponent={
+          <Icon
+            name="plus-button"
+            onPress={(): boolean => navigation.push('PoopAdd')}
+          />
+        }
+        title="Stuhlgang"
+        styleName="inline"
+      />
+      <StandardView noPaddingTop>{createPoopLists()}</StandardView>
+    </Screen>
+  );
+};
 
 export default PoopOverview;

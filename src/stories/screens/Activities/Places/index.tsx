@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react';
+import React, { ReactElement, FunctionComponent } from 'react';
 import { Screen, NavigationBar, Icon, Title } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
@@ -7,7 +7,9 @@ interface Props {
   navigation: Navigation;
 }
 
-const Places = ({ navigation }: Props): ReactElement => (
+const Places: FunctionComponent<Props> = ({
+  navigation,
+}: Props): ReactElement => (
   <Screen>
     <NavigationBar
       leftComponent={

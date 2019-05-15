@@ -1,4 +1,4 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, { ReactElement, FunctionComponent } from 'react';
 import { Card, Subtitle, TouchableOpacity } from '@shoutem/ui';
 
 import { Poop } from 'container/Poop/types';
@@ -8,60 +8,50 @@ interface Props {
   navigation: Navigation;
   poops: Poop[];
   onShowDetails: Function;
-  onEditPoop: Function;
 }
 
-class PoopList extends PureComponent<Props> {
-  constructor(props: Props) {
-    super(props);
+const PoopList: FunctionComponent<Props> = ({
+  navigation,
+  poops,
+  onShowDetails: showDetails,
+}: Props): ReactElement => {
+  const getTwoDigitNumber = (value: number): string =>
+    value < 10 ? `0${value}` : String(value);
 
-    this.onShowDetails = this.onShowDetails.bind(this);
-  }
-
-  getTwoDigitNumber(value: number): string {
-    return value < 10 ? `0${value}` : String(value);
-  }
-
-  formatDate(_date: string): string {
+  const formatDate = (_date: string): string => {
     const date = new Date(_date);
 
-    return `${this.getTwoDigitNumber(date.getDate())}.${this.getTwoDigitNumber(
+    return `${getTwoDigitNumber(date.getDate())}.${getTwoDigitNumber(
       date.getMonth() + 1,
     )}.${date.getFullYear()}`;
-  }
+  };
 
-  onShowDetails({ id }: { id: string }): void {
-    const { navigation, onShowDetails } = this.props;
-
-    onShowDetails({ id });
+  const onShowDetails = ({ id }: { id: string }): void => {
+    showDetails({ id });
     navigation.push('PoopDetails');
-  }
+  };
 
-  render(): ReactElement {
-    const { poops } = this.props;
+  return (
+    <Card
+      style={{
+        width: '100%',
+        padding: 10,
+      }}
+    >
+      <Subtitle>{formatDate(poops[0].date)}</Subtitle>
 
-    return (
-      <Card
-        style={{
-          width: '100%',
-          padding: 10,
-        }}
-      >
-        <Subtitle>{this.formatDate(poops[0].date)}</Subtitle>
-
-        {poops.map(
-          (poop): ReactElement => (
-            <TouchableOpacity
-              key={`entry-${poop.date}`}
-              onPress={(): void => this.onShowDetails({ id: poop.id })}
-            >
-              <PoopDetails poop={poop} />
-            </TouchableOpacity>
-          ),
-        )}
-      </Card>
-    );
-  }
-}
+      {poops.map(
+        (poop): ReactElement => (
+          <TouchableOpacity
+            key={`entry-${poop.date}`}
+            onPress={(): void => onShowDetails({ id: poop.id })}
+          >
+            <PoopDetails poop={poop} />
+          </TouchableOpacity>
+        ),
+      )}
+    </Card>
+  );
+};
 
 export default PoopList;

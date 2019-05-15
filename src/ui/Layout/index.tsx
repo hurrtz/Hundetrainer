@@ -1,4 +1,4 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React, { ReactElement, ReactNode, FunctionComponent } from 'react';
 import styled from 'styled-components/native';
 import { ScrollView } from 'react-native';
 import { Screen, Divider } from '@shoutem/ui';
@@ -8,28 +8,26 @@ interface Props {
   noPaddingTop?: boolean;
 }
 
-const StyledStandardView =
-  styled(ScrollView) <
-  Props >
-  `
-    padding: ${(props): string => (props.noPaddingTop ? '0' : '10px')} 10px 0;
-  `;
+const StyledStandardView = styled(ScrollView)<Props>`
+  padding: ${(props): string => (props.noPaddingTop ? '0' : '10px')} 10px 0;
+`;
 
-export const StandardView = (props: Props): ReactElement => (
+export const StandardView: FunctionComponent<Props> = (
+  props: Props,
+): ReactElement => (
   <StyledStandardView {...props}>
     {props.children}
     <Divider />
   </StyledStandardView>
 );
 
-const StyledStandardScreen =
-  styled(Screen) <
-  Props >
-  `
+const StyledStandardScreen = styled(Screen)<Props>`
   padding: 10px;
 `;
 
-export const StandardScreen = (props: Props): ReactElement => (
+export const StandardScreen: FunctionComponent<Props> = (
+  props: Props,
+): ReactElement => (
   <StyledStandardScreen {...props}>
     {props.children}
     <Divider />

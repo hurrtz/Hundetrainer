@@ -1,5 +1,6 @@
-import React, { PureComponent, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import IconComponent from 'react-native-vector-icons/MaterialCommunityIcons';
+import { NavigationScreenComponent } from 'react-navigation';
 
 import Settings from 'stories/screens/Settings';
 
@@ -7,16 +8,12 @@ interface Props {
   navigation: Navigation;
 }
 
-class SettingsContainer extends PureComponent<Props> {
-  static navigationOptions = {
-    drawerIcon: (): ReactElement => <IconComponent name="settings" size={25} />,
-  };
+const SettingsContainer: NavigationScreenComponent<{}, {}, Props> = ({
+  navigation,
+}: Props): ReactElement => <Settings navigation={navigation} />;
 
-  render(): ReactElement {
-    const { navigation } = this.props;
-
-    return <Settings navigation={navigation} />;
-  }
-}
+SettingsContainer.navigationOptions = {
+  drawerIcon: (): ReactElement => <IconComponent name="settings" size={25} />,
+};
 
 export default SettingsContainer;
