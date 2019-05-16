@@ -14,9 +14,10 @@ interface Props {
 
 const AddressBookAddContainer: NavigationScreenComponent<{}, {}, Props> = ({
   navigation,
+  addAddress: add,
 }: Props): ReactElement => {
   const onHandleSave = (address: AddressBookEntry): void => {
-    addAddress(address);
+    add(address);
     navigation.goBack();
   };
 
