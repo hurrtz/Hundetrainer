@@ -21,6 +21,7 @@ const AddressBookEditContainer: FunctionComponent<Props> = ({
   address,
   setAddressToEdit: onEditAddress,
   removeAddress: remove,
+  updateAddress: update,
 }: Props): ReactElement => {
   const onDelete = (): void => {
     remove(address);
@@ -44,7 +45,7 @@ const AddressBookEditContainer: FunctionComponent<Props> = ({
   };
 
   const onHandleSave = (newAddress: AddressBookEntry): void => {
-    updateAddress({
+    update({
       currentAddress: address,
       newAddress,
     });
