@@ -8,7 +8,6 @@ import {
   REMOVE_ADDRESS,
   SET_ADDRESS_TO_DETAILS,
   SET_ADDRESS_TO_EDIT,
-  MIGRATE_ADDRESS_BOOK,
 } from './actions';
 
 export interface State {
@@ -84,62 +83,8 @@ function setAddressToEdit({ state, id }: { state: State; id: string }): State {
   };
 }
 
-function migrateAddressBook(state: State): State {
-  const fixAddressProps = (_address: AddressBookEntry): AddressBookEntry => {
-    const address = _address;
-
-    if (typeof address.type === 'number') {
-      switch (address.type) {
-        case 0:
-          address.type = 'DIET';
-          break;
-
-        case 1:
-          address.type = 'HEALTH';
-          break;
-
-        case 2:
-          address.type = 'DOG_PARK';
-          break;
-
-        case 3:
-          address.type = 'TRAINING';
-          break;
-
-        case 4:
-          address.type = 'EXCERCISE';
-          break;
-
-        case 5:
-          address.type = 'DOG_SITTING';
-          break;
-
-        case 6:
-          address.type = 'DOG_PENSION';
-          break;
-
-        case 7:
-          address.type = 'OTHER';
-          break;
-
-        default:
-      }
-    }
-
-    return address;
-  };
-
-  return {
-    ...state,
-    addresses: state.addresses.map(item => fixAddressProps(item)),
-  };
-}
-
 export default function(state: State = initialState, action: AnyAction): State {
   switch (action.type) {
-    case MIGRATE_ADDRESS_BOOK:
-      return migrateAddressBook(state);
-
     case ADD_ADDRESS:
       return setAddress(state, action.address);
 

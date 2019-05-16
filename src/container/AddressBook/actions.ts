@@ -8,17 +8,10 @@ export const UPDATE_ADDRESS = `${NS}: Updating address`;
 export const REMOVE_ADDRESS = `${NS}: Removing address`;
 export const SET_ADDRESS_TO_DETAILS = `${NS}: Setting address for detail view`;
 export const SET_ADDRESS_TO_EDIT = `${NS}: Setting Address for editing`;
-export const MIGRATE_ADDRESS_BOOK = `${NS}: Migrate address book to current structure`;
 
 interface UpdateAddress {
   currentAddress: AddressBookEntry;
   newAddress: AddressBookEntry;
-}
-
-export function migrateAddressBook(): AnyAction {
-  return {
-    type: MIGRATE_ADDRESS_BOOK,
-  };
 }
 
 export function addAddress(address: AddressBookEntry): AnyAction {

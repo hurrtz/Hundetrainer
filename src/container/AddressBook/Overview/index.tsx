@@ -1,15 +1,11 @@
-import React, { ReactElement, FunctionComponent, useEffect } from 'react';
+import React, { ReactElement, FunctionComponent } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 import { AddressBookEntry } from 'container/AddressBook/types';
 import AddressBookOverview from 'stories/screens/AddressBook/Overview';
 import { itemsSelector } from '../selectors';
-import {
-  setAddressToDetails,
-  setAddressToEdit,
-  migrateAddressBook,
-} from '../actions';
+import { setAddressToDetails, setAddressToEdit } from '../actions';
 
 interface Props {
   navigation: Navigation;
@@ -25,21 +21,14 @@ const AddressBookOverviewContainer: FunctionComponent<Props> = ({
   addresses,
   setAddressToDetails: onShowDetails,
   setAddressToEdit: onEditPoop,
-  migrateAddressBook: migrate,
-}: Props): ReactElement => {
-  useEffect(() => {
-    migrate();
-  }, []);
-
-  return (
-    <AddressBookOverview
-      addresses={addresses}
-      navigation={navigation}
-      onShowDetails={onShowDetails}
-      onEditPoop={onEditPoop}
-    />
-  );
-};
+}: Props): ReactElement => (
+  <AddressBookOverview
+    addresses={addresses}
+    navigation={navigation}
+    onShowDetails={onShowDetails}
+    onEditPoop={onEditPoop}
+  />
+);
 
 const mapStateToProps = createStructuredSelector({
   addresses: itemsSelector,
@@ -48,7 +37,6 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = {
   setAddressToDetails,
   setAddressToEdit,
-  migrateAddressBook,
 };
 
 export default connect(
