@@ -43,6 +43,7 @@ const AddressBookEdit: FunctionComponent<Props> = ({
     (): EffectCallback => (): void => {
       onEditAddress({ id: undefined });
     },
+    [],
   );
 
   const handleNameChange = ({ name: value }): void => setName(value);

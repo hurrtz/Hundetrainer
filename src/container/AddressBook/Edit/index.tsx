@@ -52,13 +52,11 @@ const AddressBookEditContainer: FunctionComponent<Props> = ({
     navigation.goBack();
   };
 
-  useEffect(
-    (): void => {
-      navigation.setParams({
-        onDelete: onDeleteConfirmation,
-      });
-    },
-  );
+  useEffect((): void => {
+    navigation.setParams({
+      onDelete: onDeleteConfirmation,
+    });
+  }, []);
 
   return (
     <AddressBookEdit

@@ -50,13 +50,11 @@ const PoopEditContainer: FunctionComponent<Props> = ({
     );
   };
 
-  useEffect(
-    (): void => {
-      navigation.setParams({
-        onDelete: onDeleteConfirmation,
-      });
-    },
-  );
+  useEffect((): void => {
+    navigation.setParams({
+      onDelete: onDeleteConfirmation,
+    });
+  }, []);
 
   return (
     <PoopEdit

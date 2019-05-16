@@ -60,6 +60,7 @@ const PoopEdit: FunctionComponent<Props> = ({
     (): EffectCallback => (): void => {
       onEditPoop({ id: undefined });
     },
+    [],
   );
 
   const handleClose = (): void => {

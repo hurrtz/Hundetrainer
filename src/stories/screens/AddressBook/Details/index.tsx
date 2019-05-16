@@ -27,6 +27,7 @@ const AddressBookDetails: FunctionComponent<Props> = ({
     (): EffectCallback => (): void => {
       onDetailsAddress({ id: undefined });
     },
+    [],
   );
 
   const onGoingBack = (): void => {

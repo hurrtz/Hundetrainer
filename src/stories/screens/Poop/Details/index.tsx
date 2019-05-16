@@ -37,6 +37,7 @@ const PoopDetails: FunctionComponent<Props> = ({
     (): EffectCallback => (): void => {
       onDetailsPoop({ id: undefined });
     },
+    [],
   );
 
   const formatDate = (): string => {
