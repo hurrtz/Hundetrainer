@@ -5,8 +5,7 @@ const selectPoopState = (state: AppState): AppState['Poop'] => state.Poop;
 
 const itemsSelector = createSelector(
   selectPoopState,
-  (state): Poop[] =>
-    (state.items || []).filter(item => Object.keys(item).length > 1),
+  (state): Poop[] => state.items || [],
 );
 
 const currentDetailSelector = createSelector(

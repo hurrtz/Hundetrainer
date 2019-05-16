@@ -68,8 +68,11 @@ const AddressBookDetails: FunctionComponent<Props> = ({
               <Subtitle>{address.name}</Subtitle>
               <Text>
                 {
-                  ADDRESS_TYPES.find(
-                    ({ value }: AddressType): boolean => value === address.type,
+                  (
+                    ADDRESS_TYPES.find(
+                      ({ value }: AddressType): boolean =>
+                        value === address.type,
+                    ) || {}
                   ).title
                 }
               </Text>
