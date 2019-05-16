@@ -22,11 +22,11 @@ const FoodNavigator = createBottomTabNavigator(
         const { routeName } = navigation.state;
 
         switch (routeName) {
-          case 'Options':
-            return 'verfügbar';
-
           case 'Tracked':
-            return 'getrackt';
+            return 'Tracking';
+
+          case 'Options':
+            return 'Nahrungsmittel';
 
           default:
             return routeName;
@@ -38,12 +38,12 @@ const FoodNavigator = createBottomTabNavigator(
         let iconName: string;
 
         switch (routeName) {
-          case 'Options':
-            iconName = 'bone';
-            break;
-
           case 'Tracked':
             iconName = 'playlist-plus';
+            break;
+
+          case 'Options':
+            iconName = 'bone';
             break;
 
           default:
