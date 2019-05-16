@@ -6,13 +6,13 @@ import {
 import ActivitiesNavigator from 'navigation/activities';
 import PoopNavigator from 'navigation/poop';
 import AdressBookNavigator from 'navigation/adressBook';
+import FoodNavigator from 'navigation/food';
 
 import Dashboard from 'container/Dashboard';
 import Health from 'container/Health';
 import Calendar from 'container/Calendar';
 import MyDog from 'container/MyDog';
 import Settings from 'container/Settings';
-import Food from 'container/Food';
 
 const DrawerNavigator = createDrawerNavigator(
   {
@@ -23,7 +23,7 @@ const DrawerNavigator = createDrawerNavigator(
       screen: ActivitiesNavigator,
     },
     Food: {
-      screen: Food,
+      screen: FoodNavigator,
     },
     Health: {
       screen: Health,
