@@ -13,7 +13,7 @@ const OptionsAdd: FunctionComponent<Props> = ({
   <Screen>
     <NavigationBar
       leftComponent={
-        <Icon name="sidebar" onPress={(): void => navigation.toggleDrawer()} />
+        <Icon name="back" onPress={(): boolean => navigation.goBack()} />
       }
       title="anlegen"
       styleName="inline"
