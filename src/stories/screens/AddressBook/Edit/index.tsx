@@ -97,7 +97,7 @@ const AddressBookEdit: FunctionComponent<Props> = ({
         leftComponent={
           <Icon name="back" onPress={(): boolean => navigation.goBack()} />
         }
-        title="neue Adresse"
+        title="bearbeiten"
         styleName="inline"
       />
 
