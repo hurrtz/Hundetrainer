@@ -97,6 +97,10 @@ const AddressBookEdit: FunctionComponent<Props> = ({
         leftComponent={
           <Icon name="back" onPress={(): boolean => navigation.goBack()} />
         }
+        rightComponent={
+          // @ts-ignore
+          <Icon name="close" onPress={navigation.getParam('onDelete')} />
+        }
         title="bearbeiten"
         styleName="inline"
       />
