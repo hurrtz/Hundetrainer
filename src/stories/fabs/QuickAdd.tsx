@@ -22,7 +22,10 @@ const QuickAdd: FunctionComponent<Props> = ({
 
   return (
     <ActionButton buttonColor="rgba(244, 226, 66,0.25)">
-      <Item buttonColor="#3498db" onPress={(): {} => ({})}>
+      <Item
+        buttonColor="#3498db"
+        onPress={(): boolean => navigation.navigate('FoodTrackedAdd')}
+      >
         <IconComponent name="bone" style={styles.actionButtonIcon} />
       </Item>
       <Item
