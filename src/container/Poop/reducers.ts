@@ -8,6 +8,7 @@ import {
   REMOVE_POOP,
   SET_POOP_TO_DETAILS,
   SET_POOP_TO_EDIT,
+  MIGRATE_POOP,
 } from './actions';
 
 export interface State {
@@ -80,8 +81,90 @@ function setPoopToEdit({ state, id }: { state: State; id: string }): State {
   };
 }
 
+function migratePoops(state: State): State {
+  const fixPoopProps = (_poop: Poop): Poop => {
+    const poop = _poop;
+
+    if (typeof poop.color === 'number') {
+      switch (poop.color) {
+        case 0:
+          poop.color = 'LIGHT';
+          break;
+
+        case 1:
+          poop.color = 'MEDIUM';
+          break;
+
+        case 2:
+          poop.color = 'DARK';
+          break;
+
+        case 3:
+          poop.color = 'BLACK';
+          break;
+
+        case 4:
+          poop.color = 'OTHER';
+          break;
+
+        default:
+      }
+    }
+
+    if (typeof poop.consistency === 'number') {
+      switch (poop.consistency) {
+        case 0:
+          poop.consistency = 'LIQUID';
+          break;
+
+        case 1:
+          poop.consistency = 'SOFT';
+          break;
+
+        case 2:
+          poop.consistency = 'NORMAL';
+          break;
+
+        case 3:
+          poop.consistency = 'HARD';
+          break;
+
+        default:
+      }
+    }
+
+    if (typeof poop.quality === 'number') {
+      switch (poop.quality) {
+        case 0:
+          poop.quality = 'GOOD';
+          break;
+
+        case 1:
+          poop.quality = 'MEDIUM';
+          break;
+
+        case 2:
+          poop.quality = 'BAD';
+          break;
+
+        default:
+      }
+    }
+
+    return poop;
+  };
+
+  return {
+    ...state,
+    items: state.items.map(item => fixPoopProps(item)),
+  };
+}
+
 export default function(state: State = initialState, action: AnyAction): State {
   switch (action.type) {
+    case MIGRATE_POOP:
+      return migratePoops(state);
+
     case ADD_POOP:
       return setPoop({ state, poop: action.poop });
 
