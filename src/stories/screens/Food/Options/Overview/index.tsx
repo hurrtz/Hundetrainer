@@ -4,10 +4,20 @@ import React, {
   Fragment,
   ReactNode,
 } from 'react';
-import { Screen, NavigationBar, Icon, Title, Text, View } from '@shoutem/ui';
+import {
+  Screen,
+  NavigationBar,
+  Icon,
+  Title,
+  Text,
+  View,
+  Card,
+  Subtitle,
+} from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
 import { FoodOption } from 'container/Food/Options/types';
+import { TYPES, TYPE } from 'container/Food/Options/constants';
 
 interface Props {
   navigation: Navigation;
@@ -39,7 +49,20 @@ const OptionsOverview: FunctionComponent<Props> = ({
     return options.map(
       (option): ReactElement => (
         <View key={option.id} styleName="md-gutter-top">
-          <Text>ein getracktes Nahrungsmittel</Text>
+          <Card
+            style={{
+              width: '100%',
+              padding: 10,
+            }}
+          >
+            <Subtitle>{option.name}</Subtitle>
+            <Text>
+              {
+                TYPES.find(({ value }: TYPE): boolean => value === option.type)
+                  .title
+              }
+            </Text>
+          </Card>
         </View>
       ),
     );
