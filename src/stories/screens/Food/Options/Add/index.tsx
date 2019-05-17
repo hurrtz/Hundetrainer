@@ -68,7 +68,7 @@ const OptionsAdd: FunctionComponent<Props> = ({
   const handleChangeDate = (value: State['date']): void => setDate(value);
   const handleChangeType = (value: State['type']): void => setType(value);
   const handleChangeVendor = (value: State['vendor']): void => setVendor(value);
-  const handleClose = (): void =>
+  const handleClose = (): void => {
     onSave({
       date: new Date(
         date.getFullYear(),
@@ -84,6 +84,8 @@ const OptionsAdd: FunctionComponent<Props> = ({
       vendor,
       vendorId: selectedOptionId,
     });
+    navigation.goBack();
+  };
   const handleChangeSelectedOptionId = (
     value: State['selectedOptionId'],
   ): void => setSelectedOptionId(value);
