@@ -2,8 +2,6 @@ import React, { ReactElement } from 'react';
 import { Screen, TextInput, View, DropDownMenu } from '@shoutem/ui';
 import DatePicker from 'react-native-datepicker';
 
-import { TYPE, VENDOR } from 'container/Food/Options/constants';
-
 export const createSelectName = (
   value: String,
   onChange: Function,
@@ -43,31 +41,15 @@ export const createSelectDate = (
   </View>
 );
 
-export const createSelectType = (
-  values: TYPE[],
-  valueSelected: TYPE,
+export const createSelectDropdown = (
+  values: any[],
+  valueSelected: any,
   onChange: Function,
 ): ReactElement => (
   <DropDownMenu
     options={values}
     selectedOption={valueSelected}
-    onOptionSelected={({ value }: TYPE): void => onChange(value)}
-    titleProperty="title"
-    valueProperty="value"
-    styleName="horizontal"
-    style={{ selectedOption: { height: 100 } }}
-  />
-);
-
-export const createSelectVendor = (
-  values: VENDOR[],
-  valueSelected: VENDOR,
-  onChange: Function,
-): ReactElement => (
-  <DropDownMenu
-    options={values}
-    selectedOption={valueSelected}
-    onOptionSelected={({ value }: VENDOR): void => onChange(value)}
+    onOptionSelected={({ value }: any): void => onChange(value)}
     titleProperty="title"
     valueProperty="value"
     styleName="horizontal"

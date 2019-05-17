@@ -45,7 +45,8 @@ const DrawerNavigator = createDrawerNavigator(
     },
   },
   {
-    initialRouteName: 'Dashboard',
+    // initialRouteName: 'Dashboard',
+    initialRouteName: 'Food',
     defaultNavigationOptions: ({
       navigation,
     }): NavigationDrawerScreenOptions => ({
