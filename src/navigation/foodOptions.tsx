@@ -15,8 +15,7 @@ const FoodOptionsNavigator = createStackNavigator(
     FoodOptionsDetails: { screen: OptionsDetails },
   },
   {
-    // initialRouteName: 'FoodOptionsOverview',
-    initialRouteName: 'FoodOptionsAdd',
+    initialRouteName: 'FoodOptionsOverview',
     headerMode: 'none',
   },
 );

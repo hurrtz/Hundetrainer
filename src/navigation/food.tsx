@@ -14,8 +14,7 @@ const FoodNavigator = createBottomTabNavigator(
     Options: { screen: FoodOptionsNavigator },
   },
   {
-    // initialRouteName: 'Tracked',
-    initialRouteName: 'Options',
+    initialRouteName: 'Tracked',
     defaultNavigationOptions: ({
       navigation,
     }): NavigationBottomTabScreenOptions => ({
