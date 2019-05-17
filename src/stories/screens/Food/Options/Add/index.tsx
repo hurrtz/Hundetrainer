@@ -62,7 +62,7 @@ const OptionsAdd: FunctionComponent<Props> = ({
   const [selectedOptionId, setSelectedOptionId]: [
     FoodOption['selectedOptionId'],
     Dispatch<SetStateAction<State['selectedOptionId']>>
-  ] = useState(undefined);
+  ] = useState((addresses[0] || {}).id);
 
   const handleChangeName = (value: State['name']): void => setName(value);
   const handleChangeDate = (value: State['date']): void => setDate(value);
@@ -82,6 +82,7 @@ const OptionsAdd: FunctionComponent<Props> = ({
       name,
       type,
       vendor,
+      vendorId: selectedOptionId,
     });
   const handleChangeSelectedOptionId = (
     value: State['selectedOptionId'],
@@ -109,7 +110,7 @@ const OptionsAdd: FunctionComponent<Props> = ({
       }
 
       return (
-        <View styleName="md-gutter-top">
+        <View styleName="md-gutter-top content horizontal v-center space-between">
           {createSelectDropdown(
             addressesForDropdown,
             addressesForDropdown.find(

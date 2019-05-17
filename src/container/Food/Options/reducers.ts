@@ -24,7 +24,7 @@ const initialState: State = {
   isLoading: true,
 };
 
-function setOption(state: State, option: FoodOption): State {
+function createOption(state: State, option: FoodOption): State {
   return { ...state, items: [...state.items, { ...option, id: uuidv4() }] };
 }
 
@@ -75,7 +75,7 @@ function setOptionToEdit(state: State, id: string): State {
 export default function(state: State = initialState, action: AnyAction): State {
   switch (action.type) {
     case CREATE_OPTION:
-      return setOption(state, action.option);
+      return createOption(state, action.option);
 
     case UPDATE_OPTION:
       return updateOption(state, action.currentOption, action.newOption);

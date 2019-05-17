@@ -9,4 +9,5 @@ export interface FoodOption {
   date: Date;
   type: TYPE;
   vendor: VENDOR;
+  vendorId: string;
 }
