@@ -7,13 +7,16 @@ import React, {
 import { Screen, NavigationBar, Icon, Title, Text, View } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
+import { FoodOption } from 'container/Food/Options/types';
 
 interface Props {
   navigation: Navigation;
+  options: FoodOption[];
 }
 
 const OptionsOverview: FunctionComponent<Props> = ({
   navigation,
+  options,
 }: Props): ReactElement => {
   const createDefault = (): ReactElement => (
     <Fragment>
@@ -29,29 +32,13 @@ const OptionsOverview: FunctionComponent<Props> = ({
   );
 
   const createFoodOptionsLists = (): ReactNode => {
-    const dates = Object.keys({});
-
-    if (dates.length === 0) {
+    if (options.length === 0) {
       return createDefault();
     }
 
-    const datesSorted = [...dates].sort(
-      (dateA, dateB): number => {
-        if (dateA > dateB) {
-          return -1;
-        }
-
-        if (dateB > dateA) {
-          return 1;
-        }
-
-        return 0;
-      },
-    );
-
-    return datesSorted.map(
-      (date): ReactElement => (
-        <View key={date} styleName="md-gutter-top">
+    return options.map(
+      (option): ReactElement => (
+        <View key={option.id} styleName="md-gutter-top">
           <Text>ein getracktes Nahrungsmittel</Text>
         </View>
       ),
@@ -65,6 +52,12 @@ const OptionsOverview: FunctionComponent<Props> = ({
           <Icon
             name="sidebar"
             onPress={(): void => navigation.toggleDrawer()}
+          />
+        }
+        rightComponent={
+          <Icon
+            name="plus-button"
+            onPress={(): boolean => navigation.push('FoodOptionsAdd')}
           />
         }
         title="Übersicht"
