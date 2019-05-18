@@ -14,7 +14,11 @@ import {
   View,
   Text,
   Button,
+  Image,
 } from '@shoutem/ui';
+import ImagePicker, {
+  Image as ImageType,
+} from 'react-native-image-crop-picker';
 
 import { AddressBookEntry } from 'container/AddressBook/types';
 import { FoodOption } from 'container/Food/Options/types';
@@ -33,7 +37,7 @@ interface Props {
 }
 
 interface State extends FoodOption {
-  selectedOptionId: FoodOption['id'];
+  vendorId: FoodOption['id'];
 }
 
 const OptionsAdd: FunctionComponent<Props> = ({
@@ -47,6 +51,10 @@ const OptionsAdd: FunctionComponent<Props> = ({
     FoodOption['name'],
     Dispatch<SetStateAction<State['name']>>
   ] = useState('');
+  const [picture, setPicture]: [
+    FoodOption['picture'],
+    Dispatch<SetStateAction<State['picture']>>
+  ] = useState(undefined);
   const [date, setDate]: [
     FoodOption['date'],
     Dispatch<SetStateAction<State['date']>>
@@ -59,10 +67,10 @@ const OptionsAdd: FunctionComponent<Props> = ({
     FoodOption['vendor'],
     Dispatch<SetStateAction<State['vendor']>>
   ] = useState('FROM_ADDRESS_BOOK');
-  const [selectedOptionId, setSelectedOptionId]: [
-    FoodOption['selectedOptionId'],
-    Dispatch<SetStateAction<State['selectedOptionId']>>
-  ] = useState((addresses[0] || {}).id);
+  const [vendorId, setVendorId]: [
+    FoodOption['vendorId'],
+    Dispatch<SetStateAction<State['vendorId']>>
+  ] = useState((addresses[0] || { id: undefined }).id);
 
   const handleChangeName = (value: State['name']): void => setName(value);
   const handleChangeDate = (value: State['date']): void => setDate(value);
@@ -82,13 +90,13 @@ const OptionsAdd: FunctionComponent<Props> = ({
       name,
       type,
       vendor,
-      vendorId: selectedOptionId,
+      vendorId,
+      picture,
     });
     navigation.goBack();
   };
-  const handleChangeSelectedOptionId = (
-    value: State['selectedOptionId'],
-  ): void => setSelectedOptionId(value);
+  const handleChangeSelectedOptionId = (value: State['vendorId']): void =>
+    setVendorId(value);
 
   const renderSelectFromAddressBook = (): ReactElement => {
     if (vendor === 'FROM_ADDRESS_BOOK') {
@@ -116,12 +124,27 @@ const OptionsAdd: FunctionComponent<Props> = ({
           {createSelectDropdown(
             addressesForDropdown,
             addressesForDropdown.find(
-              ({ value }): boolean => value === selectedOptionId,
+              ({ value }): boolean => value === vendorId,
             ) || addressesForDropdown[0],
             handleChangeSelectedOptionId,
           )}
         </View>
       );
+    }
+
+    return undefined;
+  };
+
+  const selectPicturesFromCameraRoll = () =>
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: true,
+    }).then((image: ImageType): void => setPicture(image.path));
+
+  const renderImage = (): ReactElement => {
+    if (picture) {
+      return <Image styleName="large" source={{ uri: picture }} />;
     }
 
     return undefined;
@@ -142,6 +165,12 @@ const OptionsAdd: FunctionComponent<Props> = ({
         <Divider styleName="section-header">
           <Caption>Foto</Caption>
         </Divider>
+
+        {renderImage()}
+
+        <Button onPress={selectPicturesFromCameraRoll}>
+          <Text>Foto auswählen</Text>
+        </Button>
 
         <Divider styleName="section-header">
           <Caption>Kauf- / Herstellungsdatum</Caption>
