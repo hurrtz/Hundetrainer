@@ -13,6 +13,7 @@ import {
   View,
   Card,
   Subtitle,
+  Image,
 } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
@@ -41,6 +42,13 @@ const OptionsOverview: FunctionComponent<Props> = ({
     </Fragment>
   );
 
+  const renderPicture = (option: FoodOption): ReactElement =>
+    option.picture ? (
+      <Image styleName="medium-square" source={{ uri: option.picture }} />
+    ) : (
+      undefined
+    );
+
   const createFoodOptionsLists = (): ReactNode => {
     if (options.length === 0) {
       return createDefault();
@@ -52,16 +60,22 @@ const OptionsOverview: FunctionComponent<Props> = ({
           <Card
             style={{
               width: '100%',
-              padding: 10,
             }}
           >
-            <Subtitle>{option.name}</Subtitle>
-            <Text>
-              {
-                TYPES.find(({ value }: TYPE): boolean => value === option.type)
-                  .title
-              }
-            </Text>
+            <View key={option.id} styleName="horizontal h-start v-start">
+              {renderPicture(option)}
+
+              <View style={{ marginLeft: option.picture ? 10 : 0 }}>
+                <Subtitle>{option.name}</Subtitle>
+                <Text>
+                  {
+                    TYPES.find(
+                      ({ value }: TYPE): boolean => value === option.type,
+                    ).title
+                  }
+                </Text>
+              </View>
+            </View>
           </Card>
         </View>
       ),
