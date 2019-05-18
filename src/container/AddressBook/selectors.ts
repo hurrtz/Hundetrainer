@@ -1,4 +1,4 @@
-import { createSelector, Selector } from 'reselect';
+import { createSelector, Selector, OutputSelector } from 'reselect';
 import { AddressBookEntry, ADDRESS_TYPES } from 'container/AddressBook/types';
 
 const selectAddressBookState = (state: AppState): AppState['AddressBook'] =>
@@ -11,7 +11,7 @@ const itemsSelector = createSelector(
 
 const itemsByTypeSelector = (
   type: ADDRESS_TYPES,
-): OutputSelector<S, T, (res: R1) => T> =>
+): OutputSelector<AppState, AddressBookEntry[], (res: AddressBookEntry[]) => AddressBookEntry[]> =>
   createSelector(
     itemsSelector,
     (items): AddressBookEntry[] =>
