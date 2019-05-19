@@ -75,7 +75,10 @@ const OptionsAdd: FunctionComponent<Props> = ({
   const handleChangeName = (value: State['name']): void => setName(value);
   const handleChangeDate = (value: State['date']): void => setDate(value);
   const handleChangeType = (value: State['type']): void => setType(value);
-  const handleChangeVendor = (value: State['vendor']): void => setVendor(value);
+  const handleChangeVendor = (value: State['vendor']): void => {
+    setVendor(value);
+    setVendorId(value === 'SELF_MADE' ? undefined : vendorId);
+  };
   const handleClose = (): void => {
     onSave({
       date: new Date(
@@ -144,7 +147,13 @@ const OptionsAdd: FunctionComponent<Props> = ({
 
   const renderImage = (): ReactElement => {
     if (picture) {
-      return <Image styleName="large" source={{ uri: picture }} />;
+      return (
+        <Image
+          styleName="large"
+          style={{ maxWidth: '100%' }}
+          source={{ uri: picture }}
+        />
+      );
     }
 
     return undefined;
