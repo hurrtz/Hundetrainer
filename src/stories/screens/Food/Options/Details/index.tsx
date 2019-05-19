@@ -20,12 +20,14 @@ interface Props {
   navigation: Navigation;
   option: FoodOption;
   vendor: AddressBookEntry;
+  onEdit: Function;
 }
 
 const OptionsDetails: FunctionComponent<Props> = ({
   navigation,
   option,
   vendor: vendorFromAddressBook,
+  onEdit,
 }: Props): ReactElement => {
   const { picture, name, type, date, vendor, vendorId } = option;
 
@@ -62,6 +64,15 @@ const OptionsDetails: FunctionComponent<Props> = ({
       <NavigationBar
         leftComponent={
           <Icon name="back" onPress={(): boolean => navigation.goBack()} />
+        }
+        rightComponent={
+          <Icon
+            name="edit"
+            onPress={(): void => {
+              onEdit(option.id);
+              navigation.navigate('FoodOptionsEdit');
+            }}
+          />
         }
         title="Details"
         styleName="inline"

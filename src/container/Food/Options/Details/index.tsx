@@ -9,6 +9,7 @@ import {
   currentDetailItemSelector,
   currentVendorSelector,
 } from 'container/Food/Options/selectors';
+import { setOptionToEdit } from 'container/Food/Options/actions';
 import { FoodOption } from 'container/Food/Options/types';
 import { AddressBookEntry } from 'container/AddressBook/types';
 
@@ -16,14 +17,21 @@ interface Props {
   navigation: Navigation;
   option: FoodOption;
   vendor: AddressBookEntry;
+  onEditOption: Function;
 }
 
 const OptionsDetailsContainer: NavigationScreenComponent<{}, {}, Props> = ({
   navigation,
   option,
   vendor,
+  onEditOption: onEdit,
 }: Props): ReactElement => (
-  <OptionsDetails navigation={navigation} option={option} vendor={vendor} />
+  <OptionsDetails
+    navigation={navigation}
+    option={option}
+    vendor={vendor}
+    onEdit={onEdit}
+  />
 );
 
 OptionsDetailsContainer.navigationOptions = {
@@ -35,4 +43,11 @@ const mapStateToProps = createStructuredSelector({
   vendor: currentVendorSelector,
 });
 
-export default connect(mapStateToProps)(OptionsDetailsContainer);
+const mapStateToDispatch = {
+  onEditOption: setOptionToEdit,
+};
+
+export default connect(
+  mapStateToProps,
+  mapStateToDispatch,
+)(OptionsDetailsContainer);

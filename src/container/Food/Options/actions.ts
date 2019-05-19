@@ -27,7 +27,7 @@ export function updateOption(
   };
 }
 
-export function removePoop(option: FoodOption): AnyAction {
+export function removeOption(option: FoodOption): AnyAction {
   return {
     type: DELETE_OPTION,
     option,
@@ -41,7 +41,7 @@ export function setOptionToDetails(id: string): AnyAction {
   };
 }
 
-export function setPoopToEdit(id: string): AnyAction {
+export function setOptionToEdit(id: string): AnyAction {
   return {
     type: SET_OPTION_TO_EDIT,
     id,

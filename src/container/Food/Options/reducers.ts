@@ -46,13 +46,11 @@ function updateOption(
   };
 }
 
-function removeOption(state: State, optionToDelete: FoodOption): State {
+function removeOption(state: State, idToDelete: FoodOption['id']): State {
   return {
     ...state,
     items: [
-      ...state.items.filter(
-        (option): boolean => option.id !== optionToDelete.id,
-      ),
+      ...state.items.filter((option): boolean => option.id !== idToDelete),
     ],
   };
 }
