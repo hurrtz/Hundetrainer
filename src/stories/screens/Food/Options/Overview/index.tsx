@@ -14,6 +14,7 @@ import {
   Card,
   Subtitle,
   Image,
+  TouchableOpacity,
 } from '@shoutem/ui';
 
 import { StandardView } from 'ui/Layout';
@@ -23,11 +24,13 @@ import { TYPES, TYPE } from 'container/Food/Options/constants';
 interface Props {
   navigation: Navigation;
   options: FoodOption[];
+  onShowDetails: Function;
 }
 
 const OptionsOverview: FunctionComponent<Props> = ({
   navigation,
   options,
+  onShowDetails,
 }: Props): ReactElement => {
   const createDefault = (): ReactElement => (
     <Fragment>
@@ -49,6 +52,11 @@ const OptionsOverview: FunctionComponent<Props> = ({
       undefined
     );
 
+  const onOptionRequestDetails = (id: string): void => {
+    onShowDetails(id);
+    navigation.push('FoodOptionsDetails');
+  };
+
   const createFoodOptionsLists = (): ReactNode => {
     if (options.length === 0) {
       return createDefault();
@@ -56,28 +64,33 @@ const OptionsOverview: FunctionComponent<Props> = ({
 
     return options.map(
       (option): ReactElement => (
-        <View key={option.id} styleName="md-gutter-top">
-          <Card
-            style={{
-              width: '100%',
-            }}
-          >
-            <View key={option.id} styleName="horizontal h-start v-start">
-              {renderPicture(option)}
+        <TouchableOpacity
+          key={option.id}
+          onPress={(): void => onOptionRequestDetails(option.id)}
+        >
+          <View key={option.id} styleName="md-gutter-top">
+            <Card
+              style={{
+                width: '100%',
+              }}
+            >
+              <View key={option.id} styleName="horizontal h-start v-start">
+                {renderPicture(option)}
 
-              <View style={{ marginLeft: option.picture ? 10 : 0 }}>
-                <Subtitle>{option.name}</Subtitle>
-                <Text>
-                  {
-                    TYPES.find(
-                      ({ value }: TYPE): boolean => value === option.type,
-                    ).title
-                  }
-                </Text>
+                <View style={{ marginLeft: option.picture ? 10 : 0 }}>
+                  <Subtitle>{option.name}</Subtitle>
+                  <Text>
+                    {
+                      TYPES.find(
+                        ({ value }: TYPE): boolean => value === option.type,
+                      ).title
+                    }
+                  </Text>
+                </View>
               </View>
-            </View>
-          </Card>
-        </View>
+            </Card>
+          </View>
+        </TouchableOpacity>
       ),
     );
   };

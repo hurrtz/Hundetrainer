@@ -1,5 +1,8 @@
 import { createSelector } from 'reselect';
+
 import { FoodOption } from 'container/Food/Options/types';
+import { AddressBookEntry } from 'container/AddressBook/types';
+import { itemsSelector as addressBookItems } from 'container/AddressBook/selectors';
 
 const selectFoodOptionsState = (state: AppState): AppState['Food']['Options'] =>
   state.Food.Options;
@@ -31,6 +34,23 @@ const currentEditItemSelector = createSelector(
     items.filter((item): boolean => item.id === editId)[0],
 );
 
+const currentVendorSelector = createSelector(
+  [currentDetailSelector, itemsSelector, addressBookItems],
+  (detailId, items, addresses): AddressBookEntry => {
+    const currentFoodOption = items.filter(
+      (item): boolean => item.id === detailId,
+    )[0];
+
+    if (currentFoodOption.vendorId) {
+      return addresses.find(
+        address => address.id === currentFoodOption.vendorId,
+      );
+    }
+
+    return undefined;
+  },
+);
+
 const itemsSortedByDateSelector = createSelector(
   itemsSelector,
   (items): FoodOption[] =>
@@ -52,6 +72,7 @@ const itemsSortedByDateSelector = createSelector(
 export {
   selectFoodOptionsState,
   itemsSelector,
+  currentVendorSelector,
   itemsSortedByDateSelector,
   currentDetailItemSelector,
   currentEditItemSelector,
